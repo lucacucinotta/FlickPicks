@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    main {
+        flex-grow: 1;
+
+        .home {
+            background-image: url("bg1.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: calc(100vh - 70.4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: #01172c;
+                margin: 0 40px;
+                padding: 30px;
+                border-radius: 10px;
+                border: 3px solid #0074e4;
+
+                .intro {
+                    color: white;
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 500;
+                    text-align: center;
+                }
+
+                .title {
+                    color: #0074e4;
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 600;
+                    // font-size: 40px;
+                    text-align: center;
+                }
+
+                .brief {
+                    color: white;
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 500;
+                    text-align: center;
+                }
+            }
+
+            .btnScrollDown {
+                height: 65px;
+                width: 65px;
+                border-radius: 30px;
+                background-color: #01172c;
+                border: none;
+                color: #0074e4;
+                cursor: pointer;
+                border: 2px solid #0074e4;
+            }
+
+            .btnScrollDown:hover {
+                color: #01172c;
+                background-color: #0074e4;
+                transition: all 0.2s ease;
+                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
+            }
+
+            .btnScrollDown:active {
+                transform: scale(0.96);
+            }
+        }
+
+        .functionalities {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 45.2px);
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                margin: 0 40px;
+                justify-content: space-between;
+
+                .featureDiv {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 35px;
+
+
+                    .feature {
+                        text-align: start;
+                        display: flex;
+                        flex-direction: row;
+                        gap: 20px;
+                        align-items: center;
+                        color: white;
+                        font-family: 'Montserrat', sans-serif;
+                        font-weight: 400;
+
+                        .featureIcon {
+                            color: #0074e4;
+                            height: 65px;
+                            width: 65px;
+                        }
+                    }
+
+                }
+
+                .signIn {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    color: white;
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 400;
+                    text-align: center;
+                    gap: 10px;
+
+                    button {
+                        padding: 5px 15px;
+                        width: fit-content;
+                        background-color: #0074e4;
+                        color: white;
+                        font-family: 'Montserrat', sans-serif;
+                        font-weight: 400;
+                        border-radius: 10px;
+                        border: none;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+
+                    button:active {
+                        transform: scale(0.96)
+                    }
+
+                    button:hover {
+                        box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:767.98px) {
+
+    .functionalities {
+        .container {
+            gap: 30px;
+
+            .featureDiv {
+                .feature {
+                    font-size: 18px;
+                    max-width: 470px;
+                }
+            }
+
+            .signIn {
+                font-size: 18px;
+
+                button {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width:768px) {
+    .functionalities {
+        .container {
+            gap: 60px;
+
+            .featureDiv {
+                .feature {
+                    font-size: 20px;
+                    max-width: 530px;
+                }
+            }
+
+            .signIn {
+                font-size: 25px;
+
+                button {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 1023.98px) {
+    .home {
+        .container {
+            .intro {
+                font-size: 25px;
+            }
+
+            .title {
+                font-size: 40px;
+            }
+
+            .brief {
+                font-size: 18px;
+                max-width: 450px;
+            }
+        }
+    }
+
+}
+
+
+@media screen and (min-width:1024px) {
+    .home {
+        .container {
+
+            .intro {
+                font-size: 30px;
+            }
+
+            .title {
+                font-size: 45px;
+            }
+
+            .brief {
+                font-size: 23px;
+                max-width: 500px;
+
+            }
+        }
+    }
+
+    .functionalities {
+        .container {
+            gap: 90px;
+
+            .featureDiv {
+                .feature {
+                    font-size: 25px;
+                    max-width: 650px;
+                }
+            }
+
+            .signIn {
+                font-size: 25px;
+
+                button {
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .functionalities {
+        .container {
+            gap: 120px;
+
+            .featureDiv {
+                .feature {
+                    font-size: 30px;
+                    max-width: 900px;
+                }
+            }
+
+            .signIn {
+                font-size: 30px;
+
+                button {
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+
+}

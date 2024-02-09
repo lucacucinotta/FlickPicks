@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+.navWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #01172c;
+    padding: 20px 0;
+
+    .title {
+        color: white;
+        font-size: 25px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .authContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        color: white;
+
+
+        .authDiv {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .authDiv:hover {
+            background-color: #0074e4;
+            transition: all 0.3s ease;
+        }
+
+        .authDiv:active {
+            transform: scale(0.96);
+        }
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .authText {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .authText {
+        color: white;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+    }
+}
