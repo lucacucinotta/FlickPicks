@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +9,21 @@
 body {
     background: rgb(2, 0, 36);
     background: linear-gradient(333deg, rgba(2, 0, 36, 1) 0%, rgba(2, 66, 124, 1) 81%);
-
     -webkit-tap-highlight-color: transparent;
+
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #0074e4;
+        /* Colore del pollice */
+        border-radius: 20px;
+        /* Bordi arrotondati del pollice */
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #01172c;
+        /* Colore della traccia */
+    }
 }

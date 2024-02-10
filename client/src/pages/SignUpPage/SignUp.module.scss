@@ -1,0 +1,147 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+
+        .formSignUp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 35px;
+
+            .inputDiv {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                position: relative;
+                gap: 5px;
+
+                input {
+                    background: transparent;
+                    height: auto;
+                    border: none;
+                    outline: none;
+                    padding: 10px 0;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 12px;
+                    color: white;
+                    transition: all 0.3s ease-in-out;
+                    border-bottom: 3px solid rgba(255, 255, 255, .2);
+
+
+                    &::placeholder {
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 13px;
+                        color: #98bad9;
+                    }
+
+                    &:focus {
+                        border-bottom: 3px solid #0074e4;
+                    }
+                }
+
+                .formIcon {
+                    color: #98bad9;
+                    position: absolute;
+                    right: 0;
+                }
+
+                .passReq {
+                    font-size: 10px;
+                    margin-top: 0;
+                }
+            }
+
+            button {
+                padding: 10px 15px;
+                width: fit-content;
+                background-color: #0074e4;
+                color: white;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 400;
+                border-radius: 20px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:active {
+                    transform: scale(0.96)
+                }
+
+                &:hover {
+                    box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .formSignUp {
+        input {
+            width: 250px;
+        }
+
+        .formIcon {
+            &.passwordIcon {
+                top: 11%;
+            }
+        }
+
+        .passReq {
+            width: 250px;
+        }
+
+
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .formSignUp {
+        input {
+            width: 350px;
+        }
+
+        .formIcon {
+            &.passwordIcon {
+                top: 13%;
+            }
+        }
+
+        .passReq {
+            width: 350px;
+        }
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .formSignUp {
+        input {
+            width: 550px;
+        }
+
+        .formIcon {
+            &.passwordIcon {
+                top: 16%;
+            }
+        }
+
+        .passReq {
+            width: 550px;
+        }
+    }
+}

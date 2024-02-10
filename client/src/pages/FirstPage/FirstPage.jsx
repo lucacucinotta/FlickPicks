@@ -4,6 +4,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { GiTicket } from "react-icons/gi";
 import { FaArrowDown } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import style from "./FirstPage.module.scss";
 
@@ -61,7 +62,9 @@ export default function FirstPage() {
             </div>
             <div className={style.signIn}>
               <p>Start exploring cinema on FlickPicks today!</p>
-              <button>Sign In</button>
+              <Link to="/signup">
+                <button>Sign Up</button>
+              </Link>
             </div>
           </div>
         </div>
