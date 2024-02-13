@@ -4,11 +4,13 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { GiTicket } from "react-icons/gi";
 import { FaArrowDown } from "react-icons/fa";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import style from "./FirstPage.module.scss";
 
 export default function FirstPage() {
+  const navigate = useNavigate();
   const scrollDown = () => {
     window.scrollTo({
       top: window.scrollY + 1.1 * window.innerHeight,
@@ -62,9 +64,16 @@ export default function FirstPage() {
             </div>
             <div className={style.signIn}>
               <p>Start exploring cinema on FlickPicks today!</p>
-              <Link to="/signup">
-                <button>Sign Up</button>
-              </Link>
+              {/* <Link to="/signup"> */}
+              <button
+                onClick={() => {
+                  navigate("/signup");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                Sign Up
+              </button>
+              {/* </Link> */}
             </div>
           </div>
         </div>
