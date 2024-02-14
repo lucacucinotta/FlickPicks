@@ -4,7 +4,6 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { GiTicket } from "react-icons/gi";
 import { FaArrowDown } from "react-icons/fa";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import style from "./FirstPage.module.scss";
@@ -26,7 +25,7 @@ export default function FirstPage() {
         <div className={style.home}>
           <div className={style.container}>
             <p className={style.intro}>
-              Welcome to <p className={style.title}>FlickPicks</p>
+              Welcome to <span className={style.title}>FlickPicks</span>
             </p>
             <p className={style.brief}>
               Your destination to discover new film to watch and save your

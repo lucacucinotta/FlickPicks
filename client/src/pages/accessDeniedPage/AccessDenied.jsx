@@ -1,9 +1,12 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import style from "./AccessDenied.module.scss";
+import { TbKeyOff } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { FaExclamationCircle } from "react-icons/fa";
+import PropTypes from "prop-types";
 
-export default function AccessDenied() {
+export default function AccessDenied({ isAuthenticated }) {
   return (
     <div className={style.wrapper}>
       <header>
@@ -11,10 +14,18 @@ export default function AccessDenied() {
       </header>
       <main>
         <div className={style.container}>
-          <img src="icon.svg?url" />
-          <p>You have to log in to view this page</p>
-          <Link to="/login">
-            <button>Log In</button>
+          {isAuthenticated ? (
+            <FaExclamationCircle className={style.icon} />
+          ) : (
+            <TbKeyOff className={style.icon} />
+          )}
+          <p>
+            {isAuthenticated
+              ? "This page does not exist. Come back to home."
+              : "You have to log in to view this page."}
+          </p>
+          <Link to={isAuthenticated ? "/" : "/login"}>
+            <button>{isAuthenticated ? "Home" : "Log in"}</button>
           </Link>
         </div>
       </main>
@@ -22,3 +33,7 @@ export default function AccessDenied() {
     </div>
   );
 }
+
+AccessDenied.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+};

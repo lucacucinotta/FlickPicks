@@ -3,15 +3,20 @@ import Footer from "../../components/Footer/Footer";
 import { MdAlternateEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { MdError } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.scss";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../states/log";
 import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +33,9 @@ export default function Login() {
           },
         }
       );
-      alert("login successful");
+      localStorage.setItem("auth", JSON.stringify(true));
+      dispatch(logIn());
+      navigate("/");
     } catch (err) {
       console.log(err);
       setError(err.response.data.errMessage);
