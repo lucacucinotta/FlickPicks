@@ -1,8 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logReducer from "./log";
+import persistedLogReducer from "./log";
+import { persistStore } from "redux-persist";
+import burgerMenuReducer from "./burgerMenu";
+import movieDropdownReducer from "./movieDropdown";
+import genresDropdownReducer from "./genresDropdown";
+import persistedGenresReducer from "./genres";
+import movieSectionsReducer from "./movieSections";
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
-    logState: logReducer,
+    logState: persistedLogReducer,
+    burgerMenuState: burgerMenuReducer,
+    movieDropdownState: movieDropdownReducer,
+    genresDropdownState: genresDropdownReducer,
+    genresState: persistedGenresReducer,
+    movieSectionsState: movieSectionsReducer,
   },
 });
+
+export const persistor = persistStore(store);

@@ -1,31 +1,33 @@
+.link {
+    text-decoration: none;
+    color: white;
+}
+
 .navWrapper {
-    position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
     background-color: #01172c;
-    padding: 20px 0;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    padding: 20px 10%;
 
-    .link {
-        text-decoration: none;
-        color: white;
-    }
+    .titleContainer {
+        display: flex;
+        gap: 30px;
 
-    .title {
-        color: white;
-        font-size: 25px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
-        cursor: pointer;
-        text-decoration: none;
+        .title {
+            font-size: 25px;
+            font-weight: 500;
+            cursor: pointer;
+        }
     }
 
     .authContainer {
         display: flex;
-        flex-direction: row;
         align-items: center;
-        gap: 15px;
-        color: white;
+        gap: 5px;
 
         .authDiv {
             display: flex;
@@ -47,17 +49,10 @@
     }
 }
 
-@media screen and (max-width: 767.98px) {
-    .authText {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .authText {
-        color: white;
-        font-size: 15px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
+@media only screen and (max-width:767.98px) {
+    .authContainer {
+        .authText {
+            display: none;
+        }
     }
 }

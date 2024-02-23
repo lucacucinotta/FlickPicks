@@ -1,0 +1,135 @@
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    width: 90%;
+
+    form {
+        .inputDiv {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            .searchInput {
+                background: transparent;
+                height: auto;
+                border: none;
+                outline: none;
+                padding: 10px 0;
+                font-size: 12px;
+                color: white;
+                transition: all 0.5s ease-in-out;
+                border-bottom: 2px solid white;
+                width: 100%;
+
+                &::placeholder {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 13px;
+                    color: rgba(255, 255, 255, .2);
+                    font-weight: 400;
+                }
+
+                &:focus {
+                    border-bottom: 2px solid #0074e4;
+                }
+            }
+
+            .icon {
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+
+    .discoverDiv {
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #0074e4;
+        border-radius: 5px;
+        padding: 20px;
+
+        .boxSlide {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .boxSlideOpen {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: #0074e4;
+            gap: 10px;
+            border-radius: 5px;
+            text-align: center;
+
+            .title {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .sections {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                background-color: #0074e4;
+                border-radius: 5px;
+                color: #01172c;
+            }
+
+            .genres {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px 50px;
+                background-color: #0074e4;
+                border-radius: 5px;
+                color: #01172c;
+                justify-items: center;
+                text-align: center;
+                width: 100%;
+            }
+        }
+    }
+
+    .userDiv {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        border: 1px solid #0074e4;
+        border-radius: 5px;
+        padding: 20px;
+
+        .authDiv {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 5px;
+        }
+    }
+}
+
+@media only screen and (max-width: 424.98px) {
+    .userDiv {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width:425px) {
+    .userDiv {
+        display: none;
+    }
+}

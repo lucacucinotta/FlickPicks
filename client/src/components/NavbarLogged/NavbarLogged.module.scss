@@ -1,0 +1,138 @@
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.navWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #01172c;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    padding: 20px;
+
+    .titleContainer {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        .title {
+            font-size: 25px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
+
+    .authContainer {
+        align-items: center;
+        gap: 5px;
+
+        .authDiv {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 5px;
+
+            .authText {
+                font-size: 15px;
+                font-weight: 500;
+            }
+        }
+
+        .authDiv:hover {
+            background-color: #0074e4;
+            transition: all 0.3s ease;
+        }
+
+        .authDiv:active {
+            transform: scale(0.96);
+        }
+    }
+}
+
+@media only screen and (max-width: 424.98px) {
+    .authContainer {
+        display: none;
+    }
+
+}
+
+@media only screen and (min-width:425px) {
+    .authContainer {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width:767.98px) {
+    .navWrapper {
+        .titleContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            .discoverDiv {
+                display: none;
+            }
+        }
+
+        .authContainer {
+            .authText {
+                display: none;
+            }
+        }
+    }
+
+}
+
+// @media only screen and (max-width:1023.98px) {
+//     .navWrapper {
+//         .discoverDiv {
+//             display: none;
+//         }
+//     }
+// }
+
+@media only screen and (min-width:768px) {
+    .navWrapper {
+        padding: 20px 10%;
+
+        .burgerIcon {
+            display: none;
+        }
+
+        .titleContainer {
+            .discoverDiv {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                .boxSlide {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    gap: 5px;
+                    position: relative;
+                    transition: all 0.3s ease;
+
+                    .titleMenu {
+                        font-size: 15x;
+                        font-weight: 500;
+                        text-decoration: none;
+                    }
+
+                    &:hover {
+                        color: #0074e4;
+                    }
+
+                }
+
+            }
+        }
+
+    }
+}

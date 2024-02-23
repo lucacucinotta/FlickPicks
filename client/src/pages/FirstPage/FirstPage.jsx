@@ -28,7 +28,7 @@ export default function FirstPage() {
               Welcome to <span className={style.title}>FlickPicks</span>
             </p>
             <p className={style.brief}>
-              Your destination to discover new film to watch and save your
+              Your destination to discover new movies to watch and save your
               favorites.
             </p>
           </div>

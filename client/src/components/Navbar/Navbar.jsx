@@ -7,20 +7,22 @@ export default function Navbar() {
   return (
     <nav>
       <div className={style.navWrapper}>
-        <Link to="/" className={style.link}>
-          <span className={style.title}>FlickPicks</span>
-        </Link>
+        <div className={style.titleContainer}>
+          <Link to="/" className={style.link}>
+            <span className={style.title}>FlickPicks</span>
+          </Link>
+        </div>
         <div className={style.authContainer}>
           <Link to="/login" className={style.link}>
             <div className={style.authDiv}>
-              <BiSolidLogInCircle size={25} className={style.authIcon} />
+              <BiSolidLogInCircle size={25} />
               <span className={style.authText}>Log In</span>
             </div>
           </Link>
           <span>|</span>
           <Link to="/signup" className={style.link}>
             <div className={style.authDiv}>
-              <FaUserPlus size={25} className={style.authIcon} />
+              <FaUserPlus size={25} />
               <span className={style.authText}>Sign Up</span>
             </div>
           </Link>

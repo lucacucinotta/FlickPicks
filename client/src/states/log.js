@@ -1,4 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "auth",
+  storage,
+};
 
 export const logSlice = createSlice({
   name: "auth",
@@ -17,4 +24,6 @@ export const logSlice = createSlice({
 
 export const { logIn, logOut } = logSlice.actions;
 
-export default logSlice.reducer;
+const persistedReducer = persistReducer(persistConfig, logSlice.reducer);
+
+export default persistedReducer;

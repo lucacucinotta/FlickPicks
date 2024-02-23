@@ -5,12 +5,15 @@ import SignUp from "./pages/SignUpPage/SignUp.jsx";
 import AccessDenied from "./pages/accessDeniedPage/AccessDenied.jsx";
 import Home from "./pages/homePage/Home.jsx";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logIn, logOut } from "./states/log.js";
 import axios from "axios";
 import "./index.scss";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.logState);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios.defaults.withCredentials = true;
     axios
@@ -18,31 +21,28 @@ function App() {
       .then((res) => {
         if (res.status === 200) {
           console.log(`Token check result : ${res.status}`);
-          localStorage.setItem("auth", JSON.stringify(true));
+          dispatch(logIn());
         }
       })
       .catch((err) => {
         console.error(err);
-        localStorage.setItem("auth", JSON.stringify(false));
+        dispatch(logOut());
       });
-  }, [isLoggedIn]);
-  const isAuthenticated = JSON.parse(localStorage.getItem("auth"));
+  }, []);
+
   return (
     <>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Home /> : <FirstPage />} />
+        <Route path="/" element={isLoggedIn ? <Home /> : <FirstPage />} />
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate replace to={"/"} /> : <Login />}
+          element={isLoggedIn ? <Navigate replace to={"/"} /> : <Login />}
         />
         <Route
           path="/signup"
-          element={isAuthenticated ? <Navigate replace to={"/"} /> : <SignUp />}
+          element={isLoggedIn ? <Navigate replace to={"/"} /> : <SignUp />}
         />
-        <Route
-          path="*"
-          element={<AccessDenied isAuthenticated={isAuthenticated} />}
-        />
+        <Route path="*" element={<AccessDenied isLoggedIn={isLoggedIn} />} />
       </Routes>
     </>
   );
