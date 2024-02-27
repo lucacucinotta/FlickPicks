@@ -1,5 +1,5 @@
 import style from "./NavbarLogged.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -8,32 +8,24 @@ import { IoIosMenu } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { showBurgerMenu, hideBurgerMenu } from "../../states/burgerMenu";
-import {
-  openMovieDropdownMenu,
-  closeMovieDropdownMenu,
-} from "../../states/movieDropdown";
-import {
-  openGenresDropdownMenu,
-  closeGenresDropdownMenu,
-} from "../../states/genresDropdown";
 import Dropdown from "../Dropdown/Dropdown";
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { IoSearch } from "react-icons/io5";
 
 export default function NavbarLogged() {
+  const [title, setTitle] = useState("");
+  const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
+  const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
+    useState(false);
+
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
-  const { isMovieDropdownMenuOpen } = useSelector(
-    (state) => state.movieDropdownState
-  );
-  const { isGenresDropdownMenuOpen } = useSelector(
-    (state) => state.genresDropdownState
-  );
-
   const { movieSections } = useSelector((state) => state.movieSectionsState);
-  console.log(movieSections);
   const { genresList } = useSelector((state) => state.genresState);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const movieRef = useRef();
   const genresRef = useRef();
@@ -41,10 +33,10 @@ export default function NavbarLogged() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!movieRef.current.contains(e.target)) {
-        dispatch(closeMovieDropdownMenu());
+        setIsMovieDropdownMenuOpen(false);
       }
       if (!genresRef.current.contains(e.target)) {
-        dispatch(closeGenresDropdownMenu());
+        setIsGenresDropdownMenuOpen(false);
       }
     };
 
@@ -53,7 +45,7 @@ export default function NavbarLogged() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <nav>
@@ -81,11 +73,7 @@ export default function NavbarLogged() {
             <div
               className={style.boxSlide}
               onClick={() => {
-                if (isMovieDropdownMenuOpen) {
-                  dispatch(closeMovieDropdownMenu());
-                } else {
-                  dispatch(openMovieDropdownMenu());
-                }
+                setIsMovieDropdownMenuOpen((prevState) => !prevState);
               }}
               ref={movieRef}
             >
@@ -96,18 +84,14 @@ export default function NavbarLogged() {
                 <MdOutlineKeyboardArrowDown />
               )}
               {isMovieDropdownMenuOpen && (
-                <Dropdown data={movieSections} isFilm={true} />
+                <Dropdown data={movieSections} isMovie={true} />
               )}
             </div>
 
             <div
               className={style.boxSlide}
               onClick={() => {
-                if (isGenresDropdownMenuOpen) {
-                  dispatch(closeGenresDropdownMenu());
-                } else {
-                  dispatch(openGenresDropdownMenu());
-                }
+                setIsGenresDropdownMenuOpen((prevState) => !prevState);
               }}
               ref={genresRef}
             >
@@ -121,6 +105,26 @@ export default function NavbarLogged() {
                 <Dropdown data={genresList} isMovie={false} />
               )}
             </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate(
+                  `/discover/search?q=${title.toLowerCase().replace(/ /g, "+")}`
+                );
+                window.location.reload();
+              }}
+            >
+              <div className={style.inputDiv}>
+                <input
+                  type="text"
+                  placeholder="Search titles"
+                  className={style.searchInput}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <IoSearch className={style.icon} />
+              </div>
+            </form>
           </div>
         </div>
         <div className={style.authContainer}>

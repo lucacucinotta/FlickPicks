@@ -3,36 +3,55 @@ import { MdAccountCircle } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./BurgerMenu.module.scss";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  openMovieDropdownMenu,
-  closeMovieDropdownMenu,
-} from "../../states/movieDropdown";
-import {
-  openGenresDropdownMenu,
-  closeGenresDropdownMenu,
-} from "../../states/genresDropdown";
+import { hideBurgerMenu } from "../../states/burgerMenu";
 
 export default function BurgerMenu() {
-  const { isMovieDropdownMenuOpen } = useSelector(
-    (state) => state.movieDropdownState
-  );
-  const { isGenresDropdownMenuOpen } = useSelector(
-    (state) => state.genresDropdownState
-  );
+  const [title, setTitle] = useState("");
+  const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
+  const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
+    useState(false);
 
   const { movieSections } = useSelector((state) => state.movieSectionsState);
   const { genresList } = useSelector((state) => state.genresState);
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
+
+  const movieRef = useRef();
+  const genresRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!movieRef.current.contains(e.target)) {
+        setIsMovieDropdownMenuOpen(false);
+      }
+      if (!genresRef.current.contains(e.target)) {
+        setIsGenresDropdownMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isGenresDropdownMenuOpen, isMovieDropdownMenuOpen]);
 
   return (
     <div className={style.container}>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          navigate(
+            `/discover/search?q=${title.toLowerCase().replace(/ /g, "+")}`
+          );
+          dispatch(hideBurgerMenu());
+        }}
+      >
         <div className={style.inputDiv}>
           <input
             type="text"
@@ -52,12 +71,9 @@ export default function BurgerMenu() {
               : style.boxSlide
           }
           onClick={() => {
-            if (isMovieDropdownMenuOpen) {
-              dispatch(closeMovieDropdownMenu());
-            } else {
-              dispatch(openMovieDropdownMenu());
-            }
+            setIsMovieDropdownMenuOpen((prevState) => !prevState);
           }}
+          ref={movieRef}
         >
           {isMovieDropdownMenuOpen ? (
             <>
@@ -67,7 +83,27 @@ export default function BurgerMenu() {
               </div>
               <div className={style.sections}>
                 {movieSections.map((item, index) => (
-                  <span key={index}>{item.name}</span>
+                  <span
+                    key={index}
+                    onClick={() => {
+                      switch (item.name) {
+                        case "Daily Trending Movies":
+                          navigate("/discover/movies/daily-trending");
+                          dispatch(hideBurgerMenu());
+                          break;
+                        case "Weekly Trending Movies":
+                          navigate("/discover/movies/weekly-trending");
+                          dispatch(hideBurgerMenu());
+                          break;
+                        case "Top Rated Movies":
+                          navigate("/discover/movies/top-rated");
+                          dispatch(hideBurgerMenu());
+                          break;
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </span>
                 ))}
               </div>
             </>
@@ -85,12 +121,9 @@ export default function BurgerMenu() {
               : style.boxSlide
           }
           onClick={() => {
-            if (isGenresDropdownMenuOpen) {
-              dispatch(closeGenresDropdownMenu());
-            } else {
-              dispatch(openGenresDropdownMenu());
-            }
+            setIsGenresDropdownMenuOpen((prevState) => !prevState);
           }}
+          ref={genresRef}
         >
           {isGenresDropdownMenuOpen ? (
             <>
@@ -100,7 +133,27 @@ export default function BurgerMenu() {
               </div>
               <div className={style.genres}>
                 {genresList.map((item, index) => (
-                  <span key={index}>{item.name}</span>
+                  <span
+                    key={index}
+                    onClick={() => {
+                      switch (item.name) {
+                        case "Science Fiction":
+                          navigate("/genres/science-fiction");
+                          dispatch(hideBurgerMenu());
+                          break;
+                        case "TV Movie":
+                          navigate("/genres/tv-movie");
+                          dispatch(hideBurgerMenu());
+                          break;
+                        default:
+                          navigate(`/genres/${item.name.toLowerCase()}`);
+                          dispatch(hideBurgerMenu());
+                          break;
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </span>
                 ))}
               </div>
             </>

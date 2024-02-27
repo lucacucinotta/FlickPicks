@@ -1,0 +1,16 @@
+.arrowDiv {
+    position: fixed;
+    top: 55%;
+    right: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .icon {
+        color: white;
+
+        &:hover {
+            color: #0074e4;
+        }
+    }
+}

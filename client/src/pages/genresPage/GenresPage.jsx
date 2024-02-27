@@ -1,0 +1,157 @@
+/* eslint-disable no-unused-vars */
+import style from "./GenresPage.module.scss";
+import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
+import Footer from "../../components/Footer/Footer";
+import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
+import Card from "../../components/Card/Card";
+import SortMenu from "../../components/SortMenu/SortMenu";
+import Arrow from "../../components/Arrow/Arrow";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import fetchMovie from "./utils";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { PulseLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { FaArrowUp } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
+
+export default function GenresPage() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  const todayDate = `${year}-${month}-${day}`;
+
+  console.log(todayDate);
+  const navigate = useNavigate();
+
+  const { genresList } = useSelector((state) => state.genresState);
+
+  const { isShown } = useSelector((state) => state.burgerMenuState);
+
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("sort_by") || "most-popular";
+  const countQuery = parseInt(searchParams.get("page")) || 1;
+
+  const { genresName } = useParams();
+
+  useEffect(() => {
+    setPage(countQuery);
+  }, [genresName, countQuery]);
+
+  const [page, setPage] = useState(1);
+
+  let newGenresName;
+
+  switch (genresName) {
+    case "tv-movie":
+      newGenresName = "TV Movie";
+      break;
+    case "science-fiction":
+      newGenresName = "Science Fiction";
+      break;
+    default:
+      newGenresName = genresName[0].toUpperCase() + genresName.substring(1);
+  }
+
+  const genresMatched = genresList.find(
+    (genre) => genre.name === newGenresName
+  );
+
+  let sortValue;
+
+  switch (query) {
+    case "most-popular":
+      sortValue = "vote_count.desc";
+      break;
+    case "trending-now":
+      sortValue = "popularity.desc";
+      break;
+    case "most-recent":
+      sortValue = `primary_release_date.desc&primary_release_date.lte=${todayDate}`;
+      break;
+    case "less-recent":
+      sortValue = "primary_release_date.asc";
+      break;
+    case "upcoming":
+      sortValue = `primary_release_date.desc&primary_release_date.gte=${todayDate}`;
+      break;
+  }
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: [genresMatched.id, page, sortValue],
+    queryFn: () => fetchMovie(genresMatched.id, page, sortValue),
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) {
+    return (
+      <div className={style.loadingDiv}>
+        <PulseLoader size={50} color="#0074e4" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    navigate("*");
+    console.log(error);
+  }
+
+  return (
+    <div className={style.wrapper}>
+      <NavbarLogged />
+      <main className={isShown ? style.mainBurger : null}>
+        {isShown ? (
+          <BurgerMenu />
+        ) : (
+          <div className={style.container}>
+            <h1>GENRES / {newGenresName}</h1>
+            <div style={{ display: "flex", gap: "5px", alignSelf: "center" }}>
+              Sort by :{" "}
+              <SortMenu
+                data={genresName}
+                query={query
+                  .split("-")
+                  .map((item) => item[0].toUpperCase() + item.substring(1))
+                  .join(" ")}
+              />
+            </div>
+            <div className={style.gridContainer}>
+              {data.map((item, i) => (
+                <Card key={i} data={item} />
+              ))}
+            </div>
+            <div className={style.changePageContainer}>
+              {page > 1 && (
+                <button
+                  onClick={() => {
+                    setPage((prevState) => prevState - 1);
+                    navigate(
+                      `/genres/${genresName}?sort_by=${query}&page=${page - 1}`
+                    );
+                  }}
+                >
+                  Previous
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  setPage((prevState) => prevState + 1);
+                  navigate(
+                    `/genres/${genresName}?sort_by=${query}&page=${page + 1}`
+                  );
+                }}
+              >
+                Next
+              </button>
+            </div>
+            <Arrow />
+          </div>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
+}

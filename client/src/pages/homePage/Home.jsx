@@ -10,7 +10,7 @@ import CarouselGenres from "../../components/CarouselGenres/CarouselGenres";
 import { IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
 
@@ -100,7 +100,12 @@ export default function Home() {
           <>
             <div className={style.container}>
               <div className={style.up}>
-                <h1 className={style.titleSlider}>Today&apos;s Hot Picks</h1>
+                <Link
+                  to="/discover/movies/daily-trending"
+                  className={style.link}
+                >
+                  <h1 className={style.titleSlider}>Today&apos;s Hot Picks</h1>
+                </Link>
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>
@@ -111,7 +116,12 @@ export default function Home() {
 
             <div className={style.container}>
               <div className={style.up}>
-                <h1 className={style.titleSlider}>Hot Weekly Flicks</h1>
+                <Link
+                  to="/discover/movies/weekly-trending"
+                  className={style.link}
+                >
+                  <h1 className={style.titleSlider}>Hot Weekly Flicks</h1>
+                </Link>
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>
@@ -122,7 +132,9 @@ export default function Home() {
 
             <div className={style.container}>
               <div className={style.up}>
-                <h1 className={style.titleSlider}>Top Rated Movie</h1>
+                <Link to="/discover/movies/top-rated" className={style.link}>
+                  <h1 className={style.titleSlider}>Top Rated Movie</h1>
+                </Link>
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>

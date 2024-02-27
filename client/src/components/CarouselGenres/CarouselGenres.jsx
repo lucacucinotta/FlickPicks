@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import style from "./CarouselGenres.module.scss";
 
 function CarouselGenres() {
@@ -54,11 +55,26 @@ function CarouselGenres() {
   };
 
   const { genresList } = useSelector((state) => state.genresState);
+  const navigate = useNavigate();
   return (
     <Slider {...settings}>
       {genresList.map((item, index) => (
         <div key={index} className={style.divWrapper}>
-          <div className={style.card}>
+          <div
+            className={style.card}
+            onClick={() => {
+              switch (item.name) {
+                case "Science Fiction":
+                  navigate("/genres/science-fiction");
+                  break;
+                case "TV Movie":
+                  navigate("/genres/tv-movie");
+                  break;
+                default:
+                  navigate(`/genres/${item.name.toLowerCase()}`);
+              }
+            }}
+          >
             <p>{item.name}</p>
           </div>
         </div>

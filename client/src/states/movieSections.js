@@ -5,7 +5,7 @@ export const movieSectionsSlice = createSlice({
   initialState: {
     movieSections: [
       { name: "Daily Trending Movies" },
-      { name: "Weekly Trendig Movies" },
+      { name: "Weekly Trending Movies" },
       { name: "Top Rated Movies" },
     ],
   },
