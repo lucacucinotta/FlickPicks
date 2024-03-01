@@ -2,16 +2,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
-import style from "./CarouselMovie.module.scss";
-import { useNavigate } from "react-router-dom";
+import style from "./CarouselCast.module.scss";
+import PlaceholderImg from "../../assets/images.png";
 
-function CarouselMovie({ data }) {
-  const navigate = useNavigate();
+function CarouselCast({ data }) {
   var settings = {
     infinite: true,
     speed: 1500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     initialSlide: 0,
     responsive: [
       {
@@ -54,22 +53,32 @@ function CarouselMovie({ data }) {
       },
     ],
   };
+
   return (
-    <Slider {...settings}>
-      {data.map((item, index) => (
-        <div key={index} className={style.card}>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-            className={style.locandine}
-            onClick={() => navigate(`/movie/${item.id}`)}
-          />
-        </div>
-      ))}
-    </Slider>
+    <div className={style.container}>
+      <Slider {...settings}>
+        {data.map((item, index) => (
+          <div key={index} className={style.card}>
+            <img
+              src={
+                item.profile_path
+                  ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                  : PlaceholderImg
+              }
+              className={style.locandine}
+            />
+            <div className={style.person}>
+              <span>{item.original_name}</span>
+              <span>{item.character.toUpperCase()}</span>
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }
 
-export default CarouselMovie;
-CarouselMovie.propTypes = {
+export default CarouselCast;
+CarouselCast.propTypes = {
   data: PropTypes.array.isRequired,
 };

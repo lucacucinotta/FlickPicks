@@ -7,6 +7,7 @@ import Home from "./pages/homePage/Home.jsx";
 import GenresPage from "./pages/genresPage/GenresPage.jsx";
 import DiscoverPage from "./pages/discoverPage/DiscoverPage.jsx";
 import SearchPage from "./pages/searchPage/SearchPage.jsx";
+import MoviePage from "./pages/moviePage/MoviePage.jsx";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logIn, logOut } from "./states/log.js";
@@ -49,6 +50,7 @@ function App() {
 
         <Route path="/discover/movies/:section" element={<DiscoverPage />} />
         <Route path="/discover/search" element={<SearchPage />} />
+        <Route path="/movie/:movieID" element={<MoviePage />} />
         <Route path="*" element={<AccessDenied isLoggedIn={isLoggedIn} />} />
       </Routes>
     </>

@@ -1,8 +1,10 @@
 import style from "./Card.module.scss";
 import PropTypes from "prop-types";
 import PlaceholderImg from "../../assets/images.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Card({ data }) {
+  const navigate = useNavigate();
   return (
     <div className={style.card}>
       <img
@@ -12,6 +14,7 @@ export default function Card({ data }) {
             : PlaceholderImg
         }
         className={style.locandine}
+        onClick={() => navigate(`/movie/${data.id}`)}
       />
       <span className={style.title}>{data.title}</span>
       <div className={style.extraInfo}>
