@@ -44,68 +44,78 @@
                     }
                 }
 
-                .textContainer {
+                .rightSide {
+
                     display: flex;
                     flex-direction: column;
-                    gap: 15px;
+                    gap: 12px;
 
                     .extraInfo {
                         display: flex;
                         gap: 5px;
                         font-weight: 400;
                     }
-                }
 
-                .genresContainer {
-                    display: flex;
-                    gap: 5px;
-                }
-            }
-
-            //CONTAINER DEL SECONDO BLOCCO - CONTIENE L'OVERVIEW DEL FILM
-            .overviewContainer,
-            .overviewUp {
-                line-height: 1.5;
-            }
-
-
-            //CONTAINER DEL TERZO BLOCCO - CONTIENE I PULSANTI PER SALVARE UN FILM
-            .actionContainer {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-
-                .box {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    padding: 10px;
-                    border: 2px solid #0074e4;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    justify-content: center;
-                    transition: all 0.8s ease;
-                    background-color: #01172c;
-
-                    &:hover {
-                        background-color: #0074e4;
+                    .voteContainer {
+                        display: flex;
+                        gap: 5px;
                     }
                 }
+            }
+        }
 
-                .boxClick {
+        //CONTAINER DEL SECONDO BLOCCO - CONTIENE L'OVERVIEW DEL FILM
+        .overviewContainer,
+        .overviewUp {
+            line-height: 1.5;
+
+            .lastInfo {
+                // margin-top: 5px;
+                // font-size: 10px;
+                font-weight: 600;
+
+                span {
+                    font-weight: 400;
+                }
+            }
+        }
+
+        //CONTAINER DEL TERZO BLOCCO - CONTIENE I PULSANTI PER SALVARE UN FILM
+        .actionContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+
+            .box {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border: 2px solid #0074e4;
+                border-radius: 5px;
+                cursor: pointer;
+                justify-content: center;
+                transition: all 0.8s ease;
+                background-color: #01172c;
+
+                &:hover {
                     background-color: #0074e4;
                 }
             }
-        }
 
-        .cast {
-            font-size: 30px;
-            margin-top: 25px;
+            .boxClick {
+                background-color: #0074e4;
+            }
         }
     }
+
+    .cast {
+        font-size: 30px;
+        margin-top: 25px;
+    }
 }
+
 
 //--------------------------------INIZIO MEDIA-QUERY-----------------------------------------------------------
 
@@ -113,18 +123,35 @@
     .mainContainer {
         min-height: calc(100vh - 65px);
     }
+
+    .actionContainer {
+        .box {
+            padding: 7px;
+            font-size: 13px;
+            width: 200px;
+        }
+    }
 }
 
 @media only screen and (min-width:425px) {
     .mainContainer {
         min-height: calc(100vh - 75px);
+
+        .actionContainer {
+            .box {
+                padding: 10px;
+                font-size: 15px;
+                width: 250px;
+            }
+        }
     }
+
 }
 
 @media only screen and (max-width:599.98px) {
     .mainContainer {
-        padding: 30px 20px;
-        gap: 20px;
+        padding: 20px 20px 0 20px;
+        gap: 15px;
 
         .container {
             .card {
@@ -132,19 +159,19 @@
                 max-width: 130px;
             }
 
-            .textContainer {
+            .rightSide {
                 h1 {
                     font-size: 15px;
                 }
 
                 .extraInfo {
-                    font-size: 12px;
+                    font-size: 13px;
                 }
 
-                .genresContainer {
-                    flex-direction: column;
-                    font-size: 10px;
+                .voteContainer {
+                    font-size: 13px;
                 }
+
             }
         }
 
@@ -153,14 +180,14 @@
         }
 
         .overviewContainer {
-            font-size: 13px;
-        }
+            font-size: 12px;
 
-        .actionContainer {
-            .box {
-                width: 250px;
+            .lastInfo {
+                margin-top: 5px;
+                font-size: 10px;
             }
         }
+
     }
 }
 
@@ -176,7 +203,7 @@
                 max-width: 150px;
             }
 
-            .textContainer {
+            .rightSide {
                 h1 {
                     font-size: 20px;
                 }
@@ -185,16 +212,26 @@
                     font-size: 14px;
                 }
 
-                .genresContainer {
+                .voteContainer {
                     flex-direction: row;
                     font-size: 12px;
+                }
+
+                .lastInfo {
+                    font-size: 10px;
                 }
             }
 
             .overviewUp {
-                font-size: 13px;
-                height: 120px;
-                overflow: auto;
+                .overviewText {
+                    font-size: 13px;
+                    height: 100px;
+                    overflow: auto;
+                }
+
+                .lastInfo {
+                    margin-top: 7px;
+                }
             }
         }
 
@@ -221,7 +258,7 @@
                 max-width: 170px;
             }
 
-            .textContainer {
+            .rightSide {
                 h1 {
                     font-size: 25px;
                 }
@@ -230,7 +267,12 @@
                     font-size: 16px;
                 }
 
-                .genresContainer {
+                .lastInfo {
+                    font-size: 13px;
+                    margin-top: 10px;
+                }
+
+                .voteContainer {
                     font-size: 16px;
                 }
             }
@@ -256,17 +298,19 @@
                 max-width: 200px;
             }
 
-            .textContainer {
+            .rightSide {
                 h1 {
                     font-size: 30px;
                 }
 
-                .overviewUp {
+                .overviewText {
                     font-size: 15px;
-                    max-width: 500px;
-                    overflow: hidden;
-                    height: auto;
+                    max-width: 450px;
+                    height: 130px;
+
                 }
+
+
             }
         }
 
@@ -279,17 +323,18 @@
 }
 
 @media only screen and (min-width: 1440px) {
-    .background {}
-
     .mainContainer {
         .container {
-            .textContainer {
+            .rightSide {
                 h1 {
                     max-width: 800px;
                 }
 
-                .overviewUp {
-                    max-width: 600px;
+                .overviewText {
+                    max-width: 650px;
+                    overflow: hidden;
+                    height: fit-content;
+
                 }
             }
         }

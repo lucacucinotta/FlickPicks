@@ -12,7 +12,7 @@ export const fetchMovie = async (movieID) => {
   return res.data;
 };
 
-export const fetchCast = async (movieID) => {
+export const fetchCredits = async (movieID) => {
   const res = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieID}/credits`,
     {
@@ -24,13 +24,37 @@ export const fetchCast = async (movieID) => {
       },
     }
   );
-  return res.data.cast;
+  return res.data;
 };
 
-export const addFilmWatched = async (movieID) => {
+export const addMovieWatched = async (movieID) => {
   try {
     axios.defaults.withCredentials = true;
-    await axios.put("http://localhost:8081/filmWatched", {
+    const res = await axios.put("http://localhost:8081/watchedList", {
+      movieID: movieID,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const removeMovieWatched = async (movieID) => {
+  try {
+    axios.defaults.withCredentials = true;
+    const res = await axios.put("http://localhost:8081/removeWatchedList", {
+      movieID: movieID,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addMovieFavorite = async (movieID) => {
+  try {
+    axios.defaults.withCredentials = true;
+    await axios.put("http://localhost:8081/favoriteList", {
       movieID: movieID,
     });
   } catch (err) {
@@ -38,10 +62,22 @@ export const addFilmWatched = async (movieID) => {
   }
 };
 
-export const addFilmFavorite = async (movieID) => {
+export const removeMovieFavorite = async (movieID) => {
   try {
     axios.defaults.withCredentials = true;
-    await axios.put("http://localhost:8081/filmFavorite", {
+    const res = await axios.put("http://localhost:8081/removeFavoriteList", {
+      movieID: movieID,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addMovieWatchlist = async (movieID) => {
+  try {
+    axios.defaults.withCredentials = true;
+    await axios.put("http://localhost:8081/watchList", {
       movieID: movieID,
     });
   } catch (err) {
@@ -49,12 +85,13 @@ export const addFilmFavorite = async (movieID) => {
   }
 };
 
-export const addFilmWatchlist = async (movieID) => {
+export const removeMovieWatchList = async (movieID) => {
   try {
     axios.defaults.withCredentials = true;
-    await axios.put("http://localhost:8081/filmWatchlist", {
+    const res = await axios.put("http://localhost:8081/removeWatchList", {
       movieID: movieID,
     });
+    return res;
   } catch (err) {
     console.log(err);
   }
