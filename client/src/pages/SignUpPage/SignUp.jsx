@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa6";
 import { MdAlternateEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { MdError } from "react-icons/md";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Signin() {
   const [showPassReq, setShowPassReq] = useState(false);
@@ -41,6 +41,20 @@ export default function Signin() {
       setError(err.response.data.errMessages || [err.response.data.errMessage]);
     }
   };
+
+  const errorRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!errorRef.current.contains(e.target)) {
+        setError(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className={style.wrapper}>
       <header>
@@ -48,7 +62,7 @@ export default function Signin() {
       </header>
       <main>
         {error && (
-          <div className={style.errorDiv}>
+          <div className={style.errorDiv} ref={errorRef}>
             <div className={style.alert}>
               <MdError size={15} />
               <p>There was a problem</p>

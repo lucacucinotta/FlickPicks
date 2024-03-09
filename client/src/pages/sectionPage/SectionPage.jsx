@@ -1,13 +1,14 @@
-import style from "./discoverPage.module.scss";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Card/Card";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
+import Arrow from "../../components/Arrow/Arrow";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import style from "./SectionPage.module.scss";
+import fetchMovie from "./utils";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import fetchMovie from "./utils";
-import { PulseLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 
 export default function DiscoverPage() {
@@ -26,10 +27,8 @@ export default function DiscoverPage() {
     setPage(countQuery);
   }, [section, countQuery]);
 
-  //variabile per mostrare il nome della sezione nella pagina
   let sectionName;
 
-  //variabile che conterrà l'url
   let url;
 
   switch (section) {
@@ -47,26 +46,20 @@ export default function DiscoverPage() {
       break;
   }
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [url, page],
     queryFn: () => fetchMovie(url, page),
     refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
-    return (
-      <div className={style.loadingDiv}>
-        <PulseLoader size={50} color="#0074e4" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
-  if (isError) {
+  if (error) {
     navigate("*");
     console.log(error);
   }
-
-  console.log(data);
 
   return (
     <div className={style.wrapper}>
@@ -93,17 +86,20 @@ export default function DiscoverPage() {
                   Previous
                 </button>
               )}
-              <button
-                onClick={() => {
-                  setPage((prevState) => prevState + 1);
-                  navigate(`/discover/movies/${section}?page=${page + 1}`);
-                }}
-              >
-                Next
-              </button>
+              {data.total_pages !== page && (
+                <button
+                  onClick={() => {
+                    setPage((prevState) => prevState + 1);
+                    navigate(`/discover/movies/${section}?page=${page + 1}`);
+                  }}
+                >
+                  Next
+                </button>
+              )}
             </div>
           </div>
         )}
+        <Arrow />
       </main>
       <Footer />
     </div>

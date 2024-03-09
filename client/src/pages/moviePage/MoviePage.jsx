@@ -1,16 +1,10 @@
-import style from "./MoviePage.module.scss";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
-import {
-  fetchMovie,
-  fetchCredits,
-  addMovieWatched,
-  removeMovieWatched,
-  addMovieFavorite,
-  removeMovieFavorite,
-  addMovieWatchlist,
-  removeMovieWatchList,
-} from "./utils";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import CarouselMovie from "../../components/CarouselMovie/CarouselMovie";
+import style from "./MoviePage.module.scss";
+import { fetchMovie, fetchCredits, updateMovieList } from "./utils";
+import axios from "axios";
 import PlaceholderImg from "../../assets/images.png";
 import { IoIosClose } from "react-icons/io";
 import { VscPass, VscPassFilled } from "react-icons/vsc";
@@ -18,33 +12,27 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { MdOutlineBookmarkBorder, MdOutlineBookmark } from "react-icons/md";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { PulseLoader } from "react-spinners";
 import { useState, useEffect } from "react";
-import CarouselCast from "../../components/CarouselCast/CarosuelCast";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function MoviePage() {
-  //state per mostrare più testo
   const [showMore, setShowMore] = useState(false);
 
-  // state per l'inserimento di un movie all'interno di una lista
   const [isWatched, setIsWatched] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  //State aggiuntivo per permettere di rielaborare lo useEffect
   const [reloadValue, setReloadValue] = useState(0);
 
   const navigate = useNavigate();
 
-  //id del movie cliccato
+  const { isShown } = useSelector((state) => state.burgerMenuState);
+
   const { movieID } = useParams();
 
-  //chiamata API per ricevere i dettagli del movie cliccato
   const {
     data: movieData,
     isLoading: movieIsLoading,
-    isError: movieIsError,
     error: movieError,
   } = useQuery({
     queryKey: [movieID],
@@ -52,11 +40,9 @@ export default function MoviePage() {
     refetchOnWindowFocus: false,
   });
 
-  //chiamata API per ricevere i dettagli del cast del movie
   const {
     data: credits,
     isLoading: creditsIsLoading,
-    isError: creditsIsError,
     error: creditsError,
   } = useQuery({
     queryKey: ["credits", movieID],
@@ -65,6 +51,7 @@ export default function MoviePage() {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const checkMovie = async () => {
       try {
         axios.defaults.withCredentials = true;
@@ -88,35 +75,26 @@ export default function MoviePage() {
   }, [movieID, reloadValue]);
 
   if (movieIsLoading || creditsIsLoading) {
-    return (
-      <div className={style.loadingDiv}>
-        <PulseLoader size={50} color="#0074e4" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
-  if (movieIsError || creditsIsError) {
+  if (movieError || creditsError) {
     navigate("*");
-    if (movieIsError) console.log(movieError);
-    if (creditsIsError) console.log(creditsError);
+    if (movieError) console.log(movieError);
+    if (creditsError) console.log(creditsError);
   }
 
-  //qua andiamo a cercare la posizione in cui si trova il primo "." all'interno dell'overview
   const firstPeriodIndex = movieData.overview.indexOf(".");
-  //qua diciamo che se ha trovato un punto, di darci la substring che inizia da 0 e che va fino al punto +1 (comprende il punto)
-  //sennò di dare la stringa originale
   const overviewShowed =
     firstPeriodIndex !== -1
       ? movieData.overview.substring(0, firstPeriodIndex + 1)
       : movieData.overview;
-  //questo ci serve per controllare se la stringa ottenuta in precedenza non sia uguale a quella originale,
-  //nel caso non mostriamo lo "show more"
   const showMoreVisible = movieData.overview.length > overviewShowed.length;
 
   return (
     <div className={style.wrapper}>
       <NavbarLogged />
-      <main>
+      <main className={isShown ? style.mainBurger : null}>
         <div
           className={style.mainContainer}
           style={
@@ -127,7 +105,6 @@ export default function MoviePage() {
               : null
           }
         >
-          {/* qui inizia il container del primo blocco, che contiene copertina e testo.*/}
           <div className={style.container}>
             <div className={style.card}>
               <img
@@ -161,7 +138,6 @@ export default function MoviePage() {
                 )}
               </div>
 
-              {/* questo fino a 500px non sarà visibile*/}
               <div className={style.overviewUp}>
                 <p className={style.overviewText}>{movieData.overview}</p>
                 <div className={style.lastInfo}>
@@ -186,13 +162,9 @@ export default function MoviePage() {
                   </p>
                 </div>
               </div>
-
-              {/* questo fino a 500px non sarà visibile*/}
             </div>
           </div>
-          {/* FINE DEL PRIMO CONTAINER*/}
 
-          {/* INIZIO DEL CONTAINER OVERVIEW*/}
           <div className={style.overviewContainer}>
             <p>
               {showMore ? movieData.overview : overviewShowed}
@@ -235,9 +207,7 @@ export default function MoviePage() {
               </p>
             </div>
           </div>
-          {/* FINE DEL CONTAINER OVERVIEW*/}
 
-          {/* INIZIO DEL CONTAINER ACTION*/}
           <div className={style.actionContainer}>
             <div
               className={
@@ -245,9 +215,9 @@ export default function MoviePage() {
               }
               onClick={() => {
                 if (isWatched) {
-                  removeMovieWatched(movieID);
+                  updateMovieList(movieID, "remove", "watchedList");
                 } else {
-                  addMovieWatched(movieID);
+                  updateMovieList(movieID, "add", "watchedList");
                 }
                 setReloadValue((prevState) => prevState + 1);
               }}
@@ -263,9 +233,9 @@ export default function MoviePage() {
               }
               onClick={() => {
                 if (isFavorite) {
-                  removeMovieFavorite(movieID);
+                  updateMovieList(movieID, "remove", "favoriteList");
                 } else {
-                  addMovieFavorite(movieID);
+                  updateMovieList(movieID, "add", "favoriteList");
                 }
                 setReloadValue((prevState) => prevState + 1);
               }}
@@ -273,16 +243,16 @@ export default function MoviePage() {
               {!isFavorite ? <FaRegStar /> : <FaStar />}
               {isFavorite ? "Added to FavoriteList" : "Add to FavoriteList"}
             </div>
-            {!isWatched && (
+            {!isFavorite && !isWatched && (
               <div
                 className={
                   isAdded ? `${style.box} ${style.boxClick}` : style.box
                 }
                 onClick={() => {
                   if (isAdded) {
-                    removeMovieWatchList(movieID);
+                    updateMovieList(movieID, "remove", "watchList");
                   } else {
-                    addMovieWatchlist(movieID);
+                    updateMovieList(movieID, "add", "watchList");
                   }
                   setReloadValue((prevState) => prevState + 1);
                 }}
@@ -292,14 +262,11 @@ export default function MoviePage() {
               </div>
             )}
           </div>
-          {/* INIZIO DEL CONTAINER ACTION*/}
         </div>
-        {credits.cast.length > 1 && (
-          <>
-            <p className={style.cast}>Cast</p>
-            <CarouselCast data={credits.cast} />
-          </>
-        )}
+        <div className={style.carouselContainer}>
+          <p className={style.cast}>Cast</p>
+          <CarouselMovie data={credits.cast} type={"cast"} />
+        </div>
       </main>
       <Footer />
     </div>

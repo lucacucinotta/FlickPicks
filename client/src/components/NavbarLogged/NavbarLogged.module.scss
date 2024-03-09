@@ -12,8 +12,9 @@
     font-family: 'Montserrat', sans-serif;
     position: relative;
     padding: 20px;
+    height: 75px;
 
-    .titleContainer {
+    .leftContainer {
         display: flex;
         align-items: center;
         gap: 30px;
@@ -25,39 +26,25 @@
         }
     }
 
-    form {
-        .inputDiv {
-            display: flex;
+    .discoverDiv {
+        gap: 20px;
+        align-items: center;
+
+        .boxSlide {
             align-items: center;
+            cursor: pointer;
+            gap: 5px;
             position: relative;
+            transition: all 0.3s ease;
 
-            .searchInput {
-                font-family: 'Montserrat', sans-serif;
-                background: transparent;
-                height: auto;
-                border: none;
-                outline: none;
-                padding: 10px 0;
-                font-size: 12px;
-                color: white;
-                transition: all 0.5s ease-in-out;
-                padding-left: 20px;
-                border-bottom: 2px solid white;
-
-                &::placeholder {
-                    font-size: 13px;
-                    color: rgba(255, 255, 255, .2);
-                    font-weight: 400;
-                }
-
-                &:focus {
-                    border-bottom: 2px solid #0074e4;
-                }
+            .titleMenu {
+                font-size: 15x;
+                font-weight: 500;
+                text-decoration: none;
             }
 
-            .icon {
-                position: absolute;
-                left: 0;
+            &:hover {
+                color: #0074e4;
             }
         }
     }
@@ -91,22 +78,22 @@
     }
 }
 
-@media only screen and (max-width: 424.98px) {
+@media only screen and (max-width: 499.98px) {
     .authContainer {
         display: none;
     }
 
 }
 
-@media only screen and (min-width:425px) {
+@media only screen and (min-width:500px) {
     .authContainer {
         display: flex;
     }
 }
 
-@media only screen and (max-width:767.98px) {
+@media only screen and (max-width:1023.98px) {
     .navWrapper {
-        .titleContainer {
+        .leftContainer {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -116,54 +103,37 @@
                 display: none;
             }
         }
-    }
 
-}
-
-@media only screen and (max-width:1023.98px) {
-    .authContainer {
-        .authText {
-            display: none;
+        .authContainer {
+            .authText {
+                display: none;
+            }
         }
     }
 }
 
-@media only screen and (min-width:768px) {
+@media only screen and (min-width:1024px) {
     .navWrapper {
-        padding: 20px 10%;
+        padding: 0 10%;
 
         .burgerIcon {
             display: none;
         }
 
-        .titleContainer {
+        .leftContainer {
             .discoverDiv {
                 display: flex;
-                gap: 20px;
-                align-items: center;
 
                 .boxSlide {
                     display: flex;
-                    align-items: center;
-                    cursor: pointer;
-                    gap: 5px;
-                    position: relative;
-                    transition: all 0.3s ease;
-
-                    .titleMenu {
-                        font-size: 15x;
-                        font-weight: 500;
-                        text-decoration: none;
-                    }
-
-                    &:hover {
-                        color: #0074e4;
-                    }
-
                 }
-
             }
         }
+    }
+}
 
+@media only screen and (min-width:1440px) {
+    .navWrapper {
+        padding: 0 5%;
     }
 }

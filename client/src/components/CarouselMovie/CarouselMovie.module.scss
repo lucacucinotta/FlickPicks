@@ -1,11 +1,12 @@
 .card {
     padding: 20px 15px;
+    //padding:30px;
 
     .locandine {
-        height: 100%;
+        height: 100%; //85%
         width: 100%;
         border-radius: 10px;
-        cursor: pointer;
+        cursor: pointer; //no cursor pointer
         transition: all 0.5s ease;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 
@@ -14,17 +15,57 @@
         }
     }
 
+    .genresBox {
+        background-color: #0074e4;
+        cursor: pointer;
+        position: relative;
+        border-radius: 10px;
+        text-align: center;
+        height: 50px;
+        width: auto;
+        transition: all 0.5s ease;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .person {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 13px;
+    }
+
 }
 
-@media only screen and (max-width: 374.98px) {
-    .card {
-        height: 320px;
+.castCard {
+    padding: 30px;
 
-        .locandine {
-            height: 100%;
-            width: 100%;
-            border-radius: 10px;
+    .locandine {
+        height: 85%;
+        cursor: default;
+        transition: none;
 
+        &:hover {
+            transform: none;
         }
+    }
+}
+
+@media only screen and (max-width: 375.98px) {
+
+    .movieCard,
+    .castCard {
+        height: 350px;
     }
 }

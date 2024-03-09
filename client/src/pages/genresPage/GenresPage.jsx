@@ -1,20 +1,17 @@
-/* eslint-disable no-unused-vars */
-import style from "./GenresPage.module.scss";
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import Card from "../../components/Card/Card";
 import SortMenu from "../../components/SortMenu/SortMenu";
 import Arrow from "../../components/Arrow/Arrow";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import style from "./GenresPage.module.scss";
+import fetchMovie from "./utils";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import fetchMovie from "./utils";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { PulseLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { FaArrowUp } from "react-icons/fa";
-import { FaArrowDown } from "react-icons/fa";
 
 export default function GenresPage() {
   const date = new Date();
@@ -24,7 +21,6 @@ export default function GenresPage() {
 
   const todayDate = `${year}-${month}-${day}`;
 
-  console.log(todayDate);
   const navigate = useNavigate();
 
   const { genresList } = useSelector((state) => state.genresState);
@@ -80,21 +76,17 @@ export default function GenresPage() {
       break;
   }
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [genresMatched.id, page, sortValue],
     queryFn: () => fetchMovie(genresMatched.id, page, sortValue),
     refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
-    return (
-      <div className={style.loadingDiv}>
-        <PulseLoader size={50} color="#0074e4" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
-  if (isError) {
+  if (error) {
     navigate("*");
     console.log(error);
   }
@@ -108,7 +100,7 @@ export default function GenresPage() {
         ) : (
           <div className={style.container}>
             <h1>GENRES / {newGenresName}</h1>
-            <div style={{ display: "flex", gap: "5px", alignSelf: "center" }}>
+            <div className={style.sortDiv}>
               Sort by :{" "}
               <SortMenu
                 data={genresName}
@@ -136,16 +128,18 @@ export default function GenresPage() {
                   Previous
                 </button>
               )}
-              <button
-                onClick={() => {
-                  setPage((prevState) => prevState + 1);
-                  navigate(
-                    `/genres/${genresName}?sort_by=${query}&page=${page + 1}`
-                  );
-                }}
-              >
-                Next
-              </button>
+              {data.total_pages !== page && (
+                <button
+                  onClick={() => {
+                    setPage((prevState) => prevState + 1);
+                    navigate(
+                      `/genres/${genresName}?sort_by=${query}&page=${page + 1}`
+                    );
+                  }}
+                >
+                  Next
+                </button>
+              )}
             </div>
             <Arrow />
           </div>

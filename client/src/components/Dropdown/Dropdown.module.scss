@@ -11,7 +11,7 @@
     z-index: 1;
     top: 0;
     left: 50%;
-    transform: translate(-50%, 30px);
+    transform: translate(-50%, 25px);
     width: fit-content;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 
@@ -33,9 +33,7 @@
         border-radius: 5px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.3s ease;
-        width: 150px;
         text-align: center;
-
 
         &:hover {
             background-color: #01172c;
@@ -48,4 +46,18 @@
 
 .containerGenres {
     grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (max-width: 1439.98px) {
+    .text {
+        width: 120px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .text {
+        width: 150px;
+        font-size: 16px;
+    }
 }

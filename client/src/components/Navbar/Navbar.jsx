@@ -7,11 +7,9 @@ export default function Navbar() {
   return (
     <nav>
       <div className={style.navWrapper}>
-        <div className={style.titleContainer}>
-          <Link to="/" className={style.link}>
-            <span className={style.title}>FlickPicks</span>
-          </Link>
-        </div>
+        <Link to="/" className={style.link}>
+          <span className={style.title}>FlickPicks</span>
+        </Link>
         <div className={style.authContainer}>
           <Link to="/login" className={style.link}>
             <div className={style.authDiv}>

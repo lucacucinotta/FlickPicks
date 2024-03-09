@@ -1,10 +1,3 @@
-.loadingDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 .wrapper {
     min-height: 100vh;
     display: flex;
@@ -19,12 +12,17 @@
         padding: 30px 0;
     }
 
+    .mainNoResults {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     main {
         flex-grow: 1;
         color: white;
         font-family: "Montserrat", "sans-serif";
         height: auto;
-
 
         .container {
             display: flex;
@@ -32,15 +30,12 @@
             margin: 30px 0;
 
             h1 {
-                font-size: 30px;
                 font-weight: 500;
                 text-align: center;
-
             }
 
             .gridContainer {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
                 justify-items: center;
                 gap: 20px 0;
                 margin: 30px 0;
@@ -66,9 +61,75 @@
                         transform: scale(0.96)
                     }
                 }
-
-
             }
+
+            .noResultDiv {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 598.98px) {
+    h1 {
+        font-size: 25px;
+    }
+
+    .gridContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media screen and (min-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    .gridContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .gridContainer {
+        grid-template-columns: repeat(4, 1fr);
+
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .gridContainer {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .noResultDiv {
+        .icon {
+            width: 75px;
+            height: 75px;
+        }
+    }
+}
+
+@media screen and (min-width:768px) {
+    .noResultDiv {
+        .icon {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .noResultDiv {
+        .icon {
+            width: 125px;
+            height: 125px;
         }
     }
 }

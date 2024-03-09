@@ -19,10 +19,10 @@ const checkToken = (req, res, next) => {
 const checkMovieID = async (req, res) => {
   try {
     const { movieID } = req.params;
-    console.log(movieID);
     const token = req.cookies.token;
     const username = jwt.verify(token, SECRET_KEY).username;
     const user = await User.findOne({ username: username });
+
     let listTypes = [];
 
     if (user.watchedList.includes(movieID)) {

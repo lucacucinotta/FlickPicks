@@ -24,40 +24,34 @@
                 align-items: center;
                 justify-content: center;
                 background-color: #01172c;
+                //possibile media query
                 margin: 0 40px;
                 padding: 30px;
                 border-radius: 10px;
                 border: 3px solid #0074e4;
+                color: white;
+                font-family: 'Montserrat', sans-serif;
+                text-align: center;
+                font-weight: 500;
 
                 .intro {
-                    color: white;
-                    font-family: 'Montserrat', sans-serif;
-                    font-weight: 500;
-                    text-align: center;
                     max-width: 250px;
                 }
 
                 .title {
                     color: #0074e4;
-                    font-family: 'Montserrat', sans-serif;
                     font-weight: 600;
-                    text-align: center;
-                }
-
-                .brief {
-                    color: white;
-                    font-family: 'Montserrat', sans-serif;
-                    font-weight: 500;
-                    text-align: center;
                 }
             }
 
             .btnScrollDown {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 height: 65px;
                 width: 65px;
                 border-radius: 30px;
                 background-color: #01172c;
-                border: none;
                 color: #0074e4;
                 cursor: pointer;
                 border: 2px solid #0074e4;
@@ -85,14 +79,15 @@
             .container {
                 display: flex;
                 flex-direction: column;
+                //possibile media query
                 margin: 0 40px;
+                //Si potrebbe levare
                 justify-content: space-between;
 
                 .featureDiv {
                     display: flex;
                     flex-direction: column;
                     gap: 35px;
-
 
                     .feature {
                         text-align: start;
@@ -106,11 +101,8 @@
 
                         .featureIcon {
                             color: #0074e4;
-                            height: 65px;
-                            width: 65px;
                         }
                     }
-
                 }
 
                 .signIn {

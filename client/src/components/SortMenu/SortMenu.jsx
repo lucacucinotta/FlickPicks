@@ -37,7 +37,11 @@ export default function SortMenu({ data, query }) {
   return (
     <div className={style.sortMenuContainer} ref={sortMenuRef}>
       <div
-        className={style.selectedContainer}
+        className={
+          isOpen
+            ? `${style.selectedContainer} ${style.selectedContainerOpen}`
+            : style.selectedContainer
+        }
         onClick={() => setIsOpen((prevState) => !prevState)}
       >
         <span>{query || "Most Popular"}</span>

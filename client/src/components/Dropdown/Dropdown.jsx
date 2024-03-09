@@ -1,14 +1,17 @@
 import style from "./Dropdown.module.scss";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-export default function Dropdown({ data, isMovie }) {
+export default function Dropdown({ isMovie }) {
+  const { movieSections } = useSelector((state) => state.movieSectionsState);
+  const { genresList } = useSelector((state) => state.genresState);
+
   const navigate = useNavigate();
-  // const { selected } = useSelector((state) => state.sortState);
+
   return isMovie ? (
     <div className={style.container}>
-      {data.map((item, index) => (
+      {movieSections.map((item, index) => (
         <span
           key={index}
           className={style.text}
@@ -32,7 +35,7 @@ export default function Dropdown({ data, isMovie }) {
     </div>
   ) : (
     <div className={`${style.container} ${style.containerGenres}`}>
-      {data.map((item, index) => (
+      {genresList.map((item, index) => (
         <span
           key={index}
           className={style.text}
@@ -58,6 +61,5 @@ export default function Dropdown({ data, isMovie }) {
 }
 
 Dropdown.propTypes = {
-  data: PropTypes.array.isRequired,
   isMovie: PropTypes.bool.isRequired,
 };

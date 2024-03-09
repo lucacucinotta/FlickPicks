@@ -9,7 +9,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 30px;
+        gap: 20px;
         min-height: calc(100vh - 75px);
 
         .errorDiv {
@@ -19,6 +19,7 @@
             font-weight: 500;
             border-radius: 10px;
             margin-top: 20px;
+            width: fit-content;
 
             .alert {
                 display: flex;
@@ -42,19 +43,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
             color: white;
             font-family: 'Montserrat', sans-serif;
             font-weight: 400;
             font-size: 35px;
-            margin-bottom: 20px;
 
             .inputDiv {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 position: relative;
-                gap: 5px;
 
                 input {
                     background: transparent;
@@ -63,14 +61,12 @@
                     outline: none;
                     padding: 10px 0;
                     font-family: 'Montserrat', sans-serif;
-                    font-size: 12px;
                     color: white;
                     transition: all 0.3s ease-in-out;
                     border-bottom: 3px solid rgba(255, 255, 255, .2);
 
                     &::placeholder {
                         font-family: 'Montserrat', sans-serif;
-                        font-size: 13px;
                         color: #98bad9;
                     }
 
@@ -86,7 +82,6 @@
                 }
 
                 .req {
-                    font-size: 10px;
                     margin-top: 0;
                 }
             }
@@ -118,13 +113,21 @@
 
 @media screen and (max-width: 767.98px) {
     .errorDiv {
-        width: 250px;
         font-size: 12px;
     }
 
     .formSignUp {
+        label {
+            font-size: 25px;
+        }
+
         input {
             width: 250px;
+            font-size: 12px;
+
+            &::placeholder {
+                font-size: 12px;
+            }
         }
 
         .formIcon {
@@ -135,19 +138,28 @@
 
         .req {
             width: 250px;
+            font-size: 10px;
         }
     }
 }
 
 @media screen and (min-width: 768px) {
     .errorDiv {
-        width: 350px;
         font-size: 14px;
     }
 
     .formSignUp {
+        label {
+            font-size: 30px;
+        }
+
         input {
             width: 350px;
+            font-size: 14px;
+
+            &::placeholder {
+                font-size: 14px;
+            }
         }
 
         .formIcon {
@@ -158,20 +170,32 @@
 
         .req {
             width: 350px;
+            font-size: 12px;
         }
     }
+}
 
+@media screen and (max-width: 1023.98px) {
+    .formSignUp {
+        gap: 30px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
-    .errorDiv {
-        width: 550px;
-        font-size: 16px;
-    }
-
     .formSignUp {
+        gap: 35px;
+
+        label {
+            font-size: 35px;
+        }
+
         input {
             width: 550px;
+            font-size: 16px;
+
+            &::placeholder {
+                font-size: 16px;
+            }
         }
 
         .formIcon {
@@ -183,5 +207,11 @@
         .req {
             width: 550px;
         }
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .formSignUp {
+        gap: 40px;
     }
 }

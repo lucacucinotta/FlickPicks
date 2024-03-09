@@ -1,22 +1,22 @@
+import SearchInput from "../../components/SearchInput/SearchInput";
+import style from "./BurgerMenu.module.scss";
 import { IoMdSettings } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import style from "./BurgerMenu.module.scss";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideBurgerMenu } from "../../states/burgerMenu";
 
 export default function BurgerMenu() {
-  const [title, setTitle] = useState("");
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
   const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
     useState(false);
 
   const { movieSections } = useSelector((state) => state.movieSectionsState);
   const { genresList } = useSelector((state) => state.genresState);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -39,30 +39,11 @@ export default function BurgerMenu() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isGenresDropdownMenuOpen, isMovieDropdownMenuOpen]);
+  }, []);
 
   return (
     <div className={style.container}>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          navigate(
-            `/discover/search?q=${title.toLowerCase().replace(/ /g, "+")}`
-          );
-          dispatch(hideBurgerMenu());
-        }}
-      >
-        <div className={style.inputDiv}>
-          <input
-            type="text"
-            placeholder="Search titles"
-            className={style.searchInput}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <IoSearch className={style.icon} />
-        </div>
-      </form>
+      <SearchInput usedFor={"Burger"} />
       <div className={style.discoverDiv}>
         <div
           className={

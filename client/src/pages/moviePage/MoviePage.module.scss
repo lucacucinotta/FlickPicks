@@ -1,20 +1,18 @@
-:root {
-    --backgroundImage: none;
-}
-
-.loadingDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 .wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 
-    //MAIN GENERALE
+    .mainBurger {
+        background-color: #01172c;
+        background-color: #01172c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 0;
+    }
+
     main {
         flex-grow: 1;
         color: white;
@@ -22,17 +20,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
 
-        //CONTAINER CHE CONTIENE IL PRIMO BLOCCO, L'OVERVIEW E L'ACTION-CONTAINER
         .mainContainer {
+            height: calc(100vh - 75px);
             display: flex;
             width: 100%;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: top center;
 
-            //CONTAINER DEL PRIMO BLOCCO - CONTIENE CARD E TESTO
             .container {
                 display: flex;
                 gap: 10px;
@@ -45,7 +41,6 @@
                 }
 
                 .rightSide {
-
                     display: flex;
                     flex-direction: column;
                     gap: 12px;
@@ -64,14 +59,11 @@
             }
         }
 
-        //CONTAINER DEL SECONDO BLOCCO - CONTIENE L'OVERVIEW DEL FILM
         .overviewContainer,
         .overviewUp {
             line-height: 1.5;
 
             .lastInfo {
-                // margin-top: 5px;
-                // font-size: 10px;
                 font-weight: 600;
 
                 span {
@@ -80,7 +72,6 @@
             }
         }
 
-        //CONTAINER DEL TERZO BLOCCO - CONTIENE I PULSANTI PER SALVARE UN FILM
         .actionContainer {
             display: flex;
             flex-direction: column;
@@ -108,35 +99,33 @@
                 background-color: #0074e4;
             }
         }
-    }
 
-    .cast {
-        font-size: 30px;
-        margin-top: 25px;
+        .carouselContainer {
+            text-align: center;
+            width: 70%;
+
+            .cast {
+                font-size: 30px;
+                margin: 20px 0;
+            }
+        }
     }
 }
 
-
-//--------------------------------INIZIO MEDIA-QUERY-----------------------------------------------------------
-
 @media only screen and (max-width: 424.98px) {
     .mainContainer {
-        min-height: calc(100vh - 65px);
-    }
-
-    .actionContainer {
-        .box {
-            padding: 7px;
-            font-size: 13px;
-            width: 200px;
+        .actionContainer {
+            .box {
+                padding: 7px;
+                font-size: 13px;
+                width: 200px;
+            }
         }
     }
 }
 
 @media only screen and (min-width:425px) {
     .mainContainer {
-        min-height: calc(100vh - 75px);
-
         .actionContainer {
             .box {
                 padding: 10px;
@@ -193,7 +182,6 @@
 
 @media only screen and (min-width:600px) {
     .mainContainer {
-        //altra media queries(max-768px)
         padding: 40px 20px;
         gap: 30px;
 
@@ -225,12 +213,12 @@
             .overviewUp {
                 .overviewText {
                     font-size: 13px;
-                    height: 100px;
+                    max-height: 100px;
                     overflow: auto;
                 }
 
                 .lastInfo {
-                    margin-top: 7px;
+                    margin-top: 5px;
                 }
             }
         }
@@ -249,7 +237,6 @@
 
 @media only screen and (min-width: 768px) {
     .mainContainer {
-        min-height: calc(100vh - 76.8px);
         padding: 40px;
 
         .container {
@@ -269,7 +256,6 @@
 
                 .lastInfo {
                     font-size: 13px;
-                    margin-top: 10px;
                 }
 
                 .voteContainer {
@@ -301,22 +287,52 @@
             .rightSide {
                 h1 {
                     font-size: 30px;
+                    max-width: 500px;
                 }
 
                 .overviewText {
                     font-size: 15px;
-                    max-width: 450px;
-                    height: 130px;
-
+                    max-width: 500px;
+                    max-height: 110px;
                 }
-
-
             }
         }
 
         .actionContainer {
             .box {
-                width: 100%;
+                width: 220px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    .mainContainer {
+        .container {
+            .rightSide {
+                h1 {
+                    max-width: 600px;
+                }
+
+                .overviewText {
+                    max-width: 600px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:1300px) {
+    .mainContainer {
+        .container {
+            .rightSide {
+                h1 {
+                    max-width: 700px;
+                }
+
+                .overviewText {
+                    max-width: 700px;
+                }
             }
         }
     }
@@ -325,151 +341,22 @@
 @media only screen and (min-width: 1440px) {
     .mainContainer {
         .container {
+            .card {
+                min-width: 250px;
+                max-width: 250px;
+            }
+
             .rightSide {
                 h1 {
-                    max-width: 800px;
+                    max-width: 750px;
                 }
 
                 .overviewText {
-                    max-width: 650px;
-                    overflow: hidden;
-                    height: fit-content;
-
+                    max-width: 750px;
+                    overflow: auto;
+                    max-height: fit-content;
                 }
             }
         }
-
-
     }
 }
-
-
-
-
-
-// @media only screen and (max-width:599.98px) {
-//     .container {
-//         .card {
-//             min-width: 130px;
-//             max-width: 130px;
-//         }
-
-//         h1 {
-//             font-size: 16px;
-//         }
-
-//         .genres {
-//             flex-direction: column;
-//         }
-//     }
-
-//     .text {
-//         flex-direction: row;
-//     }
-
-//     .overview {
-//         font-size: 13px;
-//     }
-
-//     .overviewUp {
-//         display: none;
-//     }
-
-
-// }
-
-// @media only screen and (min-width:600px) {
-//     .text {
-
-//         flex-direction: row;
-
-//     }
-
-//     .overview {
-//         display: none;
-//     }
-
-//     .overviewUp {
-//         font-size: 13px;
-//         line-height: 1.3;
-//         overflow: auto;
-//         height: 150px;
-
-//     }
-
-//     .genres {
-//         flex-direction: row;
-//     }
-
-//     .card {
-//         min-width: 170px;
-//         max-width: 170px;
-//     }
-
-//     .box {
-//         width: 50%;
-//         font-size: 17px;
-//     }
-// }
-
-// @media only screen and (max-width:767.98px) {
-//     .actionUp {
-//         display: none;
-//     }
-
-//     h1 {
-//         font-size: 17px;
-//     }
-// }
-
-// @media only screen and (min-width:768px) {
-//     .card {
-//         min-width: 200px;
-//         max-width: 200px;
-//     }
-
-//     h1 {
-//         font-size: 25px;
-//     }
-
-//     .overviewUp {
-//         overflow: auto;
-//         height: 150px;
-//         border: 1px solid red;
-//         max-width: 900px;
-//     }
-
-//     .action {
-//         display: none;
-//     }
-
-//     .actionUp {
-//         border: 1px solid red;
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         justify-content: center;
-//         gap: 20px;
-
-//         .box {
-//             display: flex;
-//             align-items: center;
-//             gap: 10px;
-//             padding: 10px;
-//             border: 2px solid #0074e4;
-//             border-radius: 5px;
-//             cursor: pointer;
-//             justify-content: center;
-//             width: 250px;
-
-//             &:hover {
-//                 background-color: #0074e4;
-//             }
-//         }
-
-//         .boxClick {
-//             background-color: #0074e4;
-//         }
-//     }
-
-// }

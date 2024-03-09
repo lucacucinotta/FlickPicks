@@ -1,6 +1,6 @@
 .arrowDiv {
     position: fixed;
-    top: 55%;
+    bottom: 45px;
     right: 5px;
     display: flex;
     flex-direction: column;
@@ -8,6 +8,7 @@
 
     .icon {
         color: white;
+        cursor: pointer;
 
         &:hover {
             color: #0074e4;

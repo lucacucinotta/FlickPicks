@@ -1,5 +1,7 @@
+import Dropdown from "../Dropdown/Dropdown";
+import SearchInput from "../../components/SearchInput/SearchInput";
 import style from "./NavbarLogged.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -8,24 +10,16 @@ import { IoIosMenu } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { showBurgerMenu, hideBurgerMenu } from "../../states/burgerMenu";
-import Dropdown from "../Dropdown/Dropdown";
 import { useState, useRef, useEffect } from "react";
-import { IoSearch } from "react-icons/io5";
 
 export default function NavbarLogged() {
-  const [title, setTitle] = useState("");
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
   const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
     useState(false);
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
-  const { movieSections } = useSelector((state) => state.movieSectionsState);
-  const { genresList } = useSelector((state) => state.genresState);
-
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const movieRef = useRef();
   const genresRef = useRef();
@@ -65,7 +59,7 @@ export default function NavbarLogged() {
             className={style.burgerIcon}
           />
         )}
-        <div className={style.titleContainer}>
+        <div className={style.leftContainer}>
           <Link to="/" className={style.link}>
             <span className={style.title}>FlickPicks</span>
           </Link>
@@ -83,9 +77,7 @@ export default function NavbarLogged() {
               ) : (
                 <MdOutlineKeyboardArrowDown />
               )}
-              {isMovieDropdownMenuOpen && (
-                <Dropdown data={movieSections} isMovie={true} />
-              )}
+              {isMovieDropdownMenuOpen && <Dropdown isMovie={true} />}
             </div>
 
             <div
@@ -101,30 +93,9 @@ export default function NavbarLogged() {
               ) : (
                 <MdOutlineKeyboardArrowDown />
               )}
-              {isGenresDropdownMenuOpen && (
-                <Dropdown data={genresList} isMovie={false} />
-              )}
+              {isGenresDropdownMenuOpen && <Dropdown isMovie={false} />}
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                navigate(
-                  `/discover/search?q=${title.toLowerCase().replace(/ /g, "+")}`
-                );
-                window.location.reload();
-              }}
-            >
-              <div className={style.inputDiv}>
-                <input
-                  type="text"
-                  placeholder="Search titles"
-                  className={style.searchInput}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <IoSearch className={style.icon} />
-              </div>
-            </form>
+            <SearchInput usedFor={"Navbar"} />
           </div>
         </div>
         <div className={style.authContainer}>

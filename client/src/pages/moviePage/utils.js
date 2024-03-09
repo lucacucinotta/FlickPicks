@@ -27,69 +27,13 @@ export const fetchCredits = async (movieID) => {
   return res.data;
 };
 
-export const addMovieWatched = async (movieID) => {
+export const updateMovieList = async (movieID, action, list) => {
   try {
     axios.defaults.withCredentials = true;
-    const res = await axios.put("http://localhost:8081/watchedList", {
+    const res = await axios.put("http://localhost:8081/updateMovieList", {
       movieID: movieID,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const removeMovieWatched = async (movieID) => {
-  try {
-    axios.defaults.withCredentials = true;
-    const res = await axios.put("http://localhost:8081/removeWatchedList", {
-      movieID: movieID,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const addMovieFavorite = async (movieID) => {
-  try {
-    axios.defaults.withCredentials = true;
-    await axios.put("http://localhost:8081/favoriteList", {
-      movieID: movieID,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const removeMovieFavorite = async (movieID) => {
-  try {
-    axios.defaults.withCredentials = true;
-    const res = await axios.put("http://localhost:8081/removeFavoriteList", {
-      movieID: movieID,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const addMovieWatchlist = async (movieID) => {
-  try {
-    axios.defaults.withCredentials = true;
-    await axios.put("http://localhost:8081/watchList", {
-      movieID: movieID,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const removeMovieWatchList = async (movieID) => {
-  try {
-    axios.defaults.withCredentials = true;
-    const res = await axios.put("http://localhost:8081/removeWatchList", {
-      movieID: movieID,
+      action: action,
+      list: list,
     });
     return res;
   } catch (err) {

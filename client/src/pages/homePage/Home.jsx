@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
-import style from "./Home.module.scss";
-import { useQuery } from "react-query";
-import fetchMovie from "./utils";
 import CarouselMovie from "../../components/CarouselMovie/CarouselMovie";
-import CarouselGenres from "../../components/CarouselGenres/CarouselGenres";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import style from "./Home.module.scss";
+import fetchMovie from "./utils";
+import { useQuery } from "react-query";
 import { IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { PulseLoader } from "react-spinners";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
@@ -23,7 +21,7 @@ export default function Home() {
   const {
     data: trendingDayMovie,
     isLoading: trendingDayMovieLoading,
-    isError: trendingDayMovieError,
+    error: trendingDayMovieError,
   } = useQuery({
     queryKey: ["trendingDayMovie"],
     queryFn: () =>
@@ -34,7 +32,7 @@ export default function Home() {
   const {
     data: trendingWeekMovie,
     isLoading: trendingWeekMovieLoading,
-    isError: trendingWeekMovieError,
+    error: trendingWeekMovieError,
   } = useQuery({
     queryKey: ["trendingWeekMovie"],
     queryFn: () =>
@@ -45,18 +43,14 @@ export default function Home() {
   const {
     data: topRatedMovie,
     isLoading: topRatedMovieLoading,
-    isError: topRatedMovieError,
+    error: topRatedMovieError,
   } = useQuery({
     queryKey: ["topRatedmovie"],
     queryFn: () => fetchMovie("https://api.themoviedb.org/3/movie/top_rated"),
     staleTime: 86400,
   });
 
-  const {
-    data: genres,
-    isLoading: genresLoading,
-    isError: genresError,
-  } = useQuery({
+  const { isLoading: genresLoading, error: genresError } = useQuery({
     queryKey: ["genres"],
     queryFn: () => fetchMovie("https://api.themoviedb.org/3/genre/movie/list"),
     staleTime: 86400,
@@ -71,11 +65,7 @@ export default function Home() {
     trendingWeekMovieLoading ||
     genresLoading
   ) {
-    return (
-      <div className={style.loadingDiv}>
-        <PulseLoader size={50} color="#0074e4" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (
@@ -85,7 +75,10 @@ export default function Home() {
     genresError
   ) {
     navigate("*");
-    console.log("Something gone wrong");
+    if (trendingDayMovieError) console.log(trendingDayMovieError);
+    if (trendingWeekMovieError) console.log(trendingWeekMovieError);
+    if (topRatedMovieError) console.log(topRatedMovieError);
+    if (genresError) console.log(genresError);
   }
 
   return (
@@ -93,7 +86,7 @@ export default function Home() {
       <header>
         <NavbarLogged />
       </header>
-      <main className={isShown ? style.mainSingleColor : null}>
+      <main className={isShown ? style.mainBurger : null}>
         {isShown ? (
           <BurgerMenu />
         ) : (
@@ -109,9 +102,9 @@ export default function Home() {
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>
-                Stay in the loop with the daily trending movies!
+                Stay in the loop with the daily trending movies
               </h2>
-              <CarouselMovie data={trendingDayMovie.results} />
+              <CarouselMovie data={trendingDayMovie.results} type={"movies"} />
             </div>
 
             <div className={style.container}>
@@ -125,22 +118,23 @@ export default function Home() {
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>
-                Exploring the Latest Movie Trends from the Past Week
+                Exploring the tatest movie&apos;s trends from the past week
               </h2>
-              <CarouselMovie data={trendingWeekMovie.results} />
+              <CarouselMovie data={trendingWeekMovie.results} type={"movies"} />
             </div>
 
             <div className={style.container}>
               <div className={style.up}>
                 <Link to="/discover/movies/top-rated" className={style.link}>
-                  <h1 className={style.titleSlider}>Top Rated Movie</h1>
+                  <h1 className={style.titleSlider}>Top Rated Movies</h1>
                 </Link>
                 <IoIosArrowForward size={20} />
               </div>
               <h2 className={style.subtitleSlider}>
-                Top rated movies by IMDB community
+                Discover the best of the best for an unforgettable
+                movie-watching experience
               </h2>
-              <CarouselMovie data={topRatedMovie.results} />
+              <CarouselMovie data={topRatedMovie.results} type={"movies"} />
             </div>
 
             <div className={style.container}>
@@ -148,8 +142,10 @@ export default function Home() {
                 <h1 className={style.titleSlider}>Movie&apos;s Genres</h1>
                 <IoIosArrowForward size={20} />
               </div>
-              <h2 className={style.subtitleSlider}>All genres.</h2>
-              <CarouselGenres />
+              <h2 className={style.subtitleSlider}>
+                Find your next favourite movie browsing all the available genres
+              </h2>
+              <CarouselMovie type={"genres"} />
             </div>
           </>
         )}

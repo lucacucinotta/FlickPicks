@@ -5,7 +5,7 @@ import { IoMdLock } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.scss";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../states/log";
 import axios from "axios";
@@ -33,7 +33,7 @@ export default function Login() {
           },
         }
       );
-      localStorage.setItem("auth", JSON.stringify(true));
+      // localStorage.setItem("auth", JSON.stringify(true));
       dispatch(logIn());
       navigate("/");
     } catch (err) {
@@ -41,6 +41,18 @@ export default function Login() {
       setError(err.response.data.errMessage);
     }
   };
+
+  const errorRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!errorRef.current.contains(e.target)) {
+        setError(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className={style.wrapper}>
       <header>
@@ -48,7 +60,7 @@ export default function Login() {
       </header>
       <main>
         {error && (
-          <div className={style.errorDiv}>
+          <div className={style.errorDiv} ref={errorRef}>
             <div className={style.alert}>
               <MdError size={15} />
               <p>There was a problem</p>

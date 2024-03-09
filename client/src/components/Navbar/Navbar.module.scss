@@ -10,18 +10,12 @@
     background-color: #01172c;
     color: white;
     font-family: 'Montserrat', sans-serif;
-    position: relative;
     padding: 20px 10%;
 
-    .titleContainer {
-        display: flex;
-        gap: 30px;
-
-        .title {
-            font-size: 25px;
-            font-weight: 500;
-            cursor: pointer;
-        }
+    .title {
+        font-size: 25px;
+        font-weight: 500;
+        cursor: pointer;
     }
 
     .authContainer {

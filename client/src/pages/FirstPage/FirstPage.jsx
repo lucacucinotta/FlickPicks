@@ -2,7 +2,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
-import { GiTicket } from "react-icons/gi";
+import { MdLocalMovies } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -40,24 +40,24 @@ export default function FirstPage() {
           <div className={style.container}>
             <div className={style.featureDiv}>
               <div className={style.feature}>
-                <IoSearchSharp size={30} className={style.featureIcon} />
+                <MdLocalMovies size={70} className={style.featureIcon} />
                 <p>
-                  Search from a wide selection of movies and explore new based
-                  titles about your interests
+                  Discover new titles by exploring the different sections or
+                  browse through the various genres available.
                 </p>
               </div>
               <div className={style.feature}>
-                <FaStar size={30} className={style.featureIcon} />
+                <IoSearchSharp size={70} className={style.featureIcon} />
                 <p>
-                  Create a personalized list of favorite movies that you can
-                  easily access at any time.
+                  Search by typing the movie&apos;s name and explore new based
+                  titles about your interests.
                 </p>
               </div>
               <div className={style.feature}>
-                <GiTicket size={30} className={style.featureIcon} />
+                <FaStar size={70} className={style.featureIcon} />
                 <p>
-                  Get ready for your daily dose of cinematic pleasure thanks to
-                  the &quot;Daily Pick&quot; section
+                  Create a personalized lists of movies that you can easily
+                  access at any time.
                 </p>
               </div>
             </div>
