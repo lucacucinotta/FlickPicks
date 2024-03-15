@@ -61,7 +61,7 @@ export default function MoviePage() {
       try {
         axios.defaults.withCredentials = true;
         const res = await axios.get(
-          `http://localhost:8081/checkMovieID/${movieID}`
+          `https://flickpicks-6ifw.onrender.com/checkMovieID/${movieID}`
         );
         if (res.data.listTypes) {
           setIsWatched(res.data.listTypes.includes("watchedList"));

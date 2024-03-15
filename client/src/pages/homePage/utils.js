@@ -4,7 +4,9 @@ const SECRET_TOKEN = import.meta.env.VITE_SECRET_TOKEN;
 
 export const getUserData = async () => {
   axios.defaults.withCredentials = true;
-  const res = await axios.get("http://localhost:8081/getUserData");
+  const res = await axios.get(
+    "https://flickpicks-6ifw.onrender.com/getUserData"
+  );
   return res.data;
 };
 

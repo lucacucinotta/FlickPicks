@@ -24,7 +24,7 @@ export default function Signin() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:8081/signup",
+        "https://flickpicks-6ifw.onrender.com/signup",
         {
           username: username,
           email: email,

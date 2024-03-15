@@ -50,7 +50,9 @@ export default function UserListsPage() {
     queryKey: ["userData", reloadValue],
     queryFn: async () => {
       axios.defaults.withCredentials = true;
-      const res = await axios.get(`http://localhost:8081/getUserLists`);
+      const res = await axios.get(
+        `https://flickpicks-6ifw.onrender.com/getUserLists`
+      );
       return res.data.userLists;
     },
     refetchOnWindowFocus: false,
