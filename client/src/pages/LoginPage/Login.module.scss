@@ -88,7 +88,7 @@
                 color: white;
                 font-family: 'Montserrat', sans-serif;
                 font-weight: 400;
-                border-radius: 20px;
+                border-radius: 20px; //10
                 border: none;
                 cursor: pointer;
                 transition: all 0.2s ease;
@@ -96,10 +96,6 @@
 
             button:active {
                 transform: scale(0.96)
-            }
-
-            button:hover {
-                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
             }
         }
 
@@ -187,6 +183,10 @@
             &::placeholder {
                 font-size: 16px;
             }
+        }
+
+        button:hover {
+            box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
         }
     }
 

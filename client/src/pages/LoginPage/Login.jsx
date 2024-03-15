@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import Button from "../../components/Button/Button";
 import { MdAlternateEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { MdError } from "react-icons/md";
@@ -33,7 +34,6 @@ export default function Login() {
           },
         }
       );
-      // localStorage.setItem("auth", JSON.stringify(true));
       dispatch(logIn());
       navigate("/");
     } catch (err) {
@@ -45,7 +45,7 @@ export default function Login() {
   const errorRef = useRef();
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!errorRef.current.contains(e.target)) {
+      if (errorRef.current && !errorRef.current.contains(e.target)) {
         setError(null);
       }
     };
@@ -95,7 +95,7 @@ export default function Login() {
             />
             <IoMdLock size={20} className={style.formIcon} />
           </div>
-          <button onClick={handleSubmit}>Log In</button>
+          <Button text={"Log In"} handleFunction={handleSubmit} />
         </form>
         <p className={style.registerText}>
           Do not have an account?{" "}

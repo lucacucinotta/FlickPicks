@@ -93,17 +93,13 @@
                 color: white;
                 font-family: 'Montserrat', sans-serif;
                 font-weight: 400;
-                border-radius: 20px;
+                border-radius: 20px; //10
                 border: none;
                 cursor: pointer;
                 transition: all 0.2s ease;
 
                 &:active {
                     transform: scale(0.96)
-                }
-
-                &:hover {
-                    box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
                 }
             }
         }
@@ -206,6 +202,10 @@
 
         .req {
             width: 550px;
+        }
+
+        button:hover {
+            box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
         }
     }
 }

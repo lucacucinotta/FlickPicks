@@ -7,7 +7,7 @@
         flex-grow: 1;
 
         .home {
-            background-image: url("bg.png");
+            background-image: url("../../assets/bg.png");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -18,13 +18,12 @@
             gap: 50px;
             align-items: center;
 
-            .container {
+            .firstPageContainer {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 background-color: #01172c;
-                //possibile media query
                 margin: 0 40px;
                 padding: 30px;
                 border-radius: 10px;
@@ -55,17 +54,11 @@
                 color: #0074e4;
                 cursor: pointer;
                 border: 2px solid #0074e4;
-            }
-
-            .btnScrollDown:hover {
-                color: #01172c;
-                background-color: #0074e4;
                 transition: all 0.2s ease;
-                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
-            }
 
-            .btnScrollDown:active {
-                transform: scale(0.96);
+                &:active {
+                    transform: scale(0.96);
+                }
             }
         }
 
@@ -76,7 +69,7 @@
             align-items: center;
             height: calc(100vh - 45.2px);
 
-            .container {
+            .secondPageContainer {
                 display: flex;
                 flex-direction: column;
                 //possibile media query
@@ -114,27 +107,6 @@
                     font-weight: 400;
                     text-align: center;
                     gap: 20px;
-
-                    button {
-                        padding: 5px 15px;
-                        width: fit-content;
-                        background-color: #0074e4;
-                        color: white;
-                        font-family: 'Montserrat', sans-serif;
-                        font-weight: 400;
-                        border-radius: 10px;
-                        border: none;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                    }
-
-                    button:active {
-                        transform: scale(0.96)
-                    }
-
-                    button:hover {
-                        box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
-                    }
                 }
             }
         }
@@ -144,7 +116,7 @@
 
 @media screen and (max-width:767.98px) {
     .functionalities {
-        .container {
+        .secondPageContainer {
             gap: 30px;
 
             .featureDiv {
@@ -156,10 +128,6 @@
 
             .signIn {
                 font-size: 18px;
-
-                button {
-                    font-size: 18px;
-                }
             }
         }
     }
@@ -167,7 +135,7 @@
 
 @media screen and (min-width:768px) {
     .functionalities {
-        .container {
+        .secondPageContainer {
             gap: 60px;
 
             .featureDiv {
@@ -179,10 +147,6 @@
 
             .signIn {
                 font-size: 25px;
-
-                button {
-                    font-size: 20px;
-                }
             }
         }
     }
@@ -191,7 +155,7 @@
 
 @media screen and (max-width: 1023.98px) {
     .home {
-        .container {
+        .firstPageContainer {
             .intro {
                 font-size: 25px;
             }
@@ -206,14 +170,12 @@
             }
         }
     }
-
 }
 
 
 @media screen and (min-width:1024px) {
     .home {
-        .container {
-
+        .firstPageContainer {
             .intro {
                 font-size: 30px;
             }
@@ -225,13 +187,18 @@
             .brief {
                 font-size: 23px;
                 max-width: 500px;
-
             }
+        }
+
+        .btnScrollDown:hover {
+            color: #01172c !important;
+            background-color: #0074e4 !important;
+            box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
         }
     }
 
     .functionalities {
-        .container {
+        .secondPageContainer {
             gap: 90px;
 
             .featureDiv {
@@ -243,10 +210,6 @@
 
             .signIn {
                 font-size: 25px;
-
-                button {
-                    font-size: 25px;
-                }
             }
         }
     }
@@ -254,7 +217,7 @@
 
 @media screen and (min-width: 1440px) {
     .functionalities {
-        .container {
+        .secondPageContainer {
             gap: 120px;
 
             .featureDiv {
@@ -266,12 +229,7 @@
 
             .signIn {
                 font-size: 30px;
-
-                button {
-                    font-size: 30px;
-                }
             }
         }
     }
-
 }

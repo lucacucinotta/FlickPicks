@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card";
 import SortMenu from "../../components/SortMenu/SortMenu";
 import Arrow from "../../components/Arrow/Arrow";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../components/Error/Error";
 import style from "./GenresPage.module.scss";
 import fetchMovie from "./utils";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -76,7 +77,7 @@ export default function GenresPage() {
       break;
   }
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: [genresMatched.id, page, sortValue],
     queryFn: () => fetchMovie(genresMatched.id, page, sortValue),
     refetchOnWindowFocus: false,
@@ -87,8 +88,8 @@ export default function GenresPage() {
   }
 
   if (error) {
-    navigate("*");
     console.log(error);
+    return <Error refetch={refetch} />;
   }
 
   return (

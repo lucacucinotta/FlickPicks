@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import Button from "../../components/Button/Button";
 import style from "./SignUp.module.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +45,7 @@ export default function Signin() {
 
   const errorRef = useRef();
   useEffect(() => {
+    window.scrollTo(0, 0);
     const handleClickOutside = (e) => {
       if (!errorRef.current.contains(e.target)) {
         setError(null);
@@ -142,7 +144,8 @@ export default function Signin() {
               </span>
             )}
           </div>
-          <button onClick={handleSubmit}>Sign Up</button>
+          <Button text={"Sign Up"} handleFunction={handleSubmit} />
+          {/* <button onClick={handleSubmit}>Sign Up</button> */}
         </form>
       </main>
       <Footer />

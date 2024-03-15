@@ -2,30 +2,44 @@ import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import CarouselMovie from "../../components/CarouselMovie/CarouselMovie";
+import Error from "../../components/Error/Error";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import style from "./Home.module.scss";
-import fetchMovie from "./utils";
+import { getUserData, fetchMovie } from "./utils";
 import { useQuery } from "react-query";
 import { IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
+import { change } from "../../states/userData";
 
 export default function Home() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const {
+    isLoading: userDataLoading,
+    error: userDataError,
+    refetch: userDataRefetch,
+  } = useQuery({
+    queryKey: ["userData"],
+    queryFn: getUserData,
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => dispatch(change(data)),
+  });
+
+  const {
     data: trendingDayMovie,
     isLoading: trendingDayMovieLoading,
     error: trendingDayMovieError,
+    refetch: trendingDayMovieRefetch,
   } = useQuery({
     queryKey: ["trendingDayMovie"],
     queryFn: () =>
       fetchMovie("https://api.themoviedb.org/3/trending/movie/day"),
+    refetchOnWindowFocus: false,
     staleTime: 86400,
   });
 
@@ -33,10 +47,12 @@ export default function Home() {
     data: trendingWeekMovie,
     isLoading: trendingWeekMovieLoading,
     error: trendingWeekMovieError,
+    refetch: trendingWeekMovieRefetch,
   } = useQuery({
     queryKey: ["trendingWeekMovie"],
     queryFn: () =>
       fetchMovie("https://api.themoviedb.org/3/trending/movie/week"),
+    refetchOnWindowFocus: false,
     staleTime: 86400,
   });
 
@@ -44,15 +60,22 @@ export default function Home() {
     data: topRatedMovie,
     isLoading: topRatedMovieLoading,
     error: topRatedMovieError,
+    refetch: topRatedMovieRefetch,
   } = useQuery({
     queryKey: ["topRatedmovie"],
     queryFn: () => fetchMovie("https://api.themoviedb.org/3/movie/top_rated"),
+    refetchOnWindowFocus: false,
     staleTime: 86400,
   });
 
-  const { isLoading: genresLoading, error: genresError } = useQuery({
+  const {
+    isLoading: genresLoading,
+    error: genresError,
+    refetch: genresRefetch,
+  } = useQuery({
     queryKey: ["genres"],
     queryFn: () => fetchMovie("https://api.themoviedb.org/3/genre/movie/list"),
+    refetchOnWindowFocus: false,
     staleTime: 86400,
     onSuccess: (genres) => {
       dispatch(addGenres(genres.genres));
@@ -60,6 +83,7 @@ export default function Home() {
   });
 
   if (
+    userDataLoading ||
     topRatedMovieLoading ||
     trendingDayMovieLoading ||
     trendingWeekMovieLoading ||
@@ -69,18 +93,33 @@ export default function Home() {
   }
 
   if (
+    userDataError ||
     trendingDayMovieError ||
     trendingWeekMovieError ||
     topRatedMovieError ||
     genresError
   ) {
-    navigate("*");
-    if (trendingDayMovieError) console.log(trendingDayMovieError);
-    if (trendingWeekMovieError) console.log(trendingWeekMovieError);
-    if (topRatedMovieError) console.log(topRatedMovieError);
-    if (genresError) console.log(genresError);
+    if (userDataError) {
+      console.log(userDataError);
+      return <Error refetch={userDataRefetch} />;
+    }
+    if (trendingDayMovieError) {
+      console.log(trendingDayMovieError);
+      return <Error refetch={trendingDayMovieRefetch} />;
+    }
+    if (trendingWeekMovieError) {
+      console.log(trendingWeekMovieError);
+      return <Error refetch={trendingWeekMovieRefetch} />;
+    }
+    if (topRatedMovieError) {
+      console.log(topRatedMovieError);
+      return <Error refetch={topRatedMovieRefetch} />;
+    }
+    if (genresError) {
+      console.log(genresError);
+      return <Error refetch={genresRefetch} />;
+    }
   }
-
   return (
     <div className={style.wrapper}>
       <header>

@@ -1,9 +1,9 @@
 import Dropdown from "../Dropdown/Dropdown";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import style from "./NavbarLogged.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
-import { IoMdSettings } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { IoIosMenu } from "react-icons/io";
@@ -11,13 +11,18 @@ import { IoCloseOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { showBurgerMenu, hideBurgerMenu } from "../../states/burgerMenu";
 import { useState, useRef, useEffect } from "react";
+import { logOut } from "../../states/log";
 
 export default function NavbarLogged() {
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
   const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
     useState(false);
 
+  const [confirmLogOut, setConfirmLogOut] = useState(false);
+
   const { isShown } = useSelector((state) => state.burgerMenuState);
+
+  const { userData } = useSelector((state) => state.userDataState);
 
   const dispatch = useDispatch();
 
@@ -40,6 +45,14 @@ export default function NavbarLogged() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const navigate = useNavigate();
+
+  const logginOut = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    dispatch(logOut());
+    navigate("/");
+  };
 
   return (
     <nav>
@@ -65,7 +78,11 @@ export default function NavbarLogged() {
           </Link>
           <div className={style.discoverDiv}>
             <div
-              className={style.boxSlide}
+              className={
+                isMovieDropdownMenuOpen
+                  ? `${style.boxSlide} ${style.boxSlideActive}`
+                  : style.boxSlide
+              }
               onClick={() => {
                 setIsMovieDropdownMenuOpen((prevState) => !prevState);
               }}
@@ -81,7 +98,11 @@ export default function NavbarLogged() {
             </div>
 
             <div
-              className={style.boxSlide}
+              className={
+                isGenresDropdownMenuOpen
+                  ? `${style.boxSlide} ${style.boxSlideActive}`
+                  : style.boxSlide
+              }
               onClick={() => {
                 setIsGenresDropdownMenuOpen((prevState) => !prevState);
               }}
@@ -98,21 +119,33 @@ export default function NavbarLogged() {
             <SearchInput usedFor={"Navbar"} />
           </div>
         </div>
-        <div className={style.authContainer}>
-          <Link to="/account" className={style.link}>
-            <div className={style.authDiv}>
+        <div className={style.profileContainer}>
+          <Link to={`/profile/${userData.userID}`} className={style.link}>
+            <div className={style.profileDiv}>
               <MdAccountCircle size={25} />
-              <span className={style.authText}>Account</span>
+              <span className={style.profileText}>Profile</span>
             </div>
           </Link>
           <span>|</span>
 
-          <Link to="/settings" className={style.link}>
-            <div className={style.authDiv}>
-              <IoMdSettings size={25} />
-              <span className={style.authText}>Settings</span>
-            </div>
-          </Link>
+          <div
+            className={
+              confirmLogOut
+                ? `${style.confirmLogOut} ${style.logOutDiv}`
+                : style.logOutDiv
+            }
+            onClick={() => {
+              if (confirmLogOut) {
+                logginOut();
+              } else if (!confirmLogOut) {
+                setConfirmLogOut(true);
+                setTimeout(() => setConfirmLogOut(false), 5000);
+              }
+            }}
+          >
+            <MdLogout size={25} />
+            <span className={style.logOutText}>Logout</span>
+          </div>
         </div>
       </div>
     </nav>

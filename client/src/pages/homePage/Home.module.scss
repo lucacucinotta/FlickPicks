@@ -10,7 +10,6 @@
 
     .mainBurger {
         background-color: #01172c;
-        background-color: #01172c;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -71,10 +70,24 @@
 }
 
 @media only screen and (min-width:1024px) {
+    .link {
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: #0074e4;
+        }
+    }
+
     .container {
         .up {
+            transition: all 0.3s ease;
+
             .titleSlider {
                 font-size: 30px;
+            }
+
+            &:hover {
+                color: #0074e4;
             }
         }
 

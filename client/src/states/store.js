@@ -4,6 +4,8 @@ import { persistStore } from "redux-persist";
 import burgerMenuReducer from "./burgerMenu";
 import persistedGenresReducer from "./genres";
 import movieSectionsReducer from "./movieSections";
+import userDataReducer from "./userData";
+import reloadValueReducer from "./reloadValue";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     burgerMenuState: burgerMenuReducer,
     genresState: persistedGenresReducer,
     movieSectionsState: movieSectionsReducer,
+    userDataState: userDataReducer,
+    reloadValueState: reloadValueReducer,
   },
 });
 

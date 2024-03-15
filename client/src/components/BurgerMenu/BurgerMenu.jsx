@@ -1,21 +1,26 @@
 import SearchInput from "../../components/SearchInput/SearchInput";
 import style from "./BurgerMenu.module.scss";
-import { IoMdSettings } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideBurgerMenu } from "../../states/burgerMenu";
+import { logOut } from "../../states/log";
 
 export default function BurgerMenu() {
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
   const [isGenresDropdownMenuOpen, setIsGenresDropdownMenuOpen] =
     useState(false);
 
+  const [confirmLogOut, setConfirmLogOut] = useState(false);
+
   const { movieSections } = useSelector((state) => state.movieSectionsState);
   const { genresList } = useSelector((state) => state.genresState);
+
+  const { userData } = useSelector((state) => state.userDataState);
 
   const dispatch = useDispatch();
 
@@ -40,6 +45,13 @@ export default function BurgerMenu() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const logginOut = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    dispatch(logOut());
+    dispatch(hideBurgerMenu());
+    navigate("/");
+  };
 
   return (
     <div className={style.container}>
@@ -146,20 +158,36 @@ export default function BurgerMenu() {
           )}
         </div>
       </div>
-      <div className={style.userDiv}>
-        <Link to="/account" className={style.link}>
-          <div className={style.authDiv}>
-            <MdAccountCircle size={25} className={style.authIcon} />
-            <span className={style.authText}>Account</span>
-          </div>
-        </Link>
+      <div className={style.profileContainer}>
+        <div
+          className={style.profileDiv}
+          onClick={() => {
+            navigate(`/profile/${userData.userID}`);
+            dispatch(hideBurgerMenu());
+          }}
+        >
+          <MdAccountCircle size={25} className={style.authIcon} />
+          <span className={style.profileText}>Profile</span>
+        </div>
 
-        <Link to="/settings" className={style.link}>
-          <div className={style.authDiv}>
-            <IoMdSettings size={25} className={style.authIcon} />
-            <span className={style.authText}>Settings</span>
-          </div>
-        </Link>
+        <div
+          className={
+            confirmLogOut
+              ? `${style.confirmLogOut} ${style.logOutDiv}`
+              : style.logOutDiv
+          }
+          onClick={() => {
+            if (confirmLogOut) {
+              logginOut();
+            } else if (!confirmLogOut) {
+              setConfirmLogOut(true);
+              setTimeout(() => setConfirmLogOut(false), 5000);
+            }
+          }}
+        >
+          <MdLogout size={25} />
+          <span className={style.logOutText}>Logout</span>
+        </div>
       </div>
     </div>
   );

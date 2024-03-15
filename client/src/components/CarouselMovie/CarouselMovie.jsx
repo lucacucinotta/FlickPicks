@@ -119,6 +119,6 @@ function CarouselMovie({ data, type }) {
 
 export default CarouselMovie;
 CarouselMovie.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   type: PropTypes.string.isRequired,
 };

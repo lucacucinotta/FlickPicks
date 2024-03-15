@@ -5,6 +5,7 @@ import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import Arrow from "../../components/Arrow/Arrow";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../components/Error/Error";
 import style from "./SearchPage.module.scss";
 import fetchMovie from "./utils";
 import { useQuery } from "react-query";
@@ -28,7 +29,7 @@ export default function DiscoverPage() {
     setPage(countQuery);
   }, [countQuery]);
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: [query, page],
     queryFn: () => fetchMovie(query, page),
     refetchOnWindowFocus: false,
@@ -39,8 +40,8 @@ export default function DiscoverPage() {
   }
 
   if (error) {
-    navigate("*");
     console.log(error);
+    return <Error refetch={refetch} />;
   }
 
   return (
@@ -104,7 +105,7 @@ export default function DiscoverPage() {
             )}
           </div>
         )}
-        <Arrow />
+        {data.results && data.results.length > 5 && <Arrow />}
       </main>
       <Footer />
     </div>

@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const router = require("./routes/userRoute.js");
+const getRouter = require("./routes/getRoutes");
+const putRouter = require("./routes/putRoutes");
+const postRouter = require("./routes/postRoutes");
 const cookieParser = require("cookie-parser");
 
 app.use(
@@ -15,6 +17,8 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(router);
+app.use(postRouter);
+app.use(getRouter);
+app.use(putRouter);
 
 module.exports = app;

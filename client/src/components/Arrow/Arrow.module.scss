@@ -9,9 +9,16 @@
     .icon {
         color: white;
         cursor: pointer;
+        transition: all 0.5s ease;
 
-        &:hover {
-            color: #0074e4;
+        &:active {
+            transform: scale(1.5);
         }
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .icon:hover {
+        color: #0074e4;
     }
 }

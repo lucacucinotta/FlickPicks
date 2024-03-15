@@ -47,13 +47,18 @@
                 color: #0074e4;
             }
         }
+
+        .boxSlideActive {
+            color: #0074e4;
+        }
     }
 
-    .authContainer {
+    .profileContainer {
         align-items: center;
         gap: 5px;
 
-        .authDiv {
+        .profileDiv,
+        .logOutDiv {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -61,32 +66,34 @@
             border-radius: 20px;
             padding: 5px;
 
-            .authText {
+            .profileText,
+            .logOutText {
                 font-size: 15px;
                 font-weight: 500;
             }
+
+            &:active {
+                transform: scale(0.96);
+            }
         }
 
-        .authDiv:hover {
-            background-color: #0074e4;
-            transition: all 0.3s ease;
-        }
-
-        .authDiv:active {
-            transform: scale(0.96);
+        .confirmLogOut {
+            background-color: red;
         }
     }
 }
 
 @media only screen and (max-width: 499.98px) {
-    .authContainer {
+
+    .profileContainer {
         display: none;
     }
 
 }
 
 @media only screen and (min-width:500px) {
-    .authContainer {
+
+    .profileContainer {
         display: flex;
     }
 }
@@ -104,8 +111,10 @@
             }
         }
 
-        .authContainer {
-            .authText {
+        .profileContainer {
+
+            .profileText,
+            .logOutText {
                 display: none;
             }
         }
@@ -127,6 +136,19 @@
                 .boxSlide {
                     display: flex;
                 }
+            }
+        }
+
+        .profileContainer {
+
+            .profileDiv:hover,
+            .logOutDiv:hover {
+                background-color: #0074e4;
+                transition: all 0.3s ease;
+            }
+
+            .confirmLogOut:hover {
+                background-color: red;
             }
         }
     }

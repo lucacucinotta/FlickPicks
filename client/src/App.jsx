@@ -7,7 +7,8 @@ import GenresPage from "./pages/genresPage/GenresPage.jsx";
 import SectionPage from "./pages/sectionPage/SectionPage.jsx";
 import SearchPage from "./pages/searchPage/SearchPage.jsx";
 import MoviePage from "./pages/moviePage/MoviePage.jsx";
-import AccountPage from "./pages/accountPage/AccountPage.jsx";
+import ProfilePage from "./pages/profilePage/ProfilePage.jsx";
+import UserListsPage from "./pages/userListsPage/UserListsPage.jsx";
 import "./index.scss";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     axios.defaults.withCredentials = true;
     axios
-      .get("http://localhost:8081/check-token")
+      .get("http://localhost:8081/check_token")
       .then((res) => {
         if (res.status === 200) {
           console.log(`Token check result : ${res.status}`);
@@ -51,7 +52,8 @@ function App() {
         <Route path="/discover/movies/:section" element={<SectionPage />} />
         <Route path="/discover/search" element={<SearchPage />} />
         <Route path="/movie/:movieID" element={<MoviePage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
+        <Route path="/profile/:id/:list" element={<UserListsPage />} />
         <Route path="*" element={<AccessDenied isLoggedIn={isLoggedIn} />} />
       </Routes>
     </>

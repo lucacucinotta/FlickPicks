@@ -3,6 +3,15 @@
     flex-direction: column;
     min-height: 100vh;
 
+    .mainBurger {
+        background-color: #01172c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 0;
+    }
+
     main {
         flex-grow: 1;
         display: flex;
@@ -25,7 +34,7 @@
             }
 
             button {
-                padding: 5px 15px;
+                padding: 5px 15px; //10 15
                 width: fit-content;
                 background-color: #0074e4;
                 color: white;
@@ -36,15 +45,18 @@
                 cursor: pointer;
                 transition: all 0.2s ease;
 
+                &:active {
+                    transform: scale(0.96)
+                }
             }
+        }
+    }
+}
 
-            button:active {
-                transform: scale(0.96)
-            }
-
-            button:hover {
-                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
-            }
+@media screen and (max-width: 499.98px) {
+    .container {
+        p {
+            max-width: 300px;
         }
     }
 }
@@ -96,6 +108,10 @@
 
         button {
             font-size: 25px;
+
+            &:hover {
+                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
+            }
         }
     }
 }

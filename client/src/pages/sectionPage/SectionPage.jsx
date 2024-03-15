@@ -4,6 +4,7 @@ import Card from "../../components/Card/Card";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import Arrow from "../../components/Arrow/Arrow";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../components/Error/Error";
 import style from "./SectionPage.module.scss";
 import fetchMovie from "./utils";
 import { useQuery } from "react-query";
@@ -46,7 +47,7 @@ export default function DiscoverPage() {
       break;
   }
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: [url, page],
     queryFn: () => fetchMovie(url, page),
     refetchOnWindowFocus: false,
@@ -57,8 +58,8 @@ export default function DiscoverPage() {
   }
 
   if (error) {
-    navigate("*");
     console.log(error);
+    return <Error refetch={refetch} />;
   }
 
   return (
@@ -99,7 +100,7 @@ export default function DiscoverPage() {
             </div>
           </div>
         )}
-        <Arrow />
+        {!isShown && <Arrow />}
       </main>
       <Footer />
     </div>

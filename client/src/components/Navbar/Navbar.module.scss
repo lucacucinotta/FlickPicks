@@ -30,16 +30,13 @@
             cursor: pointer;
             border-radius: 20px;
             padding: 5px;
-        }
-
-        .authDiv:hover {
-            background-color: #0074e4;
             transition: all 0.3s ease;
+
+            &:active {
+                transform: scale(0.96);
+            }
         }
 
-        .authDiv:active {
-            transform: scale(0.96);
-        }
     }
 }
 
@@ -47,6 +44,14 @@
     .authContainer {
         .authText {
             display: none;
+        }
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .authContainer {
+        .authDiv:hover {
+            background-color: #0074e4;
         }
     }
 }

@@ -40,14 +40,14 @@ const userJoiSchema = Joi.object({
     .empty()
     .regex(/^(?=.*[A-Za-z])[A-Za-z0-9_-]{4,20}$/)
     .messages({
-      "string.empty": "Please enter a username",
-      "string.pattern.base": "Invalid username. Please retry",
+      "string.empty": "Please enter a username.",
+      "string.pattern.base": "Invalid username. Please retry.",
     }),
   email: Joi.string()
     .empty()
     .regex(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)
     .messages({
-      "string.empty": "Please enter an email address",
+      "string.empty": "Please enter an email address.",
       "string.pattern.base": "Invalid email address. Please retry.",
     }),
   password: Joi.string()
@@ -56,7 +56,7 @@ const userJoiSchema = Joi.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     )
     .messages({
-      "string.empty": "Please enter a password",
+      "string.empty": "Please enter a password.",
       "string.pattern.base": "Invalid password. Please retry.",
     }),
 });

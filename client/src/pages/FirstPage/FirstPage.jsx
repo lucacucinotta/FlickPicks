@@ -1,15 +1,14 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import Button from "../../components/Button/Button";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 import style from "./FirstPage.module.scss";
 
 export default function FirstPage() {
-  const navigate = useNavigate();
   const scrollDown = () => {
     window.scrollTo({
       top: window.scrollY + 1.1 * window.innerHeight,
@@ -23,7 +22,7 @@ export default function FirstPage() {
       </header>
       <main>
         <div className={style.home}>
-          <div className={style.container}>
+          <div className={style.firstPageContainer}>
             <p className={style.intro}>
               Welcome to <span className={style.title}>FlickPicks</span>
             </p>
@@ -37,7 +36,7 @@ export default function FirstPage() {
           </button>
         </div>
         <div className={style.functionalities}>
-          <div className={style.container}>
+          <div className={style.secondPageContainer}>
             <div className={style.featureDiv}>
               <div className={style.feature}>
                 <MdLocalMovies size={70} className={style.featureIcon} />
@@ -63,16 +62,7 @@ export default function FirstPage() {
             </div>
             <div className={style.signIn}>
               <p>Start exploring cinema on FlickPicks today!</p>
-              {/* <Link to="/signup"> */}
-              <button
-                onClick={() => {
-                  navigate("/signup");
-                  window.scrollTo(0, 0);
-                }}
-              >
-                Sign Up
-              </button>
-              {/* </Link> */}
+              <Button text={"Sign Up"} link={"/signup"} />
             </div>
           </div>
         </div>
