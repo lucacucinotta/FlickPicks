@@ -13,6 +13,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { Helmet } from "react-helmet";
 
 export default function DiscoverPage() {
   const [page, setPage] = useState(1);
@@ -46,6 +47,9 @@ export default function DiscoverPage() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Search | FlickPicks</title>
+      </Helmet>
       <NavbarLogged />
       <main
         className={

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
 import { change } from "../../states/userData";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -122,6 +123,9 @@ export default function Home() {
   }
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Homepage | FlickPicks</title>
+      </Helmet>
       <header>
         <NavbarLogged />
       </header>

@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export default function UserListsPage() {
   const { isShown } = useSelector((state) => state.burgerMenuState);
@@ -93,6 +94,9 @@ export default function UserListsPage() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>{listName} | FlickPicks</title>
+      </Helmet>
       <NavbarLogged />
       <main className={isShown ? style.mainBurger : null}>
         {isShown ? (

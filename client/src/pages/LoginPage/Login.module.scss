@@ -18,7 +18,7 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
             border-radius: 10px;
-            margin-top: 20px;
+            margin: 20px 20px 0 20px;
             width: fit-content;
 
             .alert {
@@ -79,23 +79,6 @@
                     position: absolute;
                     right: 0;
                 }
-            }
-
-            button {
-                padding: 10px 15px;
-                width: fit-content;
-                background-color: #0074e4;
-                color: white;
-                font-family: 'Montserrat', sans-serif;
-                font-weight: 400;
-                border-radius: 20px; //10
-                border: none;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            button:active {
-                transform: scale(0.96)
             }
         }
 
@@ -183,10 +166,6 @@
             &::placeholder {
                 font-size: 16px;
             }
-        }
-
-        button:hover {
-            box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
         }
     }
 

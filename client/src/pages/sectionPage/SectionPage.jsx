@@ -11,6 +11,7 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 export default function DiscoverPage() {
   const { isShown } = useSelector((state) => state.burgerMenuState);
@@ -64,6 +65,9 @@ export default function DiscoverPage() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>{sectionName} | FlickPicks</title>
+      </Helmet>
       <NavbarLogged />
       <main className={isShown ? style.mainBurger : null}>
         {isShown ? (

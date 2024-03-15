@@ -4,6 +4,7 @@ import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import style from "./ProfilePage.module.scss";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function AccountPage() {
   const { isShown } = useSelector((state) => state.burgerMenuState);
@@ -16,6 +17,9 @@ export default function AccountPage() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Profile | FlickPicks</title>
+      </Helmet>
       <NavbarLogged />
       <main className={isShown ? style.mainBurger : null}>
         {isShown ? (

@@ -13,6 +13,7 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function GenresPage() {
   const date = new Date();
@@ -94,6 +95,9 @@ export default function GenresPage() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>{newGenresName} | FlickPicks</title>
+      </Helmet>
       <NavbarLogged />
       <main className={isShown ? style.mainBurger : null}>
         {isShown ? (
