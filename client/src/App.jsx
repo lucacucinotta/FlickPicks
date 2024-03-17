@@ -48,12 +48,66 @@ function App() {
           path="/signup"
           element={isLoggedIn ? <Navigate replace to={"/"} /> : <SignUp />}
         />
-        <Route path="/genres/:genresName" element={<GenresPage />} />
-        <Route path="/discover/movies/:section" element={<SectionPage />} />
-        <Route path="/discover/search" element={<SearchPage />} />
-        <Route path="/movie/:movieID" element={<MoviePage />} />
-        <Route path="/profile/:id" element={<ProfilePage />} />
-        <Route path="/profile/:id/:list" element={<UserListsPage />} />
+        <Route
+          path="/genres/:genresName"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <GenresPage />
+            )
+          }
+        />
+        <Route
+          path="/discover/movies/:section"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <SectionPage />
+            )
+          }
+        />
+        <Route
+          path="/discover/search"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <SearchPage />
+            )
+          }
+        />
+        <Route
+          path="/movie/:movieID"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <MoviePage />
+            )
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <ProfilePage />
+            )
+          }
+        />
+        <Route
+          path="/profile/:id/:list"
+          element={
+            !isLoggedIn ? (
+              <AccessDenied isLoggedIn={isLoggedIn} />
+            ) : (
+              <UserListsPage />
+            )
+          }
+        />
         <Route path="*" element={<AccessDenied isLoggedIn={isLoggedIn} />} />
       </Routes>
     </>

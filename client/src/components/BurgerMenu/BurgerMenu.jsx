@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideBurgerMenu } from "../../states/burgerMenu";
 import { logOut } from "../../states/log";
+import axios from "axios";
 
 export default function BurgerMenu() {
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
@@ -46,8 +47,9 @@ export default function BurgerMenu() {
     };
   }, []);
 
-  const logginOut = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  const logginOut = async () => {
+    const res = await axios.post("https://flickpicks-6ifw.onrender.com/logout");
+    console.log(res);
     dispatch(logOut());
     dispatch(hideBurgerMenu());
     navigate("/");

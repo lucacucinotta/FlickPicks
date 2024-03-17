@@ -12,7 +12,6 @@ jest.mock("../../models/userSchema", () => {
     User: {
       ...originalModel.User,
       create: jest.fn(),
-      exists: jest.fn(),
       findOne: jest.fn(),
     },
   };
@@ -21,6 +20,7 @@ jest.mock("../../models/userSchema", () => {
 jest.mock("bcrypt", () => ({
   hash: jest.fn(),
   compare: jest.fn(),
+  genSalt: jest.fn(),
 }));
 
 beforeEach(() => {
@@ -134,6 +134,53 @@ describe("POST", () => {
         );
       });
     });
+    describe("tests on already use credentials", () => {
+      test("should return 409 if username is already in use", async () => {
+        const userData = {
+          username: "username",
+          email: "exam@email.com",
+          password: "Password0!",
+        };
+
+        User.findOne.mockImplementation(async (query) => {
+          if (query.username === userData.username) {
+            return { username: userData.username };
+          }
+          return null;
+        });
+
+        const response = await request(app)
+          .post("/signup")
+          .send(userData)
+          .expect(409);
+
+        expect(response.body.errMessage).toBeTruthy();
+        expect(response.body.errMessage).toContain("Username already in use.");
+      });
+
+      test("should return 409 if email is already in use", async () => {
+        const userData = {
+          username: "user_name",
+          email: "example@email.com",
+          password: "Password0!",
+        };
+
+        User.findOne.mockImplementation(async (query) => {
+          if (query.email === userData.email) {
+            return { email: userData.email };
+          }
+          return null;
+        });
+
+        const response = await request(app)
+          .post("/signup")
+          .send(userData)
+          .expect(409);
+
+        expect(response.body.errMessage).toBeTruthy();
+        expect(response.body.errMessage).toContain("Email already in use.");
+      });
+    });
 
     test("should return 201 if user was created", async () => {
       const userData = {
@@ -141,6 +188,11 @@ describe("POST", () => {
         email: "example@email.com",
         password: "Password0!",
       };
+
+      User.findOne.mockResolvedValue();
+
+      const mockSalt = "mocked_salt";
+      bcrypt.genSalt.mockResolvedValue(mockSalt);
       bcrypt.hash.mockResolvedValue("mockedHashValue");
 
       const mockUserBack = {
@@ -167,56 +219,15 @@ describe("POST", () => {
       expect(response.body).toEqual(mockUserBack);
     });
 
-    test("should return 409 if username is already in use", async () => {
-      const userData = {
-        username: "username",
-        email: "exam@email.com",
-        password: "Password0!",
-      };
-
-      User.exists.mockResolvedValue(true);
-      User.create.mockRejectedValue({
-        code: 11000,
-        keyValue: { username: "username" },
-      });
-
-      const response = await request(app)
-        .post("/signup")
-        .send(userData)
-        .expect(409);
-
-      expect(response.body.errMessage).toBeTruthy();
-      expect(response.body.errMessage).toContain("Username already in use.");
-    });
-
-    test("should return 409 if email is already in use", async () => {
-      const userData = {
-        username: "user_name",
-        email: "example@email.com",
-        password: "Password0!",
-      };
-
-      User.exists.mockResolvedValue(true);
-      User.create.mockRejectedValue({
-        code: 11000,
-        keyValue: { email: "example@email.com" },
-      });
-
-      const response = await request(app)
-        .post("/signup")
-        .send(userData)
-        .expect(409);
-
-      expect(response.body.errMessage).toBeTruthy();
-      expect(response.body.errMessage).toContain("Email already in use.");
-    });
-
     test("should return 500 if an internal error occurs", async () => {
       const userData = {
         username: "username",
         email: "example@email.com",
         password: "Password0!",
       };
+
+      User.findOne.mockResolvedValue();
+
       User.create.mockRejectedValue(new Error("Database error"));
 
       const response = await request(app)
@@ -325,6 +336,33 @@ describe("POST", () => {
 
       expect(response.body.errMessage).toBeTruthy();
       expect(response.body.errMessage).toContain("Internal Server Error.");
+    });
+  });
+
+  describe("POST /logout", () => {
+    test("should return 200 if logout is complete successfully", async () => {
+      const response = await request(app).post("/logout").expect(200);
+
+      expect(response.body).toHaveProperty(
+        "message",
+        "Logged out successfully!"
+      );
+    });
+
+    test("should return 500 if an internal server error is occurs", async () => {
+      const originalCookieFn = app.response.cookie;
+      app.response.cookie = jest.fn(() => {
+        throw new Error("Some internal error");
+      });
+
+      const response = await request(app)
+        .post("/logout")
+        .expect("Content-Type", /json/)
+        .expect(500);
+
+      app.response.cookie = originalCookieFn;
+
+      expect(response.body.message).toBe("Internal Server Error.");
     });
   });
 });

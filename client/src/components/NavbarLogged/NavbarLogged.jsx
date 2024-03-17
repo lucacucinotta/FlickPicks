@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { showBurgerMenu, hideBurgerMenu } from "../../states/burgerMenu";
 import { useState, useRef, useEffect } from "react";
 import { logOut } from "../../states/log";
+import axios from "axios";
 
 export default function NavbarLogged() {
   const [isMovieDropdownMenuOpen, setIsMovieDropdownMenuOpen] = useState(false);
@@ -48,8 +49,9 @@ export default function NavbarLogged() {
 
   const navigate = useNavigate();
 
-  const logginOut = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  const logginOut = async () => {
+    const res = await axios.post("https://flickpicks-6ifw.onrender.com/logout");
+    console.log(res);
     dispatch(logOut());
     navigate("/");
   };

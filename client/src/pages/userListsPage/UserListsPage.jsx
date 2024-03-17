@@ -7,12 +7,11 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../components/Error/Error";
 import Button from "../../components/Button/Button";
 import style from "./UserListsPage.module.scss";
-import fetchMovie from "./utils";
+import { getUserLists, getMovieData } from "./utils";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineMinusCircle } from "react-icons/ai";
-import axios from "axios";
 import { Helmet } from "react-helmet";
 
 export default function UserListsPage() {
@@ -48,13 +47,7 @@ export default function UserListsPage() {
     refetch: userListsRefetch,
   } = useQuery({
     queryKey: ["userData", reloadValue],
-    queryFn: async () => {
-      axios.defaults.withCredentials = true;
-      const res = await axios.get(
-        `https://flickpicks-6ifw.onrender.com/getUserLists`
-      );
-      return res.data.userLists;
-    },
+    queryFn: () => getUserLists(),
     refetchOnWindowFocus: false,
   });
 
@@ -65,16 +58,7 @@ export default function UserListsPage() {
     refetch: movieDataRefetch,
   } = useQuery({
     queryKey: [field],
-    queryFn: async () => {
-      let movieData = [];
-      if (userLists[field].length > 0) {
-        for (const id of userLists[field]) {
-          const data = await fetchMovie(id);
-          movieData.push(data);
-        }
-      }
-      return movieData;
-    },
+    queryFn: () => getMovieData(userLists, field),
     enabled: !!userLists && !!userLists[field] && userLists[field].length > 0,
     refetchOnWindowFocus: false,
   });

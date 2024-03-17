@@ -1,5 +1,4 @@
 const { User, userJoiSchema } = require("../../models/userSchema");
-const { MongoError } = require("mongodb");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -8,7 +7,15 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const signUp = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { username, email, password } = req.body;
+    const existingUsername = await User.findOne({ username: username });
+    if (existingUsername) {
+      return res.status(409).json({ errMessage: "Username already in use." });
+    }
+    const existingEmail = await User.findOne({ email: email });
+    if (existingEmail) {
+      return res.status(409).json({ errMessage: "Email already in use." });
+    }
     const { error } = userJoiSchema.validate(req.body, { abortEarly: false });
     if (error) {
       const errorMessages = error.details.map((error) => error.message);
@@ -19,11 +26,7 @@ const signUp = async (req, res) => {
     const user = await User.create({ ...req.body, password: hashPassword });
     res.status(201).json(user);
   } catch (err) {
-    if (err.code === 11000 && err.keyValue.username) {
-      return res.status(409).json({ errMessage: "Username already in use." });
-    } else if (err.code === 11000 && err.keyValue.email) {
-      return res.status(409).json({ errMessage: "Email already in use." });
-    }
+    console.log(err);
     res.status(500).json({ errMessage: "Internal Server Error." });
   }
 };
@@ -58,4 +61,16 @@ const logIn = async (req, res) => {
   }
 };
 
-module.exports = { signUp, logIn };
+const logOut = async (req, res) => {
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      expiresIn: new Date(0),
+    });
+    res.status(200).json({ message: "Logged out successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error." });
+  }
+};
+
+module.exports = { signUp, logIn, logOut };

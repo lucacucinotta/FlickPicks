@@ -30,11 +30,14 @@ export const fetchCredits = async (movieID) => {
 export const updateMovieList = async (movieID, action, list) => {
   try {
     axios.defaults.withCredentials = true;
-    const res = await axios.put("http://localhost:8081/updateMovieList", {
-      movieID: movieID,
-      action: action,
-      list: list,
-    });
+    const res = await axios.put(
+      "https://flickpicks-6ifw.onrender.com/updateMovieList",
+      {
+        movieID: movieID,
+        action: action,
+        list: list,
+      }
+    );
     return res;
   } catch (err) {
     console.log(err);

@@ -17,6 +17,10 @@ jest.mock("../../models/userSchema", () => {
   };
 });
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("PUT", () => {
   describe("PUT /updateMovieList", () => {
     test("should return 200 if a movieID is added", async () => {
