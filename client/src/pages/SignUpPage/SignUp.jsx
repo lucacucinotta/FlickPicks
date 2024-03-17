@@ -76,7 +76,7 @@ export default function Signin() {
             </div>
           </div>
         )}
-        <form className={style.formSignUp}>
+        <form className={style.formSignUp} id="signup" name="signup">
           <label htmlFor="username">Username</label>
           <div className={style.inputDiv}>
             <input

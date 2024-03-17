@@ -70,7 +70,7 @@ export default function Login() {
             </div>
           </div>
         )}
-        <form className={style.formLogin}>
+        <form className={style.formLogin} id="login" name="login">
           <label htmlFor="username">Username</label>
           <div className={style.inputDiv}>
             <input

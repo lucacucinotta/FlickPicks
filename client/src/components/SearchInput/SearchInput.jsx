@@ -10,6 +10,8 @@ export default function SearchInput({ usedFor }) {
   const navigate = useNavigate();
   return (
     <form
+      id="search"
+      name="search"
       className={
         usedFor === "Navbar"
           ? `${style.searchForm} ${style.navForm}`
