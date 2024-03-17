@@ -21,10 +21,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.1.1",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "joi": "^17.12.1"
   },
   "devDependencies": {
-    "joi": "^17.12.1",
     "nodemon": "^3.0.3"
   }
 }
