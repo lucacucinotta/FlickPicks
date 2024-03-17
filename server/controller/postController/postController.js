@@ -52,7 +52,7 @@ const logIn = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "Strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ message: "Login successfully." });
@@ -63,10 +63,7 @@ const logIn = async (req, res) => {
 
 const logOut = async (req, res) => {
   try {
-    res.cookie("token", "", {
-      httpOnly: true,
-      expiresIn: new Date(0),
-    });
+    res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully!" });
   } catch (err) {
     res.status(500).json({ message: "Internal Server Error." });

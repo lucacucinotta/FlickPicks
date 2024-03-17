@@ -1,6 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import persistedLogReducer from "./log";
-import { persistStore } from "redux-persist";
 import burgerMenuReducer from "./burgerMenu";
 import persistedGenresReducer from "./genres";
 import movieSectionsReducer from "./movieSections";
@@ -16,6 +24,12 @@ export const store = configureStore({
     userDataState: userDataReducer,
     reloadValueState: reloadValueReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

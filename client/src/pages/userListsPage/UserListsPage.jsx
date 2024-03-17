@@ -7,7 +7,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../components/Error/Error";
 import Button from "../../components/Button/Button";
 import style from "./UserListsPage.module.scss";
-import { getUserLists, getMovieData } from "./utils";
+import { fetchUserLists, getMovieData } from "./utils";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -46,8 +46,8 @@ export default function UserListsPage() {
     error: userListsError,
     refetch: userListsRefetch,
   } = useQuery({
-    queryKey: ["userData", reloadValue],
-    queryFn: () => getUserLists(),
+    queryKey: [reloadValue],
+    queryFn: () => fetchUserLists(),
     refetchOnWindowFocus: false,
   });
 
@@ -57,7 +57,7 @@ export default function UserListsPage() {
     error: movieDataError,
     refetch: movieDataRefetch,
   } = useQuery({
-    queryKey: [field],
+    queryKey: [field, reloadValue],
     queryFn: () => getMovieData(userLists, field),
     enabled: !!userLists && !!userLists[field] && userLists[field].length > 0,
     refetchOnWindowFocus: false,

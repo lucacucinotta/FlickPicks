@@ -229,15 +229,19 @@ export default function MoviePage() {
                   className={
                     isWatched ? `${style.box} ${style.boxClick}` : style.box
                   }
-                  onClick={() => {
+                  onClick={async () => {
                     if (isWatched) {
-                      updateMovieList(movieID, "remove", "watchedList");
+                      await updateMovieList(movieID, "remove", "watchedList");
                       if (isFavorite) {
-                        updateMovieList(movieID, "remove", "favoriteList");
+                        await updateMovieList(
+                          movieID,
+                          "remove",
+                          "favoriteList"
+                        );
                       }
                       dispatch(change());
                     } else {
-                      updateMovieList(movieID, "add", "watchedList");
+                      await updateMovieList(movieID, "add", "watchedList");
                       dispatch(change());
                     }
                     setReloadValue((prevState) => prevState + 1);
@@ -252,14 +256,14 @@ export default function MoviePage() {
                   className={
                     isFavorite ? `${style.box} ${style.boxClick}` : style.box
                   }
-                  onClick={() => {
+                  onClick={async () => {
                     if (isFavorite) {
-                      updateMovieList(movieID, "remove", "favoriteList");
+                      await updateMovieList(movieID, "remove", "favoriteList");
                       dispatch(change());
                     } else {
-                      updateMovieList(movieID, "add", "favoriteList");
+                      await updateMovieList(movieID, "add", "favoriteList");
                       if (!isWatched) {
-                        updateMovieList(movieID, "add", "watchedList");
+                        await updateMovieList(movieID, "add", "watchedList");
                       }
                       dispatch(change());
                     }
@@ -274,12 +278,12 @@ export default function MoviePage() {
                     className={
                       isAdded ? `${style.box} ${style.boxClick}` : style.box
                     }
-                    onClick={() => {
+                    onClick={async () => {
                       if (isAdded) {
-                        updateMovieList(movieID, "remove", "watchList");
+                        await updateMovieList(movieID, "remove", "watchList");
                         dispatch(change());
                       } else {
-                        updateMovieList(movieID, "add", "watchList");
+                        await updateMovieList(movieID, "add", "watchList");
                         dispatch(change());
                       }
                       setReloadValue((prevState) => prevState + 1);

@@ -38,7 +38,7 @@ export const updateMovieList = async (movieID, action, list) => {
         list: list,
       }
     );
-    return res;
+    console.log(res);
   } catch (err) {
     console.log(err);
   }

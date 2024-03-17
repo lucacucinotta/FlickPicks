@@ -2,7 +2,7 @@ import axios from "axios";
 
 const SECRET_TOKEN = import.meta.env.VITE_SECRET_TOKEN;
 
-export const getUserLists = async () => {
+export const fetchUserLists = async () => {
   axios.defaults.withCredentials = true;
   const res = await axios.get(
     "https://flickpicks-6ifw.onrender.com/getUserLists"
