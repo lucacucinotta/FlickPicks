@@ -13,7 +13,7 @@
         justify-content: start;
     }
 
-    main {
+    .mainClass {
         flex-grow: 1;
         min-height: calc(100vh - 75px);
         display: flex;
@@ -39,15 +39,15 @@
             padding: 20px;
             text-align: center;
 
-            h1 {
+            .title {
                 font-weight: 500;
             }
 
-            h2 {
+            .subtitle {
                 font-weight: 400;
             }
 
-            span {
+            .fullList {
                 color: #0074e4;
                 font-weight: 600;
             }
@@ -64,7 +64,7 @@
             text-align: center;
             gap: 20px;
 
-            span {
+            .fullList {
                 font-weight: 500;
             }
 
@@ -96,22 +96,22 @@
         .intro {
             width: 80%;
 
-            h1 {
+            .title {
                 font-size: 23px;
             }
 
-            h2 {
+            .subtitle {
                 font-size: 18px;
                 max-width: 350px;
             }
 
-            span {
+            .fullList {
                 font-size: 25px;
             }
         }
 
         .userListsContainer {
-            span {
+            .fullList {
                 font-size: 18px;
             }
 
@@ -133,22 +133,22 @@
         .intro {
             width: 80%;
 
-            h1 {
+            .title {
                 font-size: 25px;
             }
 
-            h2 {
+            .subtitle {
                 font-size: 20px;
                 max-width: 400px;
             }
 
-            span {
+            .fullList {
                 font-size: 27px;
             }
         }
 
         .userListsContainer {
-            span {
+            .fullList {
                 font-size: 22px;
             }
 
@@ -171,22 +171,22 @@
         .intro {
             width: 50%;
 
-            h1 {
+            .title {
                 font-size: 27px;
             }
 
-            h2 {
+            .subtitle {
                 font-size: 22px;
                 max-width: 400px;
             }
 
-            span {
+            .fullList {
                 font-size: 29px;
             }
         }
 
         .userListsContainer {
-            span {
+            .fullList {
                 font-size: 24px;
             }
 

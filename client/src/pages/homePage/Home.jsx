@@ -129,7 +129,7 @@ export default function Home() {
       <header>
         <NavbarLogged />
       </header>
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (

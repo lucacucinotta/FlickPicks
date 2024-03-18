@@ -17,7 +17,7 @@
         padding: 30px 0;
     }
 
-    main {
+    .mainClass {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -57,7 +57,7 @@
 }
 
 @media only screen and (min-width: 375px) and (max-width: 1023.98px) {
-    main {
+    .main {
         padding: 30px 0;
         gap: 30px;
     }

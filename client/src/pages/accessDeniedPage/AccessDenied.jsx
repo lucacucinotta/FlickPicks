@@ -14,7 +14,7 @@ export default function AccessDenied() {
   return (
     <div className={style.wrapper}>
       <header>{isLoggedIn ? <NavbarLogged /> : <Navbar />}</header>
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
@@ -25,7 +25,7 @@ export default function AccessDenied() {
               ) : (
                 <TbKeyOff className={style.icon} />
               )}
-              <p>
+              <p className={style.message}>
                 {isLoggedIn
                   ? "This page does not exist. Come back to home."
                   : "You have to log in to view this page."}

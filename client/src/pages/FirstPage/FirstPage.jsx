@@ -19,12 +19,12 @@ export default function FirstPage() {
   return (
     <div className={style.wrapper}>
       <Helmet>
-        <title>Let&apos;s Start| FlickPicks</title>
+        <title>Let&apos;s Start | FlickPicks</title>
       </Helmet>
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className={style.classMain}>
         <div className={style.home}>
           <div className={style.firstPageContainer}>
             <p className={style.intro}>

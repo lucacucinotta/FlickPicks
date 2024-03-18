@@ -99,12 +99,12 @@ export default function GenresPage() {
         <title>{newGenresName} | FlickPicks</title>
       </Helmet>
       <NavbarLogged />
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
           <div className={style.container}>
-            <h1>GENRES / {newGenresName}</h1>
+            <h1 className={style.title}>GENRES / {newGenresName}</h1>
             <div className={style.sortDiv}>
               Sort by :{" "}
               <SortMenu

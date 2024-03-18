@@ -12,7 +12,7 @@
         padding: 30px 0;
     }
 
-    main {
+    .mainClass {
         flex-grow: 1;
         color: white;
         font-family: "Montserrat", "sans-serif";
@@ -22,7 +22,7 @@
             flex-direction: column;
             margin: 30px 0;
 
-            h1 {
+            .title {
                 font-weight: 500;
                 text-align: center;
             }
@@ -66,7 +66,7 @@
 }
 
 @media screen and (max-width: 598.98px) {
-    h1 {
+    .title {
         font-size: 25px;
     }
 
@@ -76,7 +76,7 @@
 }
 
 @media screen and (min-width: 600px) {
-    h1 {
+    .title {
         font-size: 30px;
     }
 

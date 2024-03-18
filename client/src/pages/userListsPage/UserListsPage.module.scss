@@ -12,7 +12,7 @@
         padding: 30px 0;
     }
 
-    main {
+    .mainClass {
         flex-grow: 1;
         color: white;
         font-family: "Montserrat", "sans-serif";
@@ -22,7 +22,7 @@
             flex-direction: column;
             margin: 30px 0 0 0;
 
-            h1 {
+            .title {
                 font-weight: 500;
                 text-align: center;
             }
@@ -51,7 +51,7 @@
             }
 
             button {
-                padding: 5px 15px; //10 15
+                padding: 5px 15px;
                 width: fit-content;
                 background-color: #0074e4;
                 color: white;
@@ -71,7 +71,7 @@
 }
 
 @media screen and (max-width: 598.98px) {
-    h1 {
+    .title {
         font-size: 25px;
     }
 
@@ -81,7 +81,7 @@
 }
 
 @media screen and (min-width: 600px) {
-    h1 {
+    .title {
         font-size: 30px;
     }
 
@@ -92,11 +92,11 @@
 
 @media screen and (max-width: 767.98px) {
     .emptyList {
-        h1 {
+        .emptyListTitle {
             font-size: 20px;
         }
 
-        p {
+        .redirect {
             font-size: 15px;
         }
 
@@ -104,30 +104,22 @@
             width: 75px;
             height: 75px;
         }
-
-        button {
-            font-size: 15px;
-        }
     }
 }
 
 @media screen and (min-width:768px) {
     .emptyList {
-        h1 {
+        .emptyListTitle {
             font-size: 25px;
         }
 
-        p {
+        .redirect {
             font-size: 20px;
         }
 
         .icon {
             width: 100px;
             height: 100px;
-        }
-
-        button {
-            font-size: 20px;
         }
     }
 }
@@ -141,21 +133,13 @@
 
 @media screen and (min-width:1024px) {
     .emptyList {
-        h1 {
+        .emptyListTitle {
             font-size: 30px;
         }
 
         .icon {
             width: 150px;
             height: 150px;
-        }
-
-        button {
-            font-size: 25px;
-
-            &:hover {
-                box-shadow: 0 0 0 2px #01172c, 0 0 0 4px #0074e4;
-            }
         }
     }
 }

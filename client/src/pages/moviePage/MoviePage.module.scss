@@ -12,7 +12,7 @@
         padding: 30px 0;
     }
 
-    main {
+    .mainClass {
         flex-grow: 1;
         color: white;
         font-family: "Montserrat", "sans-serif";
@@ -33,7 +33,7 @@
                 gap: 10px;
 
                 .card {
-                    img {
+                    .locandine {
                         width: 100%;
                         border-radius: 5px;
                     }
@@ -69,7 +69,7 @@
                 .lastInfo {
                     font-weight: 600;
 
-                    span {
+                    .director {
                         font-weight: 400;
                     }
                 }
@@ -149,7 +149,7 @@
             }
 
             .rightSide {
-                h1 {
+                .movieTitle {
                     font-size: 15px;
                 }
 
@@ -192,7 +192,7 @@
             }
 
             .rightSide {
-                h1 {
+                .movieTitle {
                     font-size: 20px;
                 }
 
@@ -246,7 +246,7 @@
             }
 
             .rightSide {
-                h1 {
+                .movieTitle {
                     font-size: 25px;
                 }
 
@@ -285,7 +285,7 @@
             }
 
             .rightSide {
-                h1 {
+                .movieTitle {
                     font-size: 30px;
                     max-width: 500px;
                 }
@@ -314,7 +314,7 @@
     .mainContainer {
         .container {
             .rightSide {
-                h1 {
+                .movieTitle {
                     max-width: 600px;
                 }
 
@@ -330,7 +330,7 @@
     .mainContainer {
         .container {
             .rightSide {
-                h1 {
+                .movieTitle {
                     max-width: 700px;
                 }
 
@@ -351,7 +351,7 @@
             }
 
             .rightSide {
-                h1 {
+                .movieTitle {
                     max-width: 750px;
                 }
 

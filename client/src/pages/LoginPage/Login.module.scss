@@ -3,7 +3,7 @@
     flex-direction: column;
     min-height: 100vh;
 
-    main {
+    .mainClass {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -53,7 +53,7 @@
                 align-items: center;
                 position: relative;
 
-                input {
+                .inputClass {
                     background: transparent;
                     height: auto;
                     border: none;
@@ -63,15 +63,15 @@
                     color: white;
                     transition: all 0.3s ease-in-out;
                     border-bottom: 3px solid rgba(255, 255, 255, .2);
-                }
 
-                input::placeholder {
-                    font-family: 'Montserrat', sans-serif;
-                    color: #98bad9;
-                }
+                    &::placeholder {
+                        font-family: 'Montserrat', sans-serif;
+                        color: #98bad9;
+                    }
 
-                input:focus {
-                    border-bottom: 3px solid #0074e4;
+                    &:focus {
+                        border-bottom: 3px solid #0074e4;
+                    }
                 }
 
                 .formIcon {
@@ -101,11 +101,11 @@
     }
 
     .formLogin {
-        label {
+        .labelClass {
             font-size: 25px;
         }
 
-        input {
+        .inputClass {
             width: 250px;
             font-size: 12px;
 
@@ -126,11 +126,11 @@
     }
 
     .formLogin {
-        label {
+        .labelClass {
             font-size: 30px;
         }
 
-        input {
+        .inputClass {
             width: 350px;
             font-size: 14px;
 
@@ -155,11 +155,11 @@
     .formLogin {
         gap: 35px;
 
-        label {
+        .labelClass {
             font-size: 35px;
         }
 
-        input {
+        .inputClas {
             width: 550px;
             font-size: 16px;
 

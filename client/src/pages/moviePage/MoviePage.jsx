@@ -104,7 +104,7 @@ export default function MoviePage() {
   return (
     <div className={style.wrapper}>
       <NavbarLogged />
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
@@ -122,6 +122,7 @@ export default function MoviePage() {
               <div className={style.container}>
                 <div className={style.card}>
                   <img
+                    className={style.locandine}
                     src={
                       movieData.poster_path
                         ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`
@@ -130,7 +131,7 @@ export default function MoviePage() {
                   />
                 </div>
                 <div className={style.rightSide}>
-                  <h1>{movieData.title}</h1>
+                  <h1 className={style.movieTitle}>{movieData.title}</h1>
 
                   <div className={style.extraInfo}>
                     <span>
@@ -159,7 +160,7 @@ export default function MoviePage() {
                     <div className={style.lastInfo}>
                       <p>
                         Directed by :{" "}
-                        <span>
+                        <span className={style.director}>
                           {" "}
                           {
                             credits.crew.find(

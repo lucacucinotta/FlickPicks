@@ -84,14 +84,14 @@ export default function UserListsPage() {
         <title>{listName} | FlickPicks</title>
       </Helmet>
       <NavbarLogged />
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
           <>
             {movieData ? (
               <div className={style.container}>
-                <h1>{listName}</h1>
+                <h1 className={style.title}>{listName}</h1>
                 <div className={style.gridContainer}>
                   {movieData.reverse().map((item, i) => (
                     <Card key={i} data={item} showMoreInfo={false} />
@@ -102,8 +102,8 @@ export default function UserListsPage() {
               <div className={style.emptyList}>
                 <AiOutlineMinusCircle className={style.icon} />
                 <div className={style.text}>
-                  <h1>This list is empty!</h1>
-                  <p>
+                  <h1 className={style.emptyListTitle}>This list is empty!</h1>
+                  <p className={style.redirect}>
                     Come back to home and discover new movie to add in this
                     list.
                   </p>

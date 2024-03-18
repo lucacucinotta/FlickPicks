@@ -21,23 +21,25 @@ export default function AccountPage() {
         <title>Profile | FlickPicks</title>
       </Helmet>
       <NavbarLogged />
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
           <>
             <div className={style.intro}>
-              <h1>
+              <h1 className={style.title}>
                 Welcome, <span>{userData.username}</span>
               </h1>
-              <h2>
+              <h2 className={style.subtitle}>
                 Here you can get all the movie&apos;s lists that you have been
                 created.
               </h2>
             </div>
 
             <div className={style.userListsContainer}>
-              <span>Clicks to see the full list</span>
+              <span className={style.fullList}>
+                Clicks to see the full list
+              </span>
               <div className={style.boxContainer}>
                 <div
                   className={style.box}

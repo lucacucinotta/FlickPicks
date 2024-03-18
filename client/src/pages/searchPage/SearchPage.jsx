@@ -56,7 +56,7 @@ export default function DiscoverPage() {
           isShown
             ? style.mainBurger
             : data.results.length >= 1
-            ? null
+            ? style.mainClass
             : style.mainNoResults
         }
       >
@@ -66,7 +66,9 @@ export default function DiscoverPage() {
           <div className={style.container}>
             {data.results.length >= 1 ? (
               <>
-                <h1>Showing result for : &quot;{query}&quot;</h1>
+                <h1 className={style.title}>
+                  Showing result for : &quot;{query}&quot;
+                </h1>
                 <div className={style.gridContainer}>
                   {data.results.map((item, i) => (
                     <Card key={i} data={item} />
@@ -75,6 +77,7 @@ export default function DiscoverPage() {
                 <div className={style.changePageContainer}>
                   {page > 1 && (
                     <button
+                      className={style.changePageBtn}
                       onClick={() => {
                         setPage((prevState) => prevState - 1);
                         navigate(
@@ -87,6 +90,7 @@ export default function DiscoverPage() {
                   )}
                   {data.total_pages !== page && (
                     <button
+                      className={style.changePageBtn}
                       onClick={() => {
                         setPage((prevState) => prevState + 1);
                         navigate(
@@ -102,8 +106,12 @@ export default function DiscoverPage() {
             ) : (
               <div className={style.noResultDiv}>
                 <AiOutlineCloseCircle className={style.icon} />
-                <h1>There are no results for &quot;{query}&quot;</h1>
-                <p>Please retry with another search.</p>
+                <h1 className={style.noResultTitle}>
+                  There are no results for &quot;{query}&quot;
+                </h1>
+                <p className={style.retryMessage}>
+                  Please retry with another search.
+                </p>
                 <SearchInput usedFor={"SearchPage"} />
               </div>
             )}

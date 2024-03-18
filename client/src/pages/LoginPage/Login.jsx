@@ -58,7 +58,7 @@ export default function Login() {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className={style.mainClass}>
         {error && (
           <div className={style.errorDiv} ref={errorRef}>
             <div className={style.alert}>
@@ -71,10 +71,14 @@ export default function Login() {
           </div>
         )}
         <form className={style.formLogin} id="login" name="login">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username" className={style.labelClass}>
+            Username
+          </label>
           <div className={style.inputDiv}>
             <input
+              className={style.inputClass}
               type="text"
+              id="username"
               name="username"
               placeholder="Insert here your username"
               autoComplete="off"
@@ -83,10 +87,14 @@ export default function Login() {
             />
             <MdAlternateEmail size={20} className={style.formIcon} />
           </div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className={style.labelClass}>
+            Password
+          </label>
           <div className={style.inputDiv}>
             <input
+              className={style.inputClass}
               type="password"
+              id="password"
               name="password"
               placeholder="Insert here your password"
               autoComplete="off"

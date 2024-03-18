@@ -69,12 +69,12 @@ export default function DiscoverPage() {
         <title>{sectionName} | FlickPicks</title>
       </Helmet>
       <NavbarLogged />
-      <main className={isShown ? style.mainBurger : null}>
+      <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
           <div className={style.container}>
-            <h1>{sectionName}</h1>
+            <h1 className={style.title}>{sectionName}</h1>
             <div className={style.gridContainer}>
               {data.map((item, i) => (
                 <Card key={i} data={item} />
@@ -83,6 +83,7 @@ export default function DiscoverPage() {
             <div className={style.changePageContainer}>
               {page > 1 && (
                 <button
+                  className={style.changePageBtn}
                   onClick={() => {
                     setPage((prevState) => prevState - 1);
                     navigate(`/discover/movies/${section}/?page=${page - 1}`);
@@ -93,6 +94,7 @@ export default function DiscoverPage() {
               )}
               {data.total_pages !== page && (
                 <button
+                  className={style.changePageBtn}
                   onClick={() => {
                     setPage((prevState) => prevState + 1);
                     navigate(`/discover/movies/${section}?page=${page + 1}`);
