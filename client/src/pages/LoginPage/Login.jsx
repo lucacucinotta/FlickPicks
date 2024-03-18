@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../states/log";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -55,6 +56,9 @@ export default function Login() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Login | FlickPicks</title>
+      </Helmet>
       <header>
         <Navbar />
       </header>

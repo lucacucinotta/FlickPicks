@@ -9,6 +9,7 @@ import { MdAlternateEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { useState, useRef, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 export default function Signin() {
   const [showPassReq, setShowPassReq] = useState(false);
@@ -59,6 +60,9 @@ export default function Signin() {
 
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Signup | FlickPicks</title>
+      </Helmet>
       <header>
         <Navbar />
       </header>
