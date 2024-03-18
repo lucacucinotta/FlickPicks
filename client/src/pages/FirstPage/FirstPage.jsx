@@ -5,6 +5,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 import style from "./FirstPage.module.scss";
 
@@ -17,6 +18,9 @@ export default function FirstPage() {
   };
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>Let&apos;s Start| FlickPicks</title>
+      </Helmet>
       <header>
         <Navbar />
       </header>
