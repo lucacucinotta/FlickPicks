@@ -1,4 +1,4 @@
-<div align="center"><img src="src/assets/img/logo.png" width="150px"></div>
+<div align="center"><img src="/client/src/assets/logo.png" width="150px"></div>
 <h1 align="center">Flick Picks</h1>
 <br>
 <p align="center">

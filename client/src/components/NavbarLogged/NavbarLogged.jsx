@@ -50,10 +50,16 @@ export default function NavbarLogged() {
   const navigate = useNavigate();
 
   const logginOut = async () => {
-    const res = await axios.post("https://flickpicks-6ifw.onrender.com/logout");
-    console.log(res);
-    dispatch(logOut());
-    navigate("/");
+    try {
+      const res = await axios.post(
+        "https://flickpicks-6ifw.onrender.com/logout"
+      );
+      console.log(res);
+      dispatch(logOut());
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

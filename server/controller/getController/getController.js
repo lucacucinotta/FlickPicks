@@ -40,14 +40,9 @@ const checkMovieID = async (req, res) => {
     if (user.watchList.includes(movieID)) {
       listTypes.push("watchList");
     }
-
-    if (listTypes.length > 0) {
-      res
-        .status(200)
-        .json({ isInLists: listTypes.length > 0, listTypes: listTypes });
-    } else {
-      res.status(404).json({ message: "MovieID not found." });
-    }
+    res
+      .status(200)
+      .json({ isInLists: listTypes.length > 0, listTypes: listTypes });
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({ errMessage: "Invalid token." });

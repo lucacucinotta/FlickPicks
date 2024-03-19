@@ -21,17 +21,23 @@ import { change } from "../../states/reloadValue";
 export default function MoviePage() {
   const [showMore, setShowMore] = useState(false);
 
-  const [isWatched, setIsWatched] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
+  const { movieID } = useParams();
+
+  const [isWatched, setIsWatched] = useState(
+    JSON.parse(localStorage.getItem(`${movieID}isWatched`) || "false")
+  );
+  const [isFavorite, setIsFavorite] = useState(
+    JSON.parse(localStorage.getItem(`${movieID}isFavorite`) || "false")
+  );
+  const [isAdded, setIsAdded] = useState(
+    JSON.parse(localStorage.getItem(`${movieID}isAdded`) || "false")
+  );
 
   const [reloadValue, setReloadValue] = useState(0);
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const dispatch = useDispatch();
-
-  const { movieID } = useParams();
 
   const {
     data: movieData,
@@ -63,16 +69,23 @@ export default function MoviePage() {
         const res = await axios.get(
           `https://flickpicks-6ifw.onrender.com/checkMovieID/${movieID}`
         );
-        if (res.data.listTypes) {
-          setIsWatched(res.data.listTypes.includes("watchedList"));
-          setIsFavorite(res.data.listTypes.includes("favoriteList"));
-          setIsAdded(res.data.listTypes.includes("watchList"));
-        }
+        localStorage.setItem(
+          `${movieID}isWatched`,
+          JSON.stringify(res.data.listTypes.includes("watchedList"))
+        );
+        setIsWatched(res.data.listTypes.includes("watchedList"));
+        localStorage.setItem(
+          `${movieID}isFavorite`,
+          JSON.stringify(res.data.listTypes.includes("favoriteList"))
+        );
+        setIsFavorite(res.data.listTypes.includes("favoriteList"));
+        localStorage.setItem(
+          `${movieID}isAdded`,
+          JSON.stringify(res.data.listTypes.includes("watchList"))
+        );
+        setIsAdded(res.data.listTypes.includes("watchList"));
       } catch (err) {
         console.log(err);
-        setIsWatched(false);
-        setIsFavorite(false);
-        setIsAdded(false);
       }
     };
 

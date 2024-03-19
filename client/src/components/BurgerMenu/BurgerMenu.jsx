@@ -48,11 +48,16 @@ export default function BurgerMenu() {
   }, []);
 
   const logginOut = async () => {
-    const res = await axios.post("https://flickpicks-6ifw.onrender.com/logout");
-    console.log(res);
-    dispatch(logOut());
-    dispatch(hideBurgerMenu());
-    navigate("/");
+    try {
+      const res = await axios.post(
+        "https://flickpicks-6ifw.onrender.com/logout"
+      );
+      console.log(res);
+      dispatch(logOut());
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -26,7 +26,6 @@ const signUp = async (req, res) => {
     const user = await User.create({ ...req.body, password: hashPassword });
     res.status(201).json(user);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errMessage: "Internal Server Error." });
   }
 };

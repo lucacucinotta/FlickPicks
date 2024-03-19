@@ -28,7 +28,8 @@ export default function AccountPage() {
           <>
             <div className={style.intro}>
               <h1 className={style.title}>
-                Welcome, <span>{userData.username}</span>
+                Welcome,{" "}
+                <span className={style.username}>{userData.username}</span>
               </h1>
               <h2 className={style.subtitle}>
                 Here you can get all the movie&apos;s lists that you have been

@@ -57,7 +57,7 @@ describe("GET", () => {
   });
 
   describe("GET /checkMovieID/:movieID", () => {
-    test("should return 200 if the ID is contained in lists", async () => {
+    test("should return 200 when an authenticated user make an request", async () => {
       const movieID = "123";
       const user = {
         _id: 123,
@@ -80,27 +80,6 @@ describe("GET", () => {
         isInLists: true,
         listTypes: ["watchedList"],
       });
-    });
-
-    test("should return 404 if the ID doesn't contained in lists", async () => {
-      const movieID = "123";
-      const user = {
-        username: "username",
-        email: "email@example.com",
-        password: "password",
-        watchedList: [],
-        favoriteList: [],
-        watchList: [],
-      };
-      const token = jwt.sign({ username: user.username }, SECRET_KEY);
-
-      User.findOne.mockResolvedValue(user);
-
-      const response = await request(app)
-        .get(`/checkMovieID/${movieID}`)
-        .set("Cookie", `token=${token}`);
-
-      expect(response.body).toHaveProperty("message", "MovieID not found.");
     });
 
     test("should return 401 if token is missing", async () => {
