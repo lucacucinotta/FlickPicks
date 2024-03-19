@@ -19,8 +19,8 @@ export default function Error({ refetch }) {
           <div className={style.errorContainer}>
             <FaExclamationCircle className={style.icon} />
             <div className={style.text}>
-              <h1>Something went wrong.</h1>
-              <p>
+              <h1 className={style.banner}>Something went wrong.</h1>
+              <p className={style.errorMsg}>
                 It seems there was an error while fetching data. Please try
                 again.
               </p>

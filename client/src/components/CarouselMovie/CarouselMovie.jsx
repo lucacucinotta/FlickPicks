@@ -90,7 +90,7 @@ function CarouselMovie({ data, type }) {
               }
             }}
           >
-            <p>{item.name}</p>
+            <p className={style.genre}>{item.name}</p>
           </div>
         </div>
       ))}

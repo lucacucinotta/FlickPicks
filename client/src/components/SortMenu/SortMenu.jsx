@@ -52,6 +52,7 @@ export default function SortMenu({ data, query }) {
           {sortMenuOption.map((item, i) => (
             <span
               key={i}
+              className={style.option}
               onClick={() => {
                 setIsOpen(false);
                 navigate(
