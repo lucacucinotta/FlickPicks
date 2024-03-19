@@ -1,5 +1,5 @@
 <div align="center"><img src="/client/src/assets/logo.png" width="150px"></div>
-<h1 align="center">Flick Picks</h1>
+<h1 align="center">FlickPicks</h1>
 <br>
 <p align="center">
 Click here to visit the <a href="https://flickpicks-hub.vercel.app"><strong>website</strong></a>
