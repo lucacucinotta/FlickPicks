@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 
 app.use(
   cors({
-    origin: "https://flick-picks-inky.vercel.app",
+    origin: "https://flickpicks-hub.vercel.app",
     methods: ["POST", "GET", "PUT"],
     credentials: true,
   })
