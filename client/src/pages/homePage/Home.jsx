@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
 import { change } from "../../states/userData";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -83,6 +86,10 @@ export default function Home() {
     },
   });
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   if (
     userDataLoading ||
     topRatedMovieLoading ||
@@ -134,7 +141,11 @@ export default function Home() {
           <BurgerMenu />
         ) : (
           <>
-            <div className={style.container}>
+            <div
+              className={style.container}
+              data-aos="fade-right"
+              data-aos-duration="1200"
+            >
               <div className={style.up}>
                 <Link
                   to="/discover/movies/daily-trending"
@@ -150,7 +161,11 @@ export default function Home() {
               <CarouselMovie data={trendingDayMovie.results} type={"movies"} />
             </div>
 
-            <div className={style.container}>
+            <div
+              className={style.container}
+              data-aos="fade-right"
+              data-aos-duration="1200"
+            >
               <div className={style.up}>
                 <Link
                   to="/discover/movies/weekly-trending"
@@ -166,7 +181,11 @@ export default function Home() {
               <CarouselMovie data={trendingWeekMovie.results} type={"movies"} />
             </div>
 
-            <div className={style.container}>
+            <div
+              className={style.container}
+              data-aos="fade-right"
+              data-aos-duration="1200"
+            >
               <div className={style.up}>
                 <Link to="/discover/movies/top-rated" className={style.link}>
                   <h1 className={style.titleSlider}>Top Rated Movies</h1>
@@ -180,7 +199,11 @@ export default function Home() {
               <CarouselMovie data={topRatedMovie.results} type={"movies"} />
             </div>
 
-            <div className={style.container}>
+            <div
+              className={style.container}
+              data-aos="fade-down"
+              data-aos-duration="1200"
+            >
               <div className={style.up}>
                 <h1 className={style.titleSlider}>Movie&apos;s Genres</h1>
                 <IoIosArrowForward size={20} />

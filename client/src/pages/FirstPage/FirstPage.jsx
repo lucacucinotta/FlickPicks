@@ -6,10 +6,16 @@ import { FaStar } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import style from "./FirstPage.module.scss";
 
 export default function FirstPage() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const scrollDown = () => {
     window.scrollTo({
       top: window.scrollY + 1.1 * window.innerHeight,
@@ -41,7 +47,11 @@ export default function FirstPage() {
         </div>
         <div className={style.functionalities}>
           <div className={style.secondPageContainer}>
-            <div className={style.featureDiv}>
+            <div
+              className={style.featureDiv}
+              data-aos="fade-down"
+              data-aos-duration="1500"
+            >
               <div className={style.feature}>
                 <MdLocalMovies size={70} className={style.featureIcon} />
                 <p>
@@ -64,7 +74,11 @@ export default function FirstPage() {
                 </p>
               </div>
             </div>
-            <div className={style.signIn}>
+            <div
+              className={style.signIn}
+              data-aos="fade-up"
+              data-aos-duration="1500"
+            >
               <p>Start exploring cinema on FlickPicks today!</p>
               <Button text={"Sign Up"} link={"/signup"} />
             </div>

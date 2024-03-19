@@ -5,6 +5,9 @@ import style from "./ProfilePage.module.scss";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function AccountPage() {
   const { isShown } = useSelector((state) => state.burgerMenuState);
@@ -14,6 +17,10 @@ export default function AccountPage() {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   return (
     <div className={style.wrapper}>
@@ -26,7 +33,11 @@ export default function AccountPage() {
           <BurgerMenu />
         ) : (
           <>
-            <div className={style.intro}>
+            <div
+              className={style.intro}
+              data-aos="fade-down"
+              data-aos-duration="1200"
+            >
               <h1 className={style.title}>
                 Welcome,{" "}
                 <span className={style.username}>{userData.username}</span>
@@ -37,7 +48,11 @@ export default function AccountPage() {
               </h2>
             </div>
 
-            <div className={style.userListsContainer}>
+            <div
+              className={style.userListsContainer}
+              data-aos="fade-up"
+              data-aos-duration="1200"
+            >
               <span className={style.fullList}>
                 Clicks to see the full list
               </span>
