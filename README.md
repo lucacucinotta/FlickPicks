@@ -26,15 +26,15 @@ It should resume upon receiving the first request.
 
 ## 🌐 Introduction to Project
 
-Cinema is one of the my passion. So, for the last project of Full-Stack Development course on start2impact academy, I decided to create a website focused on cinema's world. FlickPicks is a MERN web application that allows user to discover new titles, search for their favorite movies and create a personalized lists to store them. My decision to realize this project aims to contribute to the promotion of quality education, a key objective of the ONU 2030 Agenda outlined in point n.4, encouraging the user to discover new titles from all over the world, wich allow him to discover new cultures and reality and stimulate his creativity and critical sense.
+Cinema is one of the my passion. So, for the last project of Full-Stack Development course on start2impact academy, I decided to create a website focused on cinema's world. FlickPicks is a MERN web application that allows user to discover new titles, search for their favorite movies and create a personalized lists to store them. The realization of this project aims to contribute to the promotion of quality education, a key objective of the ONU 2030 Agenda outlined in point n.4, encouraging the user to discover new titles from all over the world, wich allow him to discover new cultures and reality and stimulate his creativity and critical sense.
 
 ### 📋 Requirements
 
-The minimum requirements ask to create an complete web application, with front-end features that allows it to manage API RESTful calls for login/logout and registration for the user. I also added further functionalities that allows users, when he is logged in, to save movies on their lists.
+The minimum requirements ask to create an complete web application, with front-end features that allows it to manage APIs RESTful calls for login/logout and registration for the user. I also added further functionalities that allows users, when he is logged in, to save movies on their lists.
 
 ## 🖥️ Frontend
 
-Frontend constitutes the application's visual interface, and is responsible for presentation and interaction of the elements and technlogies with the users. Cause is an MERN application, I've use a framework like React for the realization of all the various UI components that make up the website, and a series of complementary libraries and frameworks that allowed me to increase the page's functionalities, connecting to the technologies built in the backend. For movies data, I integrated with TMDb APIs to provide users access to a wide range of movie data and updated information.
+Frontend constitutes the application's visual interface, and is responsible for presentation and interaction of the elements and technlogies with the users. Cause is an MERN application, I've use a framework like React for the realization of all the various UI components that make up the website, and a series of complementary libraries that allowed me to increase the page's functionalities, connecting to the technologies built in the backend. For movies data, I integrated with TMDb APIs to provide users access to a wide range of movie data and updated information.
 
 ### 📑 Pages
 
@@ -67,7 +67,7 @@ Below you'll find all the available navigation pages.
 
 ## 🖧 Backend
 
-In the backend development phase of the project, I'm focused on the realization of the RESTful API using the technologies from the MERN stack: MongoDB, Express.js, Node.js. Those API allow user to registers and to login to FlickPicks, thanks to the authentication mechanism based on token that I've create. Also I've realize APIs that permit user to save his favorites movies, increasing the level of personalization for the user experience.
+In the backend development phase of the project, I'm focused on the realization of the RESTful APIs using the technologies from the MERN stack: MongoDB, Express.js, Node.js. Those API allow user to registers and to login to FlickPicks, thanks to the authentication mechanism based on token that I've create. I've also expanded the functionality of the APIs to allow the user to save his favorite films in his own lists, thus increasing the level of customization of the experience.
 
 ### 📚 Frameworks and libraries
 
