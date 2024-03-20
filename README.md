@@ -5,6 +5,11 @@
 Click here to visit the <a href="https://flickpicks-hub.vercel.app"><strong>website</strong></a>
 </p>
 
+#### ⚠️ N.B.
+
+If you experience delays when using FlickPicks please be patient, it's possible that the free render.com server went into sleep mode.
+It should resume upon receiving the first request.
+
 ## 🗂️ Table of contents
 
 - [Introduction to Project](#introduction-to-project)
@@ -14,6 +19,7 @@ Click here to visit the <a href="https://flickpicks-hub.vercel.app"><strong>webs
   - [Framework and libraries](#frontend-framework-and-libraries)
 - [Backend](#backend)
   - [Framework and libraries](#backend-framework-and-libraries)
+- [API](#api)
 - [Tools](#tools)
 - [Usage](#usage)
 - [Author](#author)
@@ -28,7 +34,7 @@ The minimum requirements ask to create an complete web application, with front-e
 
 ## 🖥️ Frontend
 
-Frontend constitutes the application's visual interface, and is responsible for presentation and interaction of the elements and technlogies with the users. Cause is an MERN application, I've use a framework like React for the realization of all the various UI components that make up the website, and a series of complementary libraries and frameworks that allowed me to increase the page's functionalities, connecting to the technologies built in the backend.
+Frontend constitutes the application's visual interface, and is responsible for presentation and interaction of the elements and technlogies with the users. Cause is an MERN application, I've use a framework like React for the realization of all the various UI components that make up the website, and a series of complementary libraries and frameworks that allowed me to increase the page's functionalities, connecting to the technologies built in the backend. For movies data, I integrated with TMDb APIs to provide users access to a wide range of movie data and updated information.
 
 ### 📑 Pages
 
@@ -73,6 +79,35 @@ In the backend development phase of the project, I'm focused on the realization 
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white"/>
 </p>
 
+## 🚀 API
+
+Endpoints follow the camelCase naming convention.
+
+### Endpoints
+
+#### GET
+
+| Method | Endpoint               | Result                                  |
+| ------ | ---------------------- | --------------------------------------- |
+| GET    | /checkToken            | Check if user has the access token      |
+| GET    | /checkMovieID/:movieID | Check that the movie is in user's lists |
+| GET    | /getUserData           | Return the username and his ID          |
+| GET    | /getUserLists          | Return all the user's personal lists    |
+
+#### POST
+
+| Method | Endpoint | Result                |
+| ------ | -------- | --------------------- |
+| POST   | /signup  | Allow user to sign up |
+| POST   | /login   | Allow user to log in  |
+| POST   | /logout  | Allow user to log out |
+
+#### PUT
+
+| Method | Endpoint         | Result                |
+| ------ | ---------------- | --------------------- |
+| PUT    | /updateMovieList | Add or remove a movie |
+
 ## 🛠️ Tools
 
 ### 🧑‍💻 IDE
@@ -113,3 +148,9 @@ Luca Cucinotta
 
 <p align="left">
   <a href="https://github.com/lucacucinotta">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+  <a href="https://www.linkedin.com/in/luca-cucinotta-4b836b278/">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+</p>

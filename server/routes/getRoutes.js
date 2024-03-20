@@ -7,7 +7,7 @@ const {
   getUserLists,
 } = require("../controller/getController/getController.js");
 
-router.get("/check_token", checkToken, (req, res) => {
+router.get("/checkToken", checkToken, (req, res) => {
   res.status(200).json({ message: "Success." });
 });
 router.get("/checkMovieID/:movieID", checkMovieID);

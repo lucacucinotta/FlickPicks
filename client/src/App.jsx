@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     axios.defaults.withCredentials = true;
     axios
-      .get("https://flickpicks-6ifw.onrender.com/check_token")
+      .get("https://flickpicks-6ifw.onrender.com/checkToken")
       .then((res) => {
         if (res.status === 200) {
           console.log(`Token check result : ${res.status}`);
