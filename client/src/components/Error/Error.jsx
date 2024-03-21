@@ -7,7 +7,7 @@ import { FaExclamationCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-export default function Error({ refetch }) {
+export default function Error({ refetch, error }) {
   const { isShown } = useSelector((state) => state.burgerMenuState);
   return (
     <>
@@ -20,12 +20,17 @@ export default function Error({ refetch }) {
             <FaExclamationCircle className={style.icon} />
             <div className={style.text}>
               <h1 className={style.banner}>Something went wrong.</h1>
-              <p className={style.errorMsg}>
-                It seems there was an error while fetching data. Please try
-                again.
-              </p>
+              <p className={style.errorMsg}>{error.message}</p>
             </div>
-            <Button text={"Retry"} handleFunction={refetch} />
+            <div className={style.btnContainer}>
+              {error.response.status !== 404 && (
+                <>
+                  <Button text={"Retry"} handleFunction={refetch} />
+                  <span>or</span>
+                </>
+              )}
+              <Button text={"Go Home"} link={"/"} />
+            </div>
           </div>
         )}
       </main>
@@ -36,4 +41,5 @@ export default function Error({ refetch }) {
 
 Error.propTypes = {
   refetch: PropTypes.func.isRequired,
+  error: PropTypes.object.isRequired,
 };

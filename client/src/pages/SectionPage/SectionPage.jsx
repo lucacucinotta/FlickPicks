@@ -67,7 +67,7 @@ export default function DiscoverPage() {
 
   if (error) {
     console.log(error);
-    return <Error refetch={refetch} />;
+    return <Error refetch={refetch} error={error} />;
   }
 
   return (

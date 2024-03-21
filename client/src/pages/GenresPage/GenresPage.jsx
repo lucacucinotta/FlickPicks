@@ -99,7 +99,7 @@ export default function GenresPage() {
 
   if (error) {
     console.log(error);
-    return <Error refetch={refetch} />;
+    return <Error refetch={refetch} error={error} />;
   }
 
   return (

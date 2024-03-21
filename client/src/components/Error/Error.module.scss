@@ -24,6 +24,12 @@
         flex-direction: column;
         gap: 5px;
     }
+
+    .btnContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 
 @media screen and (max-width: 767.98px) {

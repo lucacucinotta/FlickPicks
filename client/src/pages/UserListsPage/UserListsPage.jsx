@@ -87,11 +87,11 @@ export default function UserListsPage() {
   if (userListsError || movieDataError) {
     if (userListsError) {
       console.log(userListsError);
-      return <Error refetch={userListsRefetch} />;
+      return <Error refetch={userListsRefetch} error={userListsError} />;
     }
     if (movieDataError) {
       console.log(movieDataError);
-      return <Error refetch={movieDataRefetch} />;
+      return <Error refetch={movieDataRefetch} error={movieDataError} />;
     }
   }
 

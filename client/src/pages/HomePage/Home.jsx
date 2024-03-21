@@ -109,23 +109,35 @@ export default function Home() {
   ) {
     if (userDataError) {
       console.log(userDataError);
-      return <Error refetch={userDataRefetch} />;
+      return <Error refetch={userDataRefetch} error={userDataError} />;
     }
     if (trendingDayMovieError) {
       console.log(trendingDayMovieError);
-      return <Error refetch={trendingDayMovieRefetch} />;
+      return (
+        <Error
+          refetch={trendingDayMovieRefetch}
+          error={trendingDayMovieError}
+        />
+      );
     }
     if (trendingWeekMovieError) {
       console.log(trendingWeekMovieError);
-      return <Error refetch={trendingWeekMovieRefetch} />;
+      return (
+        <Error
+          refetch={trendingWeekMovieRefetch}
+          error={trendingWeekMovieError}
+        />
+      );
     }
     if (topRatedMovieError) {
       console.log(topRatedMovieError);
-      return <Error refetch={topRatedMovieRefetch} />;
+      return (
+        <Error refetch={topRatedMovieRefetch} error={topRatedMovieError} />
+      );
     }
     if (genresError) {
       console.log(genresError);
-      return <Error refetch={genresRefetch} />;
+      return <Error refetch={genresRefetch} error={genresError} />;
     }
   }
   return (

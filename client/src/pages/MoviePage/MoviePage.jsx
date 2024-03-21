@@ -99,11 +99,11 @@ export default function MoviePage() {
   if (movieError || creditsError) {
     if (movieError) {
       console.log(movieError);
-      return <Error refetch={movieDataRefetch} />;
+      return <Error refetch={movieDataRefetch} error={movieError} />;
     }
     if (creditsError) {
       console.log(creditsError);
-      return <Error refetch={creditsRefetch} />;
+      return <Error refetch={creditsRefetch} error={creditsError} />;
     }
   }
 
