@@ -6,8 +6,10 @@ import Arrow from "../../components/Arrow/Arrow";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../components/Error/Error";
 import Button from "../../components/Button/Button";
+import AccessDenied from "../AccessDeniedPage/AccessDenied";
 import style from "./UserListsPage.module.scss";
 import { fetchUserLists, getMovieData } from "./utils";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,13 +17,25 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { Helmet } from "react-helmet";
 
 export default function UserListsPage() {
+  const [isUserExists, setIsUserExists] = useState(true);
+
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const { reloadValue } = useSelector((state) => state.reloadValueState);
 
-  const { list } = useParams();
+  const { id, list } = useParams();
+
+  const { userData } = useSelector((state) => state.userDataState);
+
+  useEffect(() => {
+    if (id !== userData.userID) {
+      setIsUserExists(false);
+    }
+  }, [id, userData.userID]);
 
   let listName;
+
+  let doQuery = true;
 
   let field;
 
@@ -38,6 +52,8 @@ export default function UserListsPage() {
       listName = "WatchList";
       field = "watchList";
       break;
+    default:
+      doQuery = false;
   }
 
   const {
@@ -46,9 +62,10 @@ export default function UserListsPage() {
     error: userListsError,
     refetch: userListsRefetch,
   } = useQuery({
-    queryKey: [reloadValue],
+    queryKey: [reloadValue, isUserExists],
     queryFn: () => fetchUserLists(),
     refetchOnWindowFocus: false,
+    enabled: doQuery && isUserExists,
   });
 
   const {
@@ -80,42 +97,50 @@ export default function UserListsPage() {
 
   return (
     <div className={style.wrapper}>
-      <Helmet>
-        <title>{listName} | FlickPicks</title>
-      </Helmet>
-      <NavbarLogged />
-      <main className={isShown ? style.mainBurger : style.mainClass}>
-        {isShown ? (
-          <BurgerMenu />
-        ) : (
-          <>
-            {movieData ? (
-              <div className={style.container}>
-                <h1 className={style.title}>{listName}</h1>
-                <div className={style.gridContainer}>
-                  {movieData.reverse().map((item, i) => (
-                    <Card key={i} data={item} showMoreInfo={false} />
-                  ))}
-                </div>
-              </div>
+      {userLists ? (
+        <>
+          <Helmet>
+            <title>{listName} | FlickPicks</title>
+          </Helmet>
+          <NavbarLogged />
+          <main className={isShown ? style.mainBurger : style.mainClass}>
+            {isShown ? (
+              <BurgerMenu />
             ) : (
-              <div className={style.emptyList}>
-                <AiOutlineMinusCircle className={style.icon} />
-                <div className={style.text}>
-                  <h1 className={style.emptyListTitle}>This list is empty!</h1>
-                  <p className={style.redirect}>
-                    Come back to home and discover new movie to add in this
-                    list.
-                  </p>
-                </div>
-                <Button text={"Home"} link={"/"} />
-              </div>
+              <>
+                {movieData ? (
+                  <div className={style.container}>
+                    <h1 className={style.title}>{listName}</h1>
+                    <div className={style.gridContainer}>
+                      {movieData.reverse().map((item, i) => (
+                        <Card key={i} data={item} showMoreInfo={false} />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={style.emptyList}>
+                    <AiOutlineMinusCircle className={style.icon} />
+                    <div className={style.text}>
+                      <h1 className={style.emptyListTitle}>
+                        This list is empty!
+                      </h1>
+                      <p className={style.redirect}>
+                        Come back to home and discover new movie to add in this
+                        list.
+                      </p>
+                    </div>
+                    <Button text={"Home"} link={"/"} />
+                  </div>
+                )}
+              </>
             )}
-          </>
-        )}
-        {!isShown && movieData && movieData.length > 5 && <Arrow />}
-      </main>
-      <Footer />
+            {!isShown && movieData && movieData.length > 5 && <Arrow />}
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <AccessDenied />
+      )}
     </div>
   );
 }

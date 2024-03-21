@@ -6,6 +6,7 @@ import SortMenu from "../../components/SortMenu/SortMenu";
 import Arrow from "../../components/Arrow/Arrow";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../components/Error/Error";
+import AccessDenied from "../AccessDeniedPage/AccessDenied";
 import style from "./GenresPage.module.scss";
 import fetchMovie from "./utils";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -78,10 +79,18 @@ export default function GenresPage() {
       break;
   }
 
+  const doQuery = () => {
+    const isGenresPresent = genresList.some(
+      (genre) => genre.name === newGenresName
+    );
+    return isGenresPresent;
+  };
+
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [genresMatched.id, page, sortValue],
+    queryKey: [genresMatched?.id, page, sortValue],
     queryFn: () => fetchMovie(genresMatched.id, page, sortValue),
     refetchOnWindowFocus: false,
+    enabled: doQuery(),
   });
 
   if (isLoading) {
@@ -95,62 +104,73 @@ export default function GenresPage() {
 
   return (
     <div className={style.wrapper}>
-      <Helmet>
-        <title>{newGenresName} | FlickPicks</title>
-      </Helmet>
-      <NavbarLogged />
-      <main className={isShown ? style.mainBurger : style.mainClass}>
-        {isShown ? (
-          <BurgerMenu />
-        ) : (
-          <div className={style.container}>
-            <h1 className={style.title}>GENRES / {newGenresName}</h1>
-            <div className={style.sortDiv}>
-              Sort by :{" "}
-              <SortMenu
-                data={genresName}
-                query={query
-                  .split("-")
-                  .map((item) => item[0].toUpperCase() + item.substring(1))
-                  .join(" ")}
-              />
-            </div>
-            <div className={style.gridContainer}>
-              {data.map((item, i) => (
-                <Card key={i} data={item} />
-              ))}
-            </div>
-            <div className={style.changePageContainer}>
-              {page > 1 && (
-                <button
-                  onClick={() => {
-                    setPage((prevState) => prevState - 1);
-                    navigate(
-                      `/genres/${genresName}?sort_by=${query}&page=${page - 1}`
-                    );
-                  }}
-                >
-                  Previous
-                </button>
-              )}
-              {data.total_pages !== page && (
-                <button
-                  onClick={() => {
-                    setPage((prevState) => prevState + 1);
-                    navigate(
-                      `/genres/${genresName}?sort_by=${query}&page=${page + 1}`
-                    );
-                  }}
-                >
-                  Next
-                </button>
-              )}
-            </div>
-            <Arrow />
-          </div>
-        )}
-      </main>
-      <Footer />
+      {data ? (
+        <>
+          {" "}
+          <Helmet>
+            <title>{newGenresName} | FlickPicks</title>
+          </Helmet>
+          <NavbarLogged />
+          <main className={isShown ? style.mainBurger : style.mainClass}>
+            {isShown ? (
+              <BurgerMenu />
+            ) : (
+              <div className={style.container}>
+                <h1 className={style.title}>GENRES / {newGenresName}</h1>
+                <div className={style.sortDiv}>
+                  Sort by :{" "}
+                  <SortMenu
+                    data={genresName}
+                    query={query
+                      .split("-")
+                      .map((item) => item[0].toUpperCase() + item.substring(1))
+                      .join(" ")}
+                  />
+                </div>
+                <div className={style.gridContainer}>
+                  {data.map((item, i) => (
+                    <Card key={i} data={item} />
+                  ))}
+                </div>
+                <div className={style.changePageContainer}>
+                  {page > 1 && (
+                    <button
+                      onClick={() => {
+                        setPage((prevState) => prevState - 1);
+                        navigate(
+                          `/genres/${genresName}?sort_by=${query}&page=${
+                            page - 1
+                          }`
+                        );
+                      }}
+                    >
+                      Previous
+                    </button>
+                  )}
+                  {data.total_pages !== page && (
+                    <button
+                      onClick={() => {
+                        setPage((prevState) => prevState + 1);
+                        navigate(
+                          `/genres/${genresName}?sort_by=${query}&page=${
+                            page + 1
+                          }`
+                        );
+                      }}
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
+                <Arrow />
+              </div>
+            )}
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <AccessDenied />
+      )}
     </div>
   );
 }

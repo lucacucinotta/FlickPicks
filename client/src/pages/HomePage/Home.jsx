@@ -201,7 +201,7 @@ export default function Home() {
 
             <div
               className={style.container}
-              data-aos="fade-down"
+              data-aos="fade-right"
               data-aos-duration="1200"
             >
               <div className={style.up}>

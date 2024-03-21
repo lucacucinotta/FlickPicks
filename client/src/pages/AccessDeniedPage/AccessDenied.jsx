@@ -7,12 +7,16 @@ import style from "./AccessDenied.module.scss";
 import { TbKeyOff } from "react-icons/tb";
 import { TbError404 } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 export default function AccessDenied() {
   const { isLoggedIn } = useSelector((state) => state.logState);
   const { isShown } = useSelector((state) => state.burgerMenuState);
   return (
     <div className={style.wrapper}>
+      <Helmet>
+        <title>404 | FlickPicks</title>
+      </Helmet>
       <header>{isLoggedIn ? <NavbarLogged /> : <Navbar />}</header>
       <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (

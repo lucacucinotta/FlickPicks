@@ -4,6 +4,7 @@
     flex-direction: column;
 
     .mainBurger {
+        flex-grow: 1;
         background-color: #01172c;
         display: flex;
         flex-direction: column;

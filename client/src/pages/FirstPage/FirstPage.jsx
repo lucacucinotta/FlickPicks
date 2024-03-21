@@ -18,7 +18,7 @@ export default function FirstPage() {
   }, []);
   const scrollDown = () => {
     window.scrollTo({
-      top: window.scrollY + 1.1 * window.innerHeight,
+      top: window.scrollY + 1 * window.innerHeight,
       behavior: "smooth",
     });
   };
@@ -49,7 +49,7 @@ export default function FirstPage() {
           <div className={style.secondPageContainer}>
             <div
               className={style.featureDiv}
-              data-aos="fade-down"
+              data-aos="fade-up"
               data-aos-duration="1500"
             >
               <div className={style.feature}>
@@ -76,7 +76,7 @@ export default function FirstPage() {
             </div>
             <div
               className={style.signIn}
-              data-aos="fade-up"
+              data-aos="fade-right"
               data-aos-duration="1500"
             >
               <p>Start exploring cinema on FlickPicks today!</p>
