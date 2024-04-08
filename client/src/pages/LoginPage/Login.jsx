@@ -9,14 +9,9 @@ import style from "./Login.module.scss";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import { useDispatch } from "react-redux";
-import { logIn } from "../../states/log";
 
 export default function Login() {
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -37,7 +32,6 @@ export default function Login() {
           },
         }
       );
-      dispatch(logIn());
       navigate("/home");
     } catch (err) {
       console.log(err);
