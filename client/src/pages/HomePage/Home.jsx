@@ -144,7 +144,7 @@ export default function Home() {
   return (
     <div className={style.wrapper}>
       <Helmet>
-        <title>Homepage | FlickPicks</title>
+        <title>Home | FlickPicks</title>
       </Helmet>
       <header>
         <NavbarLogged />

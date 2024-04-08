@@ -19,7 +19,6 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      axios.defaults.withCredentials = true;
       await axios.post(
         "https://flickpicks-6ifw.onrender.com/login",
         {

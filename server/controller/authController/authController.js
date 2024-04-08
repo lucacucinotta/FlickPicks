@@ -53,6 +53,7 @@ const logIn = async (req, res) => {
       secure: process.env.NODE_ENV !== "development",
       sameSite: "none",
       maxAge: 30 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
     res.status(200).json({ message: "Login successfully." });
   } catch (err) {
@@ -69,6 +70,7 @@ const logOut = async (req, res) => {
       maxAge: 0,
       path: "/",
     });
+    res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully!" });
   } catch (err) {
     res.status(500).json({ message: "Internal Server Error." });

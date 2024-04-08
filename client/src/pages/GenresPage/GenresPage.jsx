@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function GenresPage() {
-  const { genresName } = useParams();
+  const { genre } = useParams();
 
   const navigate = useNavigate();
 
@@ -38,26 +38,24 @@ export default function GenresPage() {
 
   useEffect(() => {
     setPage(countQuery);
-  }, [genresName, countQuery]);
+  }, [genre, countQuery]);
 
   const [page, setPage] = useState(1);
 
-  let newGenresName;
+  let newGenreName;
 
-  switch (genresName) {
+  switch (genre) {
     case "tv-movie":
-      newGenresName = "TV Movie";
+      newGenreName = "TV Movie";
       break;
     case "science-fiction":
-      newGenresName = "Science Fiction";
+      newGenreName = "Science Fiction";
       break;
     default:
-      newGenresName = genresName[0].toUpperCase() + genresName.substring(1);
+      newGenreName = genre[0].toUpperCase() + genre.substring(1);
   }
 
-  const genresMatched = genresList.find(
-    (genre) => genre.name === newGenresName
-  );
+  const genresMatched = genresList.find((genre) => genre.name === newGenreName);
 
   let sortValue;
 
@@ -81,7 +79,7 @@ export default function GenresPage() {
 
   const doQuery = () => {
     const isGenresPresent = genresList.some(
-      (genre) => genre.name === newGenresName
+      (genre) => genre.name === newGenreName
     );
     return isGenresPresent;
   };
@@ -105,7 +103,7 @@ export default function GenresPage() {
   return data ? (
     <div className={style.wrapper}>
       <Helmet>
-        <title>{newGenresName} | FlickPicks</title>
+        <title>{newGenreName} | FlickPicks</title>
       </Helmet>
       <NavbarLogged />
       <main className={isShown ? style.mainBurger : style.mainClass}>
@@ -113,11 +111,11 @@ export default function GenresPage() {
           <BurgerMenu />
         ) : (
           <div className={style.container}>
-            <h1 className={style.title}>GENRES / {newGenresName}</h1>
+            <h1 className={style.title}>GENRES / {newGenreName}</h1>
             <div className={style.sortDiv}>
               Sort by :{" "}
               <SortMenu
-                data={genresName}
+                data={genre}
                 query={query
                   .split("-")
                   .map((item) => item[0].toUpperCase() + item.substring(1))
@@ -135,7 +133,7 @@ export default function GenresPage() {
                   onClick={() => {
                     setPage((prevState) => prevState - 1);
                     navigate(
-                      `/discover/genres/${genresName}?sort_by=${query}&page=${
+                      `/discover/genres/${genre}?sort_by=${query}&page=${
                         page - 1
                       }`
                     );
@@ -149,7 +147,7 @@ export default function GenresPage() {
                   onClick={() => {
                     setPage((prevState) => prevState + 1);
                     navigate(
-                      `/discover/genres/${genresName}?sort_by=${query}&page=${
+                      `/discover/genres/${genre}?sort_by=${query}&page=${
                         page + 1
                       }`
                     );
