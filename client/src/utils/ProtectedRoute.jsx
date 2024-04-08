@@ -12,7 +12,7 @@ export default function ProtectedRoute() {
     const checkAuth = async () => {
       try {
         axios.defaults.withCredentials = true;
-        await axios.get("http://localhost:8081/protectedRoute");
+        await axios.get("https://flickpicks-6ifw.onrender.com/protectedRoute");
         setIsAuth(true);
       } catch (err) {
         setIsAuth(false);
