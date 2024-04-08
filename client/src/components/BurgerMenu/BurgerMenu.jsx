@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideBurgerMenu } from "../../states/burgerMenu";
-import { logOut } from "../../states/log";
 import axios from "axios";
 
 export default function BurgerMenu() {
@@ -18,7 +17,7 @@ export default function BurgerMenu() {
 
   const [confirmLogOut, setConfirmLogOut] = useState(false);
 
-  const { movieSections } = useSelector((state) => state.movieSectionsState);
+  const { charts } = useSelector((state) => state.chartsState);
   const { genresList } = useSelector((state) => state.genresState);
 
   const { userData } = useSelector((state) => state.userDataState);
@@ -49,11 +48,8 @@ export default function BurgerMenu() {
 
   const logginOut = async () => {
     try {
-      const res = await axios.post(
-        "https://flickpicks-6ifw.onrender.com/logout"
-      );
-      console.log(res);
-      dispatch(logOut());
+      await axios.post("https://flickpicks-6ifw.onrender.com/logout");
+      dispatch(hideBurgerMenu());
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -78,25 +74,25 @@ export default function BurgerMenu() {
           {isMovieDropdownMenuOpen ? (
             <>
               <div className={style.title}>
-                <span>Movie</span>
+                <span>Charts</span>
                 <MdOutlineKeyboardArrowUp />
               </div>
               <div className={style.sections}>
-                {movieSections.map((item, index) => (
+                {charts.map((item, index) => (
                   <span
                     key={index}
                     onClick={() => {
                       switch (item.name) {
                         case "Daily Trending Movies":
-                          navigate("/discover/movies/daily-trending");
+                          navigate("/discover/charts/daily-trending");
                           dispatch(hideBurgerMenu());
                           break;
                         case "Weekly Trending Movies":
-                          navigate("/discover/movies/weekly-trending");
+                          navigate("/discover/charts/weekly-trending");
                           dispatch(hideBurgerMenu());
                           break;
                         case "Top Rated Movies":
-                          navigate("/discover/movies/top-rated");
+                          navigate("/discover/charts/top-rated");
                           dispatch(hideBurgerMenu());
                           break;
                       }
@@ -109,7 +105,7 @@ export default function BurgerMenu() {
             </>
           ) : (
             <>
-              <span>Movie</span>
+              <span>Charts</span>
               <MdOutlineKeyboardArrowDown />
             </>
           )}
@@ -138,15 +134,17 @@ export default function BurgerMenu() {
                     onClick={() => {
                       switch (item.name) {
                         case "Science Fiction":
-                          navigate("/genres/science-fiction");
+                          navigate("/discover/genres/science-fiction");
                           dispatch(hideBurgerMenu());
                           break;
                         case "TV Movie":
-                          navigate("/genres/tv-movie");
+                          navigate("/discover/genres/tv-movie");
                           dispatch(hideBurgerMenu());
                           break;
                         default:
-                          navigate(`/genres/${item.name.toLowerCase()}`);
+                          navigate(
+                            `/discover/genres/${item.name.toLowerCase()}`
+                          );
                           dispatch(hideBurgerMenu());
                           break;
                       }
@@ -169,7 +167,7 @@ export default function BurgerMenu() {
         <div
           className={style.profileDiv}
           onClick={() => {
-            navigate(`/profile/${userData.userID}`);
+            navigate(`/users/${userData.userID}`);
             dispatch(hideBurgerMenu());
           }}
         >

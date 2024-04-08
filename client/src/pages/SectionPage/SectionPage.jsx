@@ -15,11 +15,11 @@ import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 
 export default function DiscoverPage() {
-  const { isShown } = useSelector((state) => state.burgerMenuState);
+  const { section } = useParams();
 
   const navigate = useNavigate();
 
-  const { section } = useParams();
+  const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const [page, setPage] = useState(1);
 
@@ -70,62 +70,54 @@ export default function DiscoverPage() {
     return <Error refetch={refetch} error={error} />;
   }
 
-  return (
+  return data ? (
     <div className={style.wrapper}>
-      {data ? (
-        <>
-          <Helmet>
-            <title>{sectionName} | FlickPicks</title>
-          </Helmet>
-          <NavbarLogged />
-          <main className={isShown ? style.mainBurger : style.mainClass}>
-            {isShown ? (
-              <BurgerMenu />
-            ) : (
-              <div className={style.container}>
-                <h1 className={style.title}>{sectionName}</h1>
-                <div className={style.gridContainer}>
-                  {data.map((item, i) => (
-                    <Card key={i} data={item} />
-                  ))}
-                </div>
-                <div className={style.changePageContainer}>
-                  {page > 1 && (
-                    <button
-                      className={style.changePageBtn}
-                      onClick={() => {
-                        setPage((prevState) => prevState - 1);
-                        navigate(
-                          `/discover/movies/${section}/?page=${page - 1}`
-                        );
-                      }}
-                    >
-                      Previous
-                    </button>
-                  )}
-                  {data.total_pages !== page && (
-                    <button
-                      className={style.changePageBtn}
-                      onClick={() => {
-                        setPage((prevState) => prevState + 1);
-                        navigate(
-                          `/discover/movies/${section}?page=${page + 1}`
-                        );
-                      }}
-                    >
-                      Next
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-            {!isShown && <Arrow />}
-          </main>
-          <Footer />{" "}
-        </>
-      ) : (
-        <AccessDenied />
-      )}
+      <Helmet>
+        <title>{sectionName} | FlickPicks</title>
+      </Helmet>
+      <NavbarLogged />
+      <main className={isShown ? style.mainBurger : style.mainClass}>
+        {isShown ? (
+          <BurgerMenu />
+        ) : (
+          <div className={style.container}>
+            <h1 className={style.title}>{sectionName}</h1>
+            <div className={style.gridContainer}>
+              {data.map((item, i) => (
+                <Card key={i} data={item} />
+              ))}
+            </div>
+            <div className={style.changePageContainer}>
+              {page > 1 && (
+                <button
+                  className={style.changePageBtn}
+                  onClick={() => {
+                    setPage((prevState) => prevState - 1);
+                    navigate(`/discover/charts/${section}/?page=${page - 1}`);
+                  }}
+                >
+                  Previous
+                </button>
+              )}
+              {data.total_pages !== page && (
+                <button
+                  className={style.changePageBtn}
+                  onClick={() => {
+                    setPage((prevState) => prevState + 1);
+                    navigate(`/discover/charts/${section}?page=${page + 1}`);
+                  }}
+                >
+                  Next
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+        {!isShown && <Arrow />}
+      </main>
+      <Footer />
     </div>
+  ) : (
+    <AccessDenied />
   );
 }

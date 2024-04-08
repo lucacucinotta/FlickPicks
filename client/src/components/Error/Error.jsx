@@ -29,7 +29,7 @@ export default function Error({ refetch, error }) {
                   <span>or</span>
                 </>
               )}
-              <Button text={"Go Home"} link={"/"} />
+              <Button text={"Go Home"} link={"/home"} />
             </div>
           </div>
         )}

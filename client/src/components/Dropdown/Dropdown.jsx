@@ -4,27 +4,27 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 export default function Dropdown({ isMovie }) {
-  const { movieSections } = useSelector((state) => state.movieSectionsState);
+  const { charts } = useSelector((state) => state.chartsState);
   const { genresList } = useSelector((state) => state.genresState);
 
   const navigate = useNavigate();
 
   return isMovie ? (
     <div className={style.container}>
-      {movieSections.map((item, index) => (
+      {charts.map((item, index) => (
         <span
           key={index}
           className={style.text}
           onClick={() => {
             switch (item.name) {
               case "Daily Trending Movies":
-                navigate("/discover/movies/daily-trending");
+                navigate("/discover/charts/daily-trending");
                 break;
               case "Weekly Trending Movies":
-                navigate("/discover/movies/weekly-trending");
+                navigate("/discover/charts/weekly-trending");
                 break;
               case "Top Rated Movies":
-                navigate("/discover/movies/top-rated");
+                navigate("/discover/charts/top-rated");
                 break;
             }
           }}
@@ -42,13 +42,13 @@ export default function Dropdown({ isMovie }) {
           onClick={() => {
             switch (item.name) {
               case "Science Fiction":
-                navigate("/genres/science-fiction");
+                navigate("/discover/genres/science-fiction");
                 break;
               case "TV Movie":
-                navigate("/genres/tv-movie");
+                navigate("/discover/genres/tv-movie");
                 break;
               default:
-                navigate(`/genres/${item.name.toLowerCase()}`);
+                navigate(`/discover/genres/${item.name.toLowerCase()}`);
                 break;
             }
           }}

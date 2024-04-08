@@ -2,8 +2,11 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
 const { User } = require("../../models/userSchema");
+const jwt = require("jsonwebtoken");
 const app = require("../../app");
 const bcrypt = require("bcrypt");
+
+const SECRET_KEY = process.env.SECRET_KEY;
 
 jest.mock("../../models/userSchema", () => {
   const originalModel = jest.requireActual("../../models/userSchema");
@@ -363,6 +366,42 @@ describe("POST", () => {
       app.response.cookie = originalCookieFn;
 
       expect(response.body.message).toBe("Internal Server Error.");
+    });
+  });
+});
+
+describe("GET", () => {
+  describe("GET /protectedRoute", () => {
+    test("should return 401 if there isn't any token", async () => {
+      const response = await request(app).get("/protectedRoute").expect(401);
+
+      expect(response.body).toHaveProperty(
+        "errMessage",
+        "Access denied. Please login."
+      );
+    });
+
+    test("should return 401 if token is invalid", async () => {
+      const token = jwt.sign({ username: "username" }, "invalidSecretToken");
+      const response = await request(app)
+        .get("/protectedRoute")
+        .set("Cookie", `token="${token}"`)
+        .expect(401);
+
+      expect(response.body).toHaveProperty(
+        "errMessage",
+        "Invalid token. Please login again."
+      );
+    });
+
+    test("should return 200 if token is valid", async () => {
+      const token = jwt.sign({ username: "username" }, SECRET_KEY);
+      const response = await request(app)
+        .get("/protectedRoute")
+        .set("Cookie", `token="${token}"`)
+        .expect(200);
+
+      expect(response.body).toHaveProperty("message", "Success.");
     });
   });
 });

@@ -8,19 +8,17 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import persistedLogReducer from "./log";
 import burgerMenuReducer from "./burgerMenu";
 import persistedGenresReducer from "./genres";
-import movieSectionsReducer from "./movieSections";
+import chartsReducer from "./charts";
 import userDataReducer from "./userData";
 import reloadValueReducer from "./reloadValue";
 
 export const store = configureStore({
   reducer: {
-    logState: persistedLogReducer,
     burgerMenuState: burgerMenuReducer,
     genresState: persistedGenresReducer,
-    movieSectionsState: movieSectionsReducer,
+    chartsState: chartsReducer,
     userDataState: userDataReducer,
     reloadValueState: reloadValueReducer,
   },

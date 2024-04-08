@@ -16,11 +16,11 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Helmet } from "react-helmet";
 
 export default function DiscoverPage() {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState(1);
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
-
-  const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");

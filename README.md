@@ -85,28 +85,28 @@ Endpoints follow the camelCase naming convention.
 
 ### Endpoints
 
-#### GET
+#### Auth
 
-| Method | Endpoint               | Result                                  |
-| ------ | ---------------------- | --------------------------------------- |
-| GET    | /checkToken            | Check if user has the access token      |
-| GET    | /checkMovieID/:movieID | Check that the movie is in user's lists |
-| GET    | /getUserData           | Return the username and his ID          |
-| GET    | /getUserLists          | Return all the user's personal lists    |
+| Method | Endpoint        | Result                             |
+| ------ | --------------- | ---------------------------------- |
+| POST   | /signup         | Allow user to sign up              |
+| POST   | /login          | Allow user to log in               |
+| POST   | /logout         | Allow user to log out              |
+| GET    | /protectedRoute | Check if user has the access token |
 
-#### POST
+#### Movie
 
-| Method | Endpoint | Result                |
-| ------ | -------- | --------------------- |
-| POST   | /signup  | Allow user to sign up |
-| POST   | /login   | Allow user to log in  |
-| POST   | /logout  | Allow user to log out |
+| Method | Endpoint         | Result                                  |
+| ------ | ---------------- | --------------------------------------- |
+| GET    | /movies/:movieID | Check that the movie is in user's lists |
 
-#### PUT
+#### User
 
-| Method | Endpoint         | Result                |
-| ------ | ---------------- | --------------------- |
-| PUT    | /updateMovieList | Add or remove a movie |
+| Method | Endpoint              | Result                               |
+| ------ | --------------------- | ------------------------------------ |
+| GET    | /users/me             | Return the username and user's ID    |
+| GET    | /users/me/lists       | Return all the user's personal lists |
+| PUT    | /users/me/lists/:list | Add or remove a movie                |
 
 ## 🛠️ Tools
 

@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const getRouter = require("./routes/getRoutes");
-const putRouter = require("./routes/putRoutes");
-const postRouter = require("./routes/postRoutes");
+const authRouter = require("./routes/authRoutes");
+const userRouter = require("./routes/userRoute");
+const movieRouter = require("./routes/movieRoute");
 const cookieParser = require("cookie-parser");
 
 app.use(
@@ -17,8 +17,8 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(postRouter);
-app.use(getRouter);
-app.use(putRouter);
+app.use(authRouter);
+app.use(userRouter);
+app.use(movieRouter);
 
 module.exports = app;

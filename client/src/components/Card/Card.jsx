@@ -14,7 +14,7 @@ export default function Card({ data, showMoreInfo }) {
             : PlaceholderImg
         }
         className={style.locandine}
-        onClick={() => navigate(`/movie/${data.id}`)}
+        onClick={() => navigate(`/movies/${data.id}`)}
       />
       <span className={style.title}>{data.title}</span>
       {showMoreInfo != false && (

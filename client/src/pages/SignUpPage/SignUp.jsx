@@ -12,14 +12,14 @@ import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 export default function Signin() {
+  const navigate = useNavigate();
+
   const [showPassReq, setShowPassReq] = useState(false);
   const [showUsernameReq, setShowUsernameReq] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +48,7 @@ export default function Signin() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const handleClickOutside = (e) => {
-      if (!errorRef.current.contains(e.target)) {
+      if (errorRef.current && !errorRef.current.contains(e.target)) {
         setError(null);
       }
     };

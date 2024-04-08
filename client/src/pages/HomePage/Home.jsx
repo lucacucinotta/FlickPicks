@@ -1,7 +1,7 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
-import CarouselMovie from "../../components/CarouselMovie/CarouselMovie";
+import Carousel from "../../components/Carousel/Carousel";
 import Error from "../../components/Error/Error";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import style from "./Home.module.scss";
@@ -19,6 +19,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 export default function Home() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const dispatch = useDispatch();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
@@ -86,10 +90,6 @@ export default function Home() {
     },
   });
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
   if (
     userDataLoading ||
     topRatedMovieLoading ||
@@ -140,6 +140,7 @@ export default function Home() {
       return <Error refetch={genresRefetch} error={genresError} />;
     }
   }
+
   return (
     <div className={style.wrapper}>
       <Helmet>
@@ -160,7 +161,7 @@ export default function Home() {
             >
               <div className={style.up}>
                 <Link
-                  to="/discover/movies/daily-trending"
+                  to="/discover/charts/daily-trending"
                   className={style.link}
                 >
                   <h1 className={style.titleSlider}>Today&apos;s Hot Picks</h1>
@@ -170,7 +171,7 @@ export default function Home() {
               <h2 className={style.subtitleSlider}>
                 Stay in the loop with the daily trending movies
               </h2>
-              <CarouselMovie data={trendingDayMovie.results} type={"movies"} />
+              <Carousel data={trendingDayMovie.results} type={"movies"} />
             </div>
 
             <div
@@ -180,7 +181,7 @@ export default function Home() {
             >
               <div className={style.up}>
                 <Link
-                  to="/discover/movies/weekly-trending"
+                  to="/discover/charts/weekly-trending"
                   className={style.link}
                 >
                   <h1 className={style.titleSlider}>Hot Weekly Flicks</h1>
@@ -190,7 +191,7 @@ export default function Home() {
               <h2 className={style.subtitleSlider}>
                 Exploring the tatest movie&apos;s trends from the past week
               </h2>
-              <CarouselMovie data={trendingWeekMovie.results} type={"movies"} />
+              <Carousel data={trendingWeekMovie.results} type={"movies"} />
             </div>
 
             <div
@@ -199,7 +200,7 @@ export default function Home() {
               data-aos-duration="1200"
             >
               <div className={style.up}>
-                <Link to="/discover/movies/top-rated" className={style.link}>
+                <Link to="/discover/charts/top-rated" className={style.link}>
                   <h1 className={style.titleSlider}>Top Rated Movies</h1>
                 </Link>
                 <IoIosArrowForward size={20} />
@@ -208,7 +209,7 @@ export default function Home() {
                 Discover the best of the best for an unforgettable
                 movie-watching experience
               </h2>
-              <CarouselMovie data={topRatedMovie.results} type={"movies"} />
+              <Carousel data={topRatedMovie.results} type={"movies"} />
             </div>
 
             <div
@@ -223,7 +224,7 @@ export default function Home() {
               <h2 className={style.subtitleSlider}>
                 Find your next favourite movie browsing all the available genres
               </h2>
-              <CarouselMovie type={"genres"} />
+              <Carousel type={"genres"} />
             </div>
           </>
         )}

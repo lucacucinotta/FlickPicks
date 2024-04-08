@@ -1,7 +1,7 @@
 import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import CarouselMovie from "../../components/CarouselMovie/CarouselMovie";
+import Carousel from "../../components/Carousel/Carousel";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import Error from "../../components/Error/Error";
 import style from "./MoviePage.module.scss";
@@ -19,9 +19,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { change } from "../../states/reloadValue";
 
 export default function MoviePage() {
-  const [showMore, setShowMore] = useState(false);
-
   const { movieID } = useParams();
+
+  const [showMore, setShowMore] = useState(false);
 
   const [isWatched, setIsWatched] = useState(
     JSON.parse(localStorage.getItem(`${movieID}isWatched`) || "false")
@@ -67,7 +67,7 @@ export default function MoviePage() {
       try {
         axios.defaults.withCredentials = true;
         const res = await axios.get(
-          `https://flickpicks-6ifw.onrender.com/checkMovieID/${movieID}`
+          `https://flickpicks-6ifw.onrender.com/movies/${movieID}`
         );
         localStorage.setItem(
           `${movieID}isWatched`,
@@ -107,12 +107,12 @@ export default function MoviePage() {
     }
   }
 
-  const firstPeriodIndex = movieData.overview.indexOf(".");
+  const firstPeriodIndex = movieData?.overview.indexOf(".");
   const overviewShowed =
     firstPeriodIndex !== -1
       ? movieData.overview.substring(0, firstPeriodIndex + 1)
       : movieData.overview;
-  const showMoreVisible = movieData.overview.length > overviewShowed.length;
+  const showMoreVisible = movieData?.overview.length > overviewShowed.length;
 
   return (
     <div className={style.wrapper}>
@@ -315,7 +315,7 @@ export default function MoviePage() {
             </div>
             <div className={style.carouselContainer}>
               <p className={style.cast}>Cast</p>
-              <CarouselMovie data={credits.cast} type={"cast"} />
+              <Carousel data={credits.cast} type={"cast"} />
             </div>
           </>
         )}

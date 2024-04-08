@@ -22,4 +22,17 @@ body {
     &::-webkit-scrollbar-track {
         background-color: #01172c;
     }
+
+    &::-moz-scrollbar {
+        width: 3px;
+    }
+
+    &::-moz-scrollbar-thumb {
+        background-color: #0074e4;
+        border-radius: 20px;
+    }
+
+    &::-moz-scrollbar-track {
+        background-color: #01172c;
+    }
 }

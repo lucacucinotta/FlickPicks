@@ -31,11 +31,10 @@ export const updateMovieList = async (movieID, action, list) => {
   try {
     axios.defaults.withCredentials = true;
     const res = await axios.put(
-      "https://flickpicks-6ifw.onrender.com/updateMovieList",
+      `https://flickpicks-6ifw.onrender.com/users/me/lists/${list}`,
       {
         movieID: movieID,
         action: action,
-        list: list,
       }
     );
     console.log(res);

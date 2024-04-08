@@ -11,7 +11,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { showBurgerMenu, hideBurgerMenu } from "../../states/burgerMenu";
 import { useState, useRef, useEffect } from "react";
-import { logOut } from "../../states/log";
 import axios from "axios";
 
 export default function NavbarLogged() {
@@ -51,11 +50,8 @@ export default function NavbarLogged() {
 
   const logginOut = async () => {
     try {
-      const res = await axios.post(
-        "https://flickpicks-6ifw.onrender.com/logout"
-      );
-      console.log(res);
-      dispatch(logOut());
+      await axios.post("https://flickpicks-6ifw.onrender.com/logout");
+      dispatch(hideBurgerMenu());
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -81,7 +77,7 @@ export default function NavbarLogged() {
           />
         )}
         <div className={style.leftContainer}>
-          <Link to="/" className={style.link}>
+          <Link to="/home" className={style.link}>
             <span className={style.title}>FlickPicks</span>
           </Link>
           <div className={style.discoverDiv}>
@@ -96,7 +92,7 @@ export default function NavbarLogged() {
               }}
               ref={movieRef}
             >
-              <span className={style.titleMenu}>Movie</span>
+              <span className={style.titleMenu}>Charts</span>
               {isMovieDropdownMenuOpen ? (
                 <MdOutlineKeyboardArrowUp />
               ) : (
@@ -128,7 +124,7 @@ export default function NavbarLogged() {
           </div>
         </div>
         <div className={style.profileContainer}>
-          <Link to={`/profile/${userData.userID}`} className={style.link}>
+          <Link to={`/users/${userData.userID}`} className={style.link}>
             <div className={style.profileDiv}>
               <MdAccountCircle size={25} />
               <span className={style.profileText}>Profile</span>

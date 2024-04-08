@@ -9,7 +9,6 @@ import Button from "../../components/Button/Button";
 import AccessDenied from "../AccessDeniedPage/AccessDenied";
 import style from "./UserListsPage.module.scss";
 import { fetchUserLists, getMovieData } from "./utils";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,21 +16,13 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { Helmet } from "react-helmet";
 
 export default function UserListsPage() {
-  const [isUserExists, setIsUserExists] = useState(true);
+  const { id, list } = useParams();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const { reloadValue } = useSelector((state) => state.reloadValueState);
 
-  const { id, list } = useParams();
-
   const { userData } = useSelector((state) => state.userDataState);
-
-  useEffect(() => {
-    if (id !== userData.userID) {
-      setIsUserExists(false);
-    }
-  }, [id, userData.userID]);
 
   let listName;
 
@@ -62,10 +53,10 @@ export default function UserListsPage() {
     error: userListsError,
     refetch: userListsRefetch,
   } = useQuery({
-    queryKey: [reloadValue, isUserExists],
+    queryKey: [reloadValue, id === userData.userID],
     queryFn: () => fetchUserLists(),
     refetchOnWindowFocus: false,
-    enabled: doQuery && isUserExists,
+    enabled: doQuery && id === userData.userID,
   });
 
   const {
@@ -95,52 +86,46 @@ export default function UserListsPage() {
     }
   }
 
-  return (
+  return userLists ? (
     <div className={style.wrapper}>
-      {userLists ? (
-        <>
-          <Helmet>
-            <title>{listName} | FlickPicks</title>
-          </Helmet>
-          <NavbarLogged />
-          <main className={isShown ? style.mainBurger : style.mainClass}>
-            {isShown ? (
-              <BurgerMenu />
+      <Helmet>
+        <title>{listName} | FlickPicks</title>
+      </Helmet>
+      <NavbarLogged />
+      <main className={isShown ? style.mainBurger : style.mainClass}>
+        {isShown ? (
+          <BurgerMenu />
+        ) : (
+          <>
+            {movieData ? (
+              <div className={style.container}>
+                <h1 className={style.title}>{listName}</h1>
+                <div className={style.gridContainer}>
+                  {movieData.reverse().map((item, i) => (
+                    <Card key={i} data={item} showMoreInfo={false} />
+                  ))}
+                </div>
+              </div>
             ) : (
-              <>
-                {movieData ? (
-                  <div className={style.container}>
-                    <h1 className={style.title}>{listName}</h1>
-                    <div className={style.gridContainer}>
-                      {movieData.reverse().map((item, i) => (
-                        <Card key={i} data={item} showMoreInfo={false} />
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className={style.emptyList}>
-                    <AiOutlineMinusCircle className={style.icon} />
-                    <div className={style.text}>
-                      <h1 className={style.emptyListTitle}>
-                        This list is empty!
-                      </h1>
-                      <p className={style.redirect}>
-                        Come back to home and discover new movie to add in this
-                        list.
-                      </p>
-                    </div>
-                    <Button text={"Home"} link={"/"} />
-                  </div>
-                )}
-              </>
+              <div className={style.emptyList}>
+                <AiOutlineMinusCircle className={style.icon} />
+                <div className={style.text}>
+                  <h1 className={style.emptyListTitle}>This list is empty!</h1>
+                  <p className={style.redirect}>
+                    Come back to home and discover new movie to add in this
+                    list.
+                  </p>
+                </div>
+                <Button text={"Home"} link={"/home"} />
+              </div>
             )}
-            {!isShown && movieData && movieData.length > 5 && <Arrow />}
-          </main>
-          <Footer />
-        </>
-      ) : (
-        <AccessDenied />
-      )}
+          </>
+        )}
+        {!isShown && !userLists && <Arrow />}
+      </main>
+      <Footer />
     </div>
+  ) : (
+    <AccessDenied />
   );
 }

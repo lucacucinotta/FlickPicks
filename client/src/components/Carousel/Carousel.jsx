@@ -2,12 +2,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
-import style from "./CarouselMovie.module.scss";
+import style from "./Carousel.module.scss";
 import PlaceholderImg from "../../assets/images.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function CarouselMovie({ data, type }) {
+function Carousel({ data, type }) {
   const navigate = useNavigate();
 
   const { genresList } = useSelector((state) => state.genresState);
@@ -66,7 +66,7 @@ function CarouselMovie({ data, type }) {
           <img
             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
             className={style.locandine}
-            onClick={() => navigate(`/movie/${item.id}`)}
+            onClick={() => navigate(`/movies/${item.id}`)}
           />
         </div>
       ))}
@@ -80,13 +80,13 @@ function CarouselMovie({ data, type }) {
             onClick={() => {
               switch (item.name) {
                 case "Science Fiction":
-                  navigate("/genres/science-fiction");
+                  navigate("/discover/genres/science-fiction");
                   break;
                 case "TV Movie":
-                  navigate("/genres/tv-movie");
+                  navigate("/discover/genres/tv-movie");
                   break;
                 default:
-                  navigate(`/genres/${item.name.toLowerCase()}`);
+                  navigate(`/discover/genres/${item.name.toLowerCase()}`);
               }
             }}
           >
@@ -117,8 +117,8 @@ function CarouselMovie({ data, type }) {
   );
 }
 
-export default CarouselMovie;
-CarouselMovie.propTypes = {
+export default Carousel;
+Carousel.propTypes = {
   data: PropTypes.array,
   type: PropTypes.string.isRequired,
 };

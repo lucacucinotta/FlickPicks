@@ -3,19 +3,37 @@ import NavbarLogged from "../../components/NavbarLogged/NavbarLogged";
 import Footer from "../../components/Footer/Footer";
 import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import Button from "../../components/Button/Button";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import style from "./AccessDenied.module.scss";
 import { TbKeyOff } from "react-icons/tb";
 import { TbError404 } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
+import { useState, useEffect } from "react";
+import Cookie from "js-cookie";
 
 export default function AccessDenied() {
-  const { isLoggedIn } = useSelector((state) => state.logState);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const { isShown } = useSelector((state) => state.burgerMenuState);
+
+  useEffect(() => {
+    const token = Cookie.get("token");
+
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  if (isLoggedIn === null) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className={style.wrapper}>
       <Helmet>
-        <title>404 | FlickPicks</title>
+        <title>{isLoggedIn ? "404 | FlickPicks" : "401 | FlickPicks"}</title>
       </Helmet>
       <header>{isLoggedIn ? <NavbarLogged /> : <Navbar />}</header>
       <main className={isShown ? style.mainBurger : style.mainClass}>
@@ -36,7 +54,7 @@ export default function AccessDenied() {
               </p>
               <Button
                 text={isLoggedIn ? "Home" : "Log in"}
-                link={isLoggedIn ? "/" : "/login"}
+                link={isLoggedIn ? "/home" : "/login"}
               />
             </div>
           </>

@@ -36,6 +36,7 @@ export default function SearchInput({ usedFor }) {
     >
       <div className={style.inputDiv}>
         <input
+          id="searchText"
           type="text"
           placeholder="Search titles"
           className={style.searchInput}

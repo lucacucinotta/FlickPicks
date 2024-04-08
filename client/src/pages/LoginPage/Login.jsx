@@ -7,22 +7,24 @@ import { MdError } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { logIn } from "../../states/log";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../states/log";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      axios.defaults.withCredentials = true;
       await axios.post(
         "https://flickpicks-6ifw.onrender.com/login",
         {
@@ -36,7 +38,7 @@ export default function Login() {
         }
       );
       dispatch(logIn());
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.log(err);
       setError(err.response.data.errMessage);

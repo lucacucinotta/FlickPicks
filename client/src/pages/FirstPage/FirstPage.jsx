@@ -9,13 +9,13 @@ import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import style from "./FirstPage.module.scss";
 
 export default function FirstPage() {
   useEffect(() => {
     AOS.init();
   }, []);
+
   const scrollDown = () => {
     window.scrollTo({
       top: window.scrollY + 1 * window.innerHeight,
