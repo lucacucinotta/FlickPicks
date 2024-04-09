@@ -92,7 +92,7 @@ Endpoints follow the camelCase naming convention.
 | POST   | /signup         | Allow user to sign up              |
 | POST   | /login          | Allow user to log in               |
 | POST   | /logout         | Allow user to log out              |
-| GET    | /protectedRoute | Check if user has the access token |
+| GET    | /auth | Check if user has the access token |
 
 #### Movie
 
