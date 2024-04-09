@@ -4,26 +4,37 @@ import BurgerMenu from "../../components/BurgerMenu/BurgerMenu";
 import AccessDenied from "../AccessDeniedPage/AccessDenied";
 import style from "./ProfilePage.module.scss";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useQuery } from "react-query";
+import { getUserData } from "./utils";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../components/Error/Error";
 
 export default function AccountPage() {
-  const { id } = useParams();
-
   const navigate = useNavigate();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
-  const { userData } = useSelector((state) => state.userDataState);
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["userData"],
+    queryFn: getUserData,
+    refetchOnWindowFocus: false,
+    onSuccess: () => AOS.init(),
+  });
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
-  return id === userData.userID ? (
+  if (error) {
+    console.log(error);
+    return <Error refetch={refetch} error={error} />;
+  }
+
+  return data ? (
     <div className={style.wrapper}>
       <Helmet>
         <title>Profile | FlickPicks</title>
@@ -40,8 +51,7 @@ export default function AccountPage() {
               data-aos-duration="1200"
             >
               <h1 className={style.title}>
-                Welcome,{" "}
-                <span className={style.username}>{userData.username}</span>
+                Welcome, <span className={style.username}>{data.username}</span>
               </h1>
               <h2 className={style.subtitle}>
                 Here you can get all the movie&apos;s lists that you have been
@@ -60,19 +70,19 @@ export default function AccountPage() {
               <div className={style.boxContainer}>
                 <div
                   className={style.box}
-                  onClick={() => navigate(`/users/${id}/lists/watched-list`)}
+                  onClick={() => navigate("/users/me/lists/watched-list")}
                 >
                   WatchedList
                 </div>
                 <div
                   className={style.box}
-                  onClick={() => navigate(`/users/${id}/lists/favorite-list`)}
+                  onClick={() => navigate("/users/me/lists/favorite-list")}
                 >
                   FavoriteList
                 </div>
                 <div
                   className={style.box}
-                  onClick={() => navigate(`/users/${id}/lists/watch-list`)}
+                  onClick={() => navigate("/users/me/lists/watch-list")}
                 >
                   WatchList
                 </div>

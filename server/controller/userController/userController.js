@@ -8,7 +8,7 @@ const getUserData = async (req, res) => {
   try {
     const username = jwt.verify(req.token, SECRET_KEY).username;
     const user = await User.findOne({ username: username });
-    res.status(200).json({ userID: user._id, username: user.username });
+    res.status(200).json({ username: user.username });
   } catch (err) {
     res.status(500).json({ errMessage: "Internal Server Error." });
   }

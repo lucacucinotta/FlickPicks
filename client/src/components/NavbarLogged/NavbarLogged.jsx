@@ -22,8 +22,6 @@ export default function NavbarLogged() {
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
-  const { userData } = useSelector((state) => state.userDataState);
-
   const dispatch = useDispatch();
 
   const movieRef = useRef();
@@ -124,7 +122,11 @@ export default function NavbarLogged() {
           </div>
         </div>
         <div className={style.profileContainer}>
-          <Link to={`/users/${userData.userID}`} className={style.link}>
+          <Link
+            to={"/users/me"}
+            className={style.link}
+            onClick={() => dispatch(hideBurgerMenu())}
+          >
             <div className={style.profileDiv}>
               <MdAccountCircle size={25} />
               <span className={style.profileText}>Profile</span>

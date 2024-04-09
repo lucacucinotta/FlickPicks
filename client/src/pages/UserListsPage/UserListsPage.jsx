@@ -16,13 +16,11 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { Helmet } from "react-helmet";
 
 export default function UserListsPage() {
-  const { id, list } = useParams();
+  const { list } = useParams();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
   const { reloadValue } = useSelector((state) => state.reloadValueState);
-
-  const { userData } = useSelector((state) => state.userDataState);
 
   let listName;
 
@@ -53,10 +51,10 @@ export default function UserListsPage() {
     error: userListsError,
     refetch: userListsRefetch,
   } = useQuery({
-    queryKey: [reloadValue, id === userData.userID],
+    queryKey: [reloadValue],
     queryFn: () => fetchUserLists(),
     refetchOnWindowFocus: false,
-    enabled: doQuery && id === userData.userID,
+    enabled: doQuery,
   });
 
   const {

@@ -5,14 +5,13 @@ import Carousel from "../../components/Carousel/Carousel";
 import Error from "../../components/Error/Error";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import style from "./Home.module.scss";
-import { getUserData, fetchMovie } from "./utils";
+import { fetchMovie } from "./utils";
 import { useQuery } from "react-query";
 import { IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addGenres } from "../../states/genres";
-import { change } from "../../states/userData";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import AOS from "aos";
@@ -26,17 +25,6 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const { isShown } = useSelector((state) => state.burgerMenuState);
-
-  const {
-    isLoading: userDataLoading,
-    error: userDataError,
-    refetch: userDataRefetch,
-  } = useQuery({
-    queryKey: ["userData"],
-    queryFn: getUserData,
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => dispatch(change(data)),
-  });
 
   const {
     data: trendingDayMovie,
@@ -91,7 +79,6 @@ export default function Home() {
   });
 
   if (
-    userDataLoading ||
     topRatedMovieLoading ||
     trendingDayMovieLoading ||
     trendingWeekMovieLoading ||
@@ -101,16 +88,11 @@ export default function Home() {
   }
 
   if (
-    userDataError ||
     trendingDayMovieError ||
     trendingWeekMovieError ||
     topRatedMovieError ||
     genresError
   ) {
-    if (userDataError) {
-      console.log(userDataError);
-      return <Error refetch={userDataRefetch} error={userDataError} />;
-    }
     if (trendingDayMovieError) {
       console.log(trendingDayMovieError);
       return (

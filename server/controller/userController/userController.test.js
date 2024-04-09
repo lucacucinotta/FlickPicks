@@ -43,7 +43,6 @@ describe("GET /users/me", () => {
       .expect(200);
 
     expect(response.body).toEqual({
-      userID: user._id,
       username: user.username,
     });
   });

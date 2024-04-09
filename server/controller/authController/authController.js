@@ -70,7 +70,6 @@ const logOut = async (req, res) => {
       maxAge: 0,
       path: "/",
     });
-    res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully!" });
   } catch (err) {
     res.status(500).json({ message: "Internal Server Error." });

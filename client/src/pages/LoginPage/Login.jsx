@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet";
 
 export default function Login() {
   const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -19,6 +20,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      axios.defaults.withCredentials = true;
       await axios.post(
         "https://flickpicks-6ifw.onrender.com/login",
         {

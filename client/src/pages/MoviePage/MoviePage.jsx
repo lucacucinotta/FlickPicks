@@ -23,15 +23,9 @@ export default function MoviePage() {
 
   const [showMore, setShowMore] = useState(false);
 
-  const [isWatched, setIsWatched] = useState(
-    JSON.parse(localStorage.getItem(`${movieID}isWatched`) || "false")
-  );
-  const [isFavorite, setIsFavorite] = useState(
-    JSON.parse(localStorage.getItem(`${movieID}isFavorite`) || "false")
-  );
-  const [isAdded, setIsAdded] = useState(
-    JSON.parse(localStorage.getItem(`${movieID}isAdded`) || "false")
-  );
+  const [isWatched, setIsWatched] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [isAdded, setIsAdded] = useState(null);
 
   const [reloadValue, setReloadValue] = useState(0);
 
@@ -69,20 +63,8 @@ export default function MoviePage() {
         const res = await axios.get(
           `https://flickpicks-6ifw.onrender.com/movies/${movieID}`
         );
-        localStorage.setItem(
-          `${movieID}isWatched`,
-          JSON.stringify(res.data.listTypes.includes("watchedList"))
-        );
         setIsWatched(res.data.listTypes.includes("watchedList"));
-        localStorage.setItem(
-          `${movieID}isFavorite`,
-          JSON.stringify(res.data.listTypes.includes("favoriteList"))
-        );
         setIsFavorite(res.data.listTypes.includes("favoriteList"));
-        localStorage.setItem(
-          `${movieID}isAdded`,
-          JSON.stringify(res.data.listTypes.includes("watchList"))
-        );
         setIsAdded(res.data.listTypes.includes("watchList"));
       } catch (err) {
         console.log(err);
@@ -92,7 +74,13 @@ export default function MoviePage() {
     checkMovie();
   }, [movieID, reloadValue]);
 
-  if (movieIsLoading || creditsIsLoading) {
+  if (
+    movieIsLoading ||
+    creditsIsLoading ||
+    isWatched === null ||
+    isAdded === null ||
+    isFavorite === null
+  ) {
     return <LoadingSpinner />;
   }
 

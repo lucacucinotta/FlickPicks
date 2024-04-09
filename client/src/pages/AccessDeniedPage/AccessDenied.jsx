@@ -10,51 +10,56 @@ import { TbError404 } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import { useState, useEffect } from "react";
-import Cookie from "js-cookie";
+import axios from "axios";
 
 export default function AccessDenied() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const { isShown } = useSelector((state) => state.burgerMenuState);
 
-  useEffect(() => {
-    const token = Cookie.get("token");
+  const [isAuth, setIsAuth] = useState(null);
 
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        await axios.get("https://flickpicks-6ifw.onrender.com/auth");
+        setIsAuth(true);
+      } catch (err) {
+        setIsAuth(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  if (isLoggedIn === null) {
+  if (isAuth === null) {
     return <LoadingSpinner />;
   }
 
   return (
     <div className={style.wrapper}>
       <Helmet>
-        <title>{isLoggedIn ? "404 | FlickPicks" : "401 | FlickPicks"}</title>
+        <title>{isAuth ? "404 | FlickPicks" : "401 | FlickPicks"}</title>
       </Helmet>
-      <header>{isLoggedIn ? <NavbarLogged /> : <Navbar />}</header>
+      <header>{isAuth ? <NavbarLogged /> : <Navbar />}</header>
       <main className={isShown ? style.mainBurger : style.mainClass}>
         {isShown ? (
           <BurgerMenu />
         ) : (
           <>
             <div className={style.container}>
-              {isLoggedIn ? (
+              {isAuth ? (
                 <TbError404 className={style.icon} />
               ) : (
                 <TbKeyOff className={style.icon} />
               )}
               <p className={style.message}>
-                {isLoggedIn
+                {isAuth
                   ? "This page does not exist. Come back to home."
                   : "You have to log in to view this page."}
               </p>
               <Button
-                text={isLoggedIn ? "Home" : "Log in"}
-                link={isLoggedIn ? "/home" : "/login"}
+                text={isAuth ? "Home" : "Log in"}
+                link={isAuth ? "/home" : "/login"}
               />
             </div>
           </>

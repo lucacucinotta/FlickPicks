@@ -20,8 +20,6 @@ export default function BurgerMenu() {
   const { charts } = useSelector((state) => state.chartsState);
   const { genresList } = useSelector((state) => state.genresState);
 
-  const { userData } = useSelector((state) => state.userDataState);
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -167,7 +165,7 @@ export default function BurgerMenu() {
         <div
           className={style.profileDiv}
           onClick={() => {
-            navigate(`/users/${userData.userID}`);
+            navigate("/users/me");
             dispatch(hideBurgerMenu());
           }}
         >

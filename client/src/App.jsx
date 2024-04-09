@@ -28,7 +28,7 @@ function App() {
         <Route path="/discover/charts/:section" element={<SectionPage />} />
         <Route path="/discover/search" element={<SearchPage />} />
         <Route path="/movies/:movieID" element={<MoviePage />} />
-        <Route path="/users/:id" element={<ProfilePage />} />
+        <Route path="/users/me" element={<ProfilePage />} />
         <Route path="/users/:id/lists/:list" element={<UserListsPage />} />
       </Route>
       <Route path="*" element={<AccessDenied />} />

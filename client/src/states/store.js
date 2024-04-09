@@ -11,7 +11,6 @@ import {
 import burgerMenuReducer from "./burgerMenu";
 import persistedGenresReducer from "./genres";
 import chartsReducer from "./charts";
-import userDataReducer from "./userData";
 import reloadValueReducer from "./reloadValue";
 
 export const store = configureStore({
@@ -19,7 +18,6 @@ export const store = configureStore({
     burgerMenuState: burgerMenuReducer,
     genresState: persistedGenresReducer,
     chartsState: chartsReducer,
-    userDataState: userDataReducer,
     reloadValueState: reloadValueReducer,
   },
   middleware: (getDefaultMiddleware) =>
