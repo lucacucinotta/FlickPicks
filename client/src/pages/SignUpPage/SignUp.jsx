@@ -19,28 +19,55 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState([]);
+
+  const [validUsername, setValidUsername] = useState(null);
+  const [validEmail, setValidEmail] = useState(null);
+  const [validPassword, setValidPassword] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post(
-        "https://flickpicks-6ifw.onrender.com/signup",
-        {
-          username: username,
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+    if (!validUsername || !validEmail || !validPassword) {
+      if (!validUsername) {
+        setError((prevState) => [
+          ...prevState,
+          "Invalid username. Please retry.",
+        ]);
+      }
+      if (!validEmail) {
+        setError((prevState) => [
+          ...prevState,
+          "Invalid email address. Please retry.",
+        ]);
+      }
+      if (!validPassword) {
+        setError((prevState) => [
+          ...prevState,
+          "Invalid password. Please retry.",
+        ]);
+      }
+    } else {
+      try {
+        await axios.post(
+          "https://flickpicks-6ifw.onrender.com/signup",
+          {
+            username: username,
+            email: email,
+            password: password,
           },
-        }
-      );
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.errMessages || [err.response.data.errMessage]);
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+        navigate("/login");
+      } catch (err) {
+        console.log(err);
+        setError(
+          err.response.data.errMessages || [err.response.data.errMessage]
+        );
+      }
     }
   };
 
@@ -49,7 +76,7 @@ export default function Signin() {
     window.scrollTo(0, 0);
     const handleClickOutside = (e) => {
       if (errorRef.current && !errorRef.current.contains(e.target)) {
-        setError(null);
+        setError([]);
       }
     };
 
@@ -67,7 +94,7 @@ export default function Signin() {
         <Navbar />
       </header>
       <main className={style.mainClass}>
-        {error && (
+        {error.length > 0 && (
           <div className={style.errorDiv} ref={errorRef}>
             <div className={style.alert}>
               <MdError size={15} />
@@ -86,14 +113,27 @@ export default function Signin() {
           </label>
           <div className={style.inputDiv}>
             <input
-              className={style.inputClass}
+              className={
+                validUsername
+                  ? style.inputClass
+                  : `${style.inputClass} ${style.invalid}`
+              }
               type="text"
               id="username"
               name="username"
               placeholder="Insert here your username"
               autoComplete="off"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                if (
+                  /^(?=.*[A-Za-z])[A-Za-z0-9_-]{4,20}$/.test(e.target.value)
+                ) {
+                  setValidUsername(true);
+                } else {
+                  setValidUsername(false);
+                }
+              }}
               onFocus={() => setShowUsernameReq(true)}
               onBlur={() => setShowUsernameReq(false)}
             ></input>
@@ -118,14 +158,29 @@ export default function Signin() {
           </label>
           <div className={style.inputDiv}>
             <input
-              className={style.inputClass}
+              className={
+                validEmail
+                  ? style.inputClass
+                  : `${style.inputClass} ${style.invalid}`
+              }
               type="email"
               id="email"
               name="email"
               autoComplete="off"
               placeholder="Insert here your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (
+                  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
+                    e.target.value
+                  )
+                ) {
+                  setValidEmail(true);
+                } else {
+                  setValidEmail(false);
+                }
+              }}
             />
             <MdAlternateEmail size={20} className={style.formIcon} />
           </div>
@@ -134,14 +189,29 @@ export default function Signin() {
           </label>
           <div className={style.inputDiv}>
             <input
-              className={style.inputClass}
+              className={
+                validPassword
+                  ? style.inputClass
+                  : `${style.inputClass} ${style.invalid}`
+              }
               type="password"
               id="password"
               name="password"
               placeholder="Insert here your password"
               autoComplete="off"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                    e.target.value
+                  )
+                ) {
+                  setValidPassword(true);
+                } else {
+                  setValidPassword(false);
+                }
+              }}
               onFocus={() => setShowPassReq(true)}
               onBlur={() => setShowPassReq(false)}
             />
