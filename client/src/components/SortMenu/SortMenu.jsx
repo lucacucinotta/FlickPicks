@@ -56,7 +56,7 @@ export default function SortMenu({ data, query }) {
               onClick={() => {
                 setIsOpen(false);
                 navigate(
-                  `/genres/${data}?sort_by=${item
+                  `/discover/genres/${data}?sort_by=${item
                     .toLowerCase()
                     .replace(/ /g, "-")}`
                 );

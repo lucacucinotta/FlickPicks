@@ -56,7 +56,7 @@ export default function FirstPage() {
                 <MdLocalMovies size={70} className={style.featureIcon} />
                 <p>
                   Discover new titles by exploring the different sections or
-                  browse through the various genres available
+                  browse through the various genres available.
                 </p>
               </div>
               <div className={style.feature}>
